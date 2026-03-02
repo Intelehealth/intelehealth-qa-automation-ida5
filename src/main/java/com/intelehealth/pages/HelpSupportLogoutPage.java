@@ -94,7 +94,7 @@ public class HelpSupportLogoutPage extends BasePage {
 	}
 
 	@Step("User clicks on Create Ticket button in Help & Support screen")
-	public void clickOnCreateTicketButton()  {
+	public void clickOnCreateTicketButton() {
 		try {
 			elementActions.waitForElementClickable(btnCreateTicketInHelpAndSupport);
 		} catch (InterruptedException e) {
@@ -206,7 +206,12 @@ public class HelpSupportLogoutPage extends BasePage {
 	@Step("Verify Cancel button functionality")
 	public boolean VerifyCancelButtonFunctionality() {
 		elementActions.doClick(btnCancelTicketInCreateTicketPopup);
-
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return elementActions.doIsDisplayed(createTicketModalPopup);
 
 	}
@@ -214,7 +219,12 @@ public class HelpSupportLogoutPage extends BasePage {
 	@Step("Verify close button functionality")
 	public boolean VerifyCloseButtonFunctionality() {
 		elementActions.doClick(btnCloseTicketInCreateTicketPopup);
-
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return elementActions.doIsDisplayed(createTicketModalPopup);
 
 	}

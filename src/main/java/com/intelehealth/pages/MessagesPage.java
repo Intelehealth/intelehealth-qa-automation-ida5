@@ -32,13 +32,14 @@ public class MessagesPage extends BasePage {
 	By lstPreviewMessages = By.xpath("//p[@data-test-id='lblLastMessage']");
 	By lblPatientName = By.xpath("//h6[@data-test-id='lblChatPatientName']");
 	By lblCHWName = By.xpath("//span[@data-test-id='lblChatCHW']");
-	By lblMessages = By.xpath("//li[@data-test-id='lblMessage']");
+	By lblMessages = By.xpath("//h6[@data-test-id='headerTitle']");
+	By lblSentMessage = By.xpath("//li[contains(@data-test-id,'lblMessage-')]");
 	By inpSendAMessage = By.xpath("//input[@data-test-id='etSendMessage1']");
-	By lblMessageReadStatus = By.xpath("//img[@data-test-id='iconRead']/following-sibling::span");
+	By lblMessageReadStatus = By.xpath("//img[contains(@data-test-id,'iconRead')]/following-sibling::span");
 
 	By drpDate = By.xpath("//ng-select[@data-test-id='selectVisit']//div");
 	By btnSendMessage = By.xpath("//button[@data-test-id='etSendMessage2']");
-	By lblNoRecordsFound = By.xpath("//div[contains(@class,'text-center')]/p");
+	By lblNoRecordsFound = By.xpath("//li[@data-test-id='lblNoPatientFound']//p");
 
 	public MessagesPage(WebDriver driver) {
 		this.driver = driver;
@@ -84,7 +85,7 @@ public class MessagesPage extends BasePage {
 		elementActions.doClick(lnkMessages);
 		// String patientNameAndID =
 		// elementActions.doGetText(lstPatientsNames).split("\\(")[1];
-		String patientNameAndID = elementActions.doGetText(lstPatientsNames).split("(")[1];
+		String patientNameAndID = elementActions.doGetText(lstPatientsNames).split("\\(")[1];
 		String OpenMRSID = patientNameAndID.substring(0, patientNameAndID.length() - 1);
 		elementActions.doActionsSendKeys(inpSearch, OpenMRSID);
 
@@ -123,7 +124,7 @@ public class MessagesPage extends BasePage {
 		elementActions.doClick(lstPatientsNames);
 		elementActions.doActionsSendKeys(inpSendAMessage, message);
 		elementActions.doClick(btnSendMessage);
-		return elementActions.doGetText(lblMessages).contains(message);
+		return elementActions.doGetText(lblSentMessage).contains(message);
 	}
 
 	@Step("Verify Sent Message Status Is Updated")
@@ -157,7 +158,12 @@ public class MessagesPage extends BasePage {
 	public String VerifySearchWithInvalidPatientOpenMRSID(String InvalidOpenMRSID) {
 		elementActions.doClick(lnkMessages);
 		elementActions.doActionsSendKeys(inpSearch, InvalidOpenMRSID);
-
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return elementActions.doGetText(lblNoRecordsFound);
 
 	}

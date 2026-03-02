@@ -117,7 +117,7 @@ public class DashboardPage extends BasePage {
 	By txtDateField = By.xpath("//input[@data-test-id='etDate']");
 	By icnCalendar = By.xpath("//mat-datepicker-toggle[@data-test-id='dpDate']");
 	By icnPreviuosDate = By.xpath("//button[@data-test-id='calendarNavPrevious']");
-	By selectDate = By.xpath("//td/div[contains(text(),'30')]");
+	By selectDate = By.xpath("//td/div[text()=' 30 ']");
 	// Range
 	By inpSelectStartDateInRange = By.xpath("//input[@data-test-id='etSelStartDate']");
 	By inpSelectEndDateInRange = By.xpath("//input[@data-test-id='etSelEndDate']");
@@ -130,7 +130,7 @@ public class DashboardPage extends BasePage {
 	By searchAwaitingVisits = By.xpath("//input[@data-test-id='etSearch_Awaiting visits']");
 	By icnSearchAwaitingVisits = By.xpath("(//span[@data-test-id='icoSearchAppointment'])[3]");
 	By lstAwaitingVisitsDates = By.xpath("//td[contains(@data-test-id,'td-visit_created-Awaiting')]");
-	By txtNoVisitFound = By.xpath("(//td[@class='mat-cell text-center'])[2]");
+	By txtNoVisitFound = By.xpath("//td[@class='mat-cell text-center']");
 	By lblPatientName = By.xpath("//td[@data-test-id='td-patient_name-Awaiting-0']//span");
 	By lblPatientOpenMRSId = By.xpath("//td[@data-test-id='td-patient_id-Awaiting-2']//span");
 	By selectFutureDate = By.xpath("(//div[@class='mat-calendar-body-cell-content mat-focus-indicator'])[30]");
@@ -460,6 +460,7 @@ public class DashboardPage extends BasePage {
 		elementActions.doClick(icnCalendar);
 
 		for (int i = 0; i < 10; i++) {
+			System.out.println(elementActions.doGetText(selectVisitsDate));
 			if (elementActions.doGetText(selectVisitsDate).contains("OCT")) {
 				elementActions.doClick(selectDate);
 				break;

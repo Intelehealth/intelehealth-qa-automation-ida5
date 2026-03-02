@@ -109,7 +109,7 @@ public class VisitSummaryPage extends BasePage {
 	By FollowupOptionYes = By.xpath("//input[@data-test-id='radioFollowUpYes']");
 	By FollowupOptionNo = By.xpath("//input[@data-test-id='radioFollowUpNo']");
 	By FollowupCalendar = By.xpath("//mat-datepicker-toggle[@data-test-id='dpFollowUpDate']");
-	By FollowupDatePick = By.xpath("//div[contains(text(),'30')]");
+	By FollowupDatePick = By.xpath("//div[contains(text(),'28')]");
 	By FollowupTimeClick = By.xpath("//ng-select[@data-test-id='selectFollowUpTime']");
 	By FollowupTimePick = By.xpath("//span[contains(text(),'9:00 AM')]");
 	By FollowupSaveButton = By.xpath("//button[@data-test-id='btnSubmitFollowUp']");
@@ -119,7 +119,7 @@ public class VisitSummaryPage extends BasePage {
 	By vsPrescriptionDrugStrengthTextBox = By.xpath("//input[@data-test-id='etDrugStrength']");
 	By vsPrescriptionDrugNoOfDaysTextBox = By.xpath("//input[@data-test-id='etDays']");
 	By vsPrescriptionDrugTimingDrpdown = By.xpath("//ng-select[@data-test-id='selectTiming']");
-	By vsPrescriptionDrugRemarks = By.xpath("//input[@data-test-id='etStandardInstructionRemark']");
+	By vsPrescriptionDrugRemarks = By.xpath("//input[@data-test-id='etRemarkMed']");
 	By vsPrescriptionDrugTimingDrpdownval = By.xpath("//span[text()='1 - 0 - 0']");
 	By vsPrescriptionDrugAddButton = By.xpath("//button[@data-test-id='btnSubmitMed']");
 	By lblOpenMRSIDInVisitSummary = By.xpath("//p[@data-test-id='etPatienOpenMRSId']");
@@ -146,6 +146,7 @@ public class VisitSummaryPage extends BasePage {
 	public VisitSummaryPage(WebDriver driver) {
 		this.driver = driver;
 		elementActions = new ElementActions(this.driver);
+		awaitPriortyInProgress = new AwaitPriortyInProgress(this.driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 
@@ -216,9 +217,8 @@ public class VisitSummaryPage extends BasePage {
 	 */
 	@Step("Verify the chat option of VisitSummary Page")
 	public void verifyChatOption() {
-		if (elementActions.doIsDisplayed(btnStartVisitNote)) {
-			elementActions.doActionsClick(btnStartVisitNote);
-		}
+		elementActions.doIsDisplayed(btnStartVisitNote);
+		elementActions.doActionsClick(btnStartVisitNote);
 		elementActions.doClick(vstsumpatientChatIcon);
 		extentReport.logToExtentReport("Chat icon is clicked on Visit summary page");
 		elementActions.doIsDisplayed(vstsumpatientChatBox);
@@ -233,10 +233,9 @@ public class VisitSummaryPage extends BasePage {
 	 */
 	@Step("Verify the message sent successfully from chat option of VisitSummary Page")
 	public void verifyMessageSent() throws InterruptedException {
-		if (elementActions.doIsDisplayed(btnStartVisitNote)) {
-			elementActions.doActionsClick(btnStartVisitNote);
-		}
-		Thread.sleep(4000);
+		elementActions.doIsDisplayed(btnStartVisitNote);
+		elementActions.doActionsClick(btnStartVisitNote);
+		Thread.sleep(3000);
 		elementActions.doClick(vstsumpatientChatIcon);
 		extentReport.logToExtentReport("Clicked on Chat icon from Visit summary page");
 		elementActions.doSendKeys(vstsumpatientChatTextBox, "hi");
@@ -255,10 +254,9 @@ public class VisitSummaryPage extends BasePage {
 	 */
 	@Step("Verify the video call from video option of VisitSummary Page")
 	public void verifyvideoCall() throws InterruptedException {
-		if (elementActions.doIsDisplayed(btnStartVisitNote)) {
-			elementActions.doActionsClick(btnStartVisitNote);
-		}
-		Thread.sleep(4000);
+		elementActions.doIsDisplayed(btnStartVisitNote);
+		Thread.sleep(3000);
+		elementActions.doActionsClick(btnStartVisitNote);
 		elementActions.doClick(vstsumpatientVideoIcon);
 		extentReport.logToExtentReport("Clicked on Video icon from Visit summary page");
 		elementActions.doIsDisplayed(vstsumpatientVideoWindow);
@@ -364,6 +362,7 @@ public class VisitSummaryPage extends BasePage {
 		extentReport.logToExtentReport("Clicked on Follow up Calendar");
 		elementActions.doIsDisplayed(FollowupTimeClick);
 		extentReport.logToExtentReport("Clicked on Yes Radio button is Follow up");
+		Thread.sleep(2000);
 		elementActions.doClick(FollowupCalendar);
 		extentReport.logToExtentReport("Clicked on Follow up calendar");
 		elementActions.doClick(FollowupDatePick);
@@ -396,31 +395,38 @@ public class VisitSummaryPage extends BasePage {
 	 * Author: Rajesh HS Created: 26/09/2023 Description :
 	 */
 	@Step("Verify doing any changes in any of the section in visit summary page")
-	public void verifyvsprescrptionChanges() throws InterruptedException {
+	public void verifyvsprescrptionChanges() throws Throwable {
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Appointment Patient");
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		elementActions.doClick(vsStartVisitNote);
-		extentReport.logToExtentReport("Clicked on Start Visit Note");
-		elementActions.doSendKeys(vsPrescriptionDrugTextBox, "Dolo");
-		extentReport.logToExtentReport("Type Medicine DOLO in Prescription drug textbox");
-		elementActions.doSendKeys(vsPrescriptionDrugStrengthTextBox, "500MG");
-		extentReport.logToExtentReport("Type Drug Strength as 500MG in drug strength textbox");
-		elementActions.doSendKeys(vsPrescriptionDrugNoOfDaysTextBox, "8");
-		extentReport.logToExtentReport("Type 8 as No of days textbox ");
-		elementActions.doClick(vsPrescriptionDrugTimingDrpdown);
-		extentReport.logToExtentReport("Clicked on Drug time drop down");
-		elementActions.doClick(vsPrescriptionDrugTimingDrpdownval);
-		extentReport.logToExtentReport("Selected the value from Drug time dropdown");
-		elementActions.doSendKeys(vsPrescriptionDrugRemarks, "Test");
-		extentReport.logToExtentReport("Type in Drug Remarks");
-		elementActions.doClick(vsPrescriptionDrugAddButton);
-		extentReport.logToExtentReport("Clicked on Add button");
 		Thread.sleep(5000);
+		awaitPriortyInProgress.VerifyAddDiagnosisAndFollowupFunctionality("");
+		//awaitPriortyInProgress.addMultipleMedications(medication);
 		elementActions.doClick(vsSharePrescription);
 		extentReport.logToExtentReport("Clicked on Share Prescription button");
 		elementActions.doIsDisplayed(vsSharePrescriptionSubmitButton);
 		extentReport.logToExtentReport("Share prescription is displayed");
+		
+		/*
+		 * 
+		 * extentReport.logToExtentReport("Clicked on Start Visit Note");
+		 * elementActions.doSendKeys(vsPrescriptionDrugTextBox, "Dolo"); extentReport.
+		 * logToExtentReport("Type Medicine DOLO in Prescription drug textbox");
+		 * elementActions.doSendKeys(vsPrescriptionDrugStrengthTextBox, "500MG");
+		 * extentReport.
+		 * logToExtentReport("Type Drug Strength as 500MG in drug strength textbox");
+		 * elementActions.doSendKeys(vsPrescriptionDrugNoOfDaysTextBox, "8");
+		 * extentReport.logToExtentReport("Type 8 as No of days textbox ");
+		 * elementActions.doClick(vsPrescriptionDrugTimingDrpdown);
+		 * extentReport.logToExtentReport("Clicked on Drug time drop down");
+		 * elementActions.doClick(vsPrescriptionDrugTimingDrpdownval);
+		 * extentReport.logToExtentReport("Selected the value from Drug time dropdown");
+		 * elementActions.doSendKeys(vsPrescriptionDrugRemarks, "Test");
+		 * extentReport.logToExtentReport("Type in Drug Remarks");
+		 * elementActions.doClick(vsPrescriptionDrugAddButton);
+		 * extentReport.logToExtentReport("Clicked on Add button");
+		 */
 	}
 
 	/*

@@ -17,7 +17,6 @@ public class End2EndPage extends BasePage {
 	AppointmentPage appointmentPage;
 	EndToEndMethods endToEndMethods;
 	CalendarPage calendarPage;
-	AwaitPriortyInProgress awaitPriortyInProgress;
 	WebDriver driver;
 	ElementActions elementActions;
 	ExtentReportListener extentReport = new ExtentReportListener();
@@ -168,7 +167,6 @@ public class End2EndPage extends BasePage {
 		appointmentPage = new AppointmentPage(driver);
 		endToEndMethods = new EndToEndMethods(driver);
 		calendarPage = new CalendarPage(driver);
-		awaitPriortyInProgress = new AwaitPriortyInProgress(driver);
 	}
 
 	/*
@@ -238,7 +236,6 @@ public class End2EndPage extends BasePage {
 	public void LoginAppointmentVisitSummaryViewPrescription() throws Throwable {
 		extentReport.logToExtentReport("Clicking on 'Appointments' link");
 		elementActions.doClick(AppointmentLink);
-		
 		appointmentPage.VerifyThePatientDetailsOnAppointments();
 		endToEndMethods.verifyvstsumPrescription();
 		endToEndMethods.verifyvsprescrptionChangesViewPrescButton();
@@ -247,7 +244,7 @@ public class End2EndPage extends BasePage {
 				&& elementActions.doIsDisplayed(DiagnosisLink)) {
 			extentReport.logToExtentReport("Verification - Verifying whether 'Prescription' Page is displayed");
 		} else {
-			//fail();
+			fail();
 		}
 	}
 
@@ -256,7 +253,7 @@ public class End2EndPage extends BasePage {
 	 * visiting summary, starting a visit note, sharing updates, viewing
 	 * prescriptions, and updating prescriptions
 	 */
-	public void VisitSummaryStartVisitNoteShareUpdateViewPrescription(boolean medication) throws Throwable {
+	public void VisitSummaryStartVisitNoteShareUpdateViewPrescription() throws Throwable {
 		elementActions.doIsDisplayed(VisitSummaryPageText);
 				extentReport.logToExtentReport("Verification - Verifying whether 'Visit summary' page is displayed");
 				// System.out.println("Visit summary page is displayed");
@@ -274,7 +271,7 @@ public class End2EndPage extends BasePage {
 		
 		endToEndMethods.VerifyAddFunctionalityUnderDiagnosisSection();
 		//endToEndMethods.VerifyAddNoteFunctionality();
-		endToEndMethods.verifyvsprescrptionChanges(medication);
+		endToEndMethods.verifyvsprescrptionChanges();
 		Thread.sleep(2000);
 		//endToEndMethods.VerifySaveFunctionalityForAdditionalInstructionsUnderMedicationSection();
 		extentReport.logToExtentReport("Sending value to 'Test' textfield");
@@ -348,10 +345,10 @@ public class End2EndPage extends BasePage {
 	 * sharing updates, viewing prescriptions, and updating prescriptions
 	 */
 	@Step("Login, priority visit, visit summary, start visit note, share/update/view prescription")
-	public void LoginPriorityVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription(boolean medication) throws Throwable {
+	public void LoginPriorityVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription() throws Throwable {
 		extentReport.logToExtentReport("Clicking on first patient from priority visit section");
 		elementActions.doClick(FirstPatientPriority);
-		this.VisitSummaryStartVisitNoteShareUpdateViewPrescription(medication);
+		this.VisitSummaryStartVisitNoteShareUpdateViewPrescription();
 	}
 
 	/*
@@ -360,11 +357,11 @@ public class End2EndPage extends BasePage {
 	 * sharing updates, viewing prescriptions, and updating prescriptions
 	 */
 	@Step("Login, awaiting visit, visit summary, start visit note, share/update/view prescription")
-	public void LoginAwaitingVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription(boolean medication) throws Throwable {
+	public void LoginAwaitingVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription() throws Throwable {
 		extentReport.logToExtentReport("Clicking on first patient from awaiting visit section");
 		elementActions.doClick(awtvstPatient1Name);
 		Thread.sleep(2000);
-		this.VisitSummaryStartVisitNoteShareUpdateViewPrescription(medication);
+		this.VisitSummaryStartVisitNoteShareUpdateViewPrescription();
 
 	}
 
@@ -374,11 +371,11 @@ public class End2EndPage extends BasePage {
 	 * note, sharing updates, viewing prescriptions, and updating prescriptions
 	 */
 	@Step("Login, in-progress visit, visit summary, start visit note, share/update/view prescription")
-	public void LoginInProgressVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription(boolean medication) throws Throwable {
+	public void LoginInProgressVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription() throws Throwable {
 		extentReport.logToExtentReport("Clicking on first patient from In-progress section");
 		elementActions.doClick(FirstInProgressPatient);
 		Thread.sleep(2000);
-		this.VisitSummaryInprogressVisit(medication);
+		this.VisitSummaryInprogressVisit();
 
 	}
 
@@ -637,7 +634,7 @@ public class End2EndPage extends BasePage {
 	 * details, updating the prescription
 	 */
 	@Step("Login, prescription sent, visit summary, update prescription")
-	public void LoginPrescriptionSentVisitSummaryUpdatePrescription(Boolean medication) throws Throwable {
+	public void LoginPrescriptionSentVisitSummaryUpdatePrescription() throws Throwable {
 		extentReport.logToExtentReport("Clicking on 'Prescription' link");
 		elementActions.doClick(PrescriptionLink);
 		extentReport.logToExtentReport("Clicking on next page");
@@ -660,26 +657,25 @@ public class End2EndPage extends BasePage {
 
 		//}
 		extentReport.logToExtentReport("Passing the value to 'Drug' textfield");
-		/*
-		 * elementActions.doSendKeys(vsPrescriptionDrugTextBox, "Dolo"); String Drug =
-		 * elementActions.doGetText(vsPrescriptionDrugTextBox);
-		 * extentReport.logToExtentReport("Passing the value to 'Strength' textfield");
-		 * elementActions.doSendKeys(vsPrescriptionDrugStrengthTextBox, "500MG"); String
-		 * Strength = elementActions.doGetText(vsPrescriptionDrugStrengthTextBox);
-		 * extentReport.logToExtentReport("Passing the value to 'No. of days' textfield"
-		 * ); elementActions.doSendKeys(vsPrescriptionDrugNoOfDaysTextBox, "8"); String
-		 * NoOfDays = elementActions.doGetText(vsPrescriptionDrugNoOfDaysTextBox);
-		 * extentReport.logToExtentReport("Clicking on drug timing dropdown");
-		 * elementActions.doClick(vsPrescriptionDrugTimingDrpdown); extentReport.
-		 * logToExtentReport("Selecting a value from the drug timing dropdown");
-		 * elementActions.doClick(vsPrescriptionDrugTimingDrpdownval);
-		 * extentReport.logToExtentReport("Passing the value to 'Test' textfield");
-		 * elementActions.doSendKeys(vsPrescriptionDrugRemarks, "Test");
-		 * Thread.sleep(2000);
-		 * extentReport.logToExtentReport("Clicking on'Add' button");
-		 * elementActions.doClick(vsPrescriptionDrugAddButton); Thread.sleep(2000);
-		 */
-		awaitPriortyInProgress.addMedications(medication);
+		elementActions.doSendKeys(vsPrescriptionDrugTextBox, "Dolo");
+		String Drug = elementActions.doGetText(vsPrescriptionDrugTextBox);
+		extentReport.logToExtentReport("Passing the value to 'Strength' textfield");
+		elementActions.doSendKeys(vsPrescriptionDrugStrengthTextBox, "500MG");
+		String Strength = elementActions.doGetText(vsPrescriptionDrugStrengthTextBox);
+		extentReport.logToExtentReport("Passing the value to 'No. of days' textfield");
+		elementActions.doSendKeys(vsPrescriptionDrugNoOfDaysTextBox, "8");
+		String NoOfDays = elementActions.doGetText(vsPrescriptionDrugNoOfDaysTextBox);
+		extentReport.logToExtentReport("Clicking on drug timing dropdown");
+		elementActions.doClick(vsPrescriptionDrugTimingDrpdown);
+		extentReport.logToExtentReport("Selecting a value from the drug timing dropdown");
+		elementActions.doClick(vsPrescriptionDrugTimingDrpdownval);
+		extentReport.logToExtentReport("Passing the value to 'Test' textfield");
+		elementActions.doSendKeys(vsPrescriptionDrugRemarks, "Test");
+		Thread.sleep(2000);
+		extentReport.logToExtentReport("Clicking on'Add' button");
+		elementActions.doClick(vsPrescriptionDrugAddButton);
+		Thread.sleep(2000);
+		
 		extentReport.logToExtentReport("Clicking on 'Update Prescription' button");
 		elementActions.doClick(vsUpdatePrescriptionBtn);
 		Thread.sleep(2000);
@@ -764,13 +760,13 @@ public class End2EndPage extends BasePage {
 			fail();
 		}
 	}
-	public void  VisitSummaryInprogressVisit(boolean medication) throws Throwable{
+	public void  VisitSummaryInprogressVisit() throws Throwable{
 		elementActions.doIsDisplayed(VisitSummaryPageText);
 		extentReport.logToExtentReport("Verification - Verifying whether 'Visit summary' page is displayed");
 		// System.out.println("Visit summary page is displayed");
 		Thread.sleep(4000);
 		endToEndMethods.VerifyAddFunctionalityUnderDiagnosisSection();
-		endToEndMethods.verifyvsprescrptionChanges(medication);
+		endToEndMethods.verifyvsprescrptionChanges();
 		Thread.sleep(2000);
 		extentReport.logToExtentReport("Sending value to 'Test' textfield");
 				elementActions.doActionsSendKeys(TestTextField, "Blood");
@@ -846,8 +842,8 @@ public class End2EndPage extends BasePage {
 	 * details and sharing the prescription
 	 */
 	@Step("Login, prescription sent, visit summary, share prescription")
-	public void LoginPrescriptionSentVisitSummarySharePrescription(boolean medication) throws Throwable {
-		LoginPrescriptionSentVisitSummaryUpdatePrescription(medication);
+	public void LoginPrescriptionSentVisitSummarySharePrescription() throws Throwable {
+		LoginPrescriptionSentVisitSummaryUpdatePrescription();
 	}
 
 	/*

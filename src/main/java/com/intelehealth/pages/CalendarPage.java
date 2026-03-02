@@ -152,7 +152,7 @@ public class CalendarPage extends BasePage {
 	By followUpVisitTitle = By.xpath("//h6[text()='Follow-up visit details']");
 	By appointmentTitle = By.xpath("//h6[text()='Appointment details']");
 	By alreadyDayOff = By.xpath("//div[@aria-label='Already DayOff']");
-	By monthlyCalendarToday = By.xpath("//mwl-calendar-month-cell[contains(@class,'today')]//div");
+	By monthlyCalendarToday = By.xpath("//mwl-calendar-month-cell[contains(@class,'today')]//div//div");
 	By closeButtonDayOff = By.xpath("//button[@data-test-id='btnCloseDayOffModal']");
 	By markAsDayOffText = By.xpath("//h6[@data-test-id='lblDayOffTitle']");
 	By monthlyCalendarHoursOff = By

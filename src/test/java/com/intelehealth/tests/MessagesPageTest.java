@@ -129,7 +129,7 @@ public class MessagesPageTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void VerifySearchWithInvalidPatientOpenMRSID() {
 
-		Assert.assertEquals(messagesPage.VerifySearchWithInvalidPatientOpenMRSID(prop.getProperty("message.text")),
+		Assert.assertEquals(messagesPage.VerifySearchWithInvalidPatientOpenMRSID(prop.getProperty("invalid.openmrs.id")),
 				prop.getProperty("no.record.found.text"));
 
 	}

@@ -37,7 +37,7 @@ public class AppointmentPage extends BasePage {
 	By PageNoandArrows = By.xpath("//mat-paginator[@data-test-id=\"matPaginatorAppointment\"]");
 	By AppointmentPatients = By.xpath("//td[contains(@data-test-id,\"apPatient\")]");
 	By NoPatientsInAppointments = By.xpath(" //td[text()=' No any appointments scheduled. '] ");
-	By AppointmentsCancelButton = By.xpath("//button[contains(@data-test-id,\"btn-action-Cancel-1\")]");
+	By AppointmentsCancelButton = By.xpath("//button[contains(@data-test-id,'btnCancel')]");
 	By CannotCancel = By.xpath("//div[@aria-label=\"Can't Cancel\"]");
 	By CancelPopUp = By.xpath("//div[@class=\"cdk-overlay-pane modal-md\"]");
 	By CancelTheAppointmentText = By.xpath("//h6[text()='Cancel the appointment']");
@@ -48,12 +48,12 @@ public class AppointmentPage extends BasePage {
 	By RescheduleAppointmentButton = By.xpath("//button[@data-test-id=\"btnReschedule0\"]");
 	By RescheduleAppointmentButtons = By.xpath("//button[contains(@data-test-id,\"btnReschedule\")]");
 	By CloseButton = By.xpath("//button[@data-test-id=\"btnClose\"]");
-	By SelectDateField = By.xpath("//input[@data-test-id=\"etDate\"]");
-	By CalendarIcon = By.xpath("//button[@aria-label=\"Open calendar\"]");
+	By SelectDateField = By.xpath("//input[@data-test-id='etRescheduleDate']");
+	By CalendarIcon = By.xpath("//button[@aria-label='Open calendar']");
 	By AllDates = By.xpath("//td[@role=\"gridcell\"]");
 	By SelectTheDate = By.xpath("//div[contains(@class,'-body-today')]");
 	By AvailableTimeSlots = By.xpath("//div[@class=\"slot-chip-item ng-star-inserted\"]");
-	By RescheduleSubmitButton = By.xpath("//button[@data-test-id=\"btnSubmit\"]");
+	By RescheduleSubmitButton = By.xpath("//button[@data-test-id='btnSubmitReschedule']");
 	By CalendarMonthYear = By.xpath("//button[@aria-label=\"Choose month and year\"]");
 	By FirstTimeSlot = By.xpath("(//div[@class=\"slot-chip-item ng-star-inserted\"])[1]");
 	By RescheduleAppointmentText = By.xpath("//h6[text()='Reschdule the appointment']");
@@ -70,7 +70,6 @@ public class AppointmentPage extends BasePage {
 	By RescheduledTime = By.xpath("//td[contains(@data-test-id,'apStart0')]");
 	By FirstPatient = By.xpath("//td[contains(@data-test-id,'td-patient_id-Appointment-0')]");
 	By lstPatients = By.xpath("//td[contains(@data-test-id,'apPatient')]");
-	By lstAppPatientInDashboard = By.xpath("//td[contains(@data-test-id,'td-patient_name-Appointment-0')]");
 	By inProgressFirstPatient = By.xpath("//td[@data-test-id='td-patient_id-InProgress-0']");
 	By VisitSummaryPageDisplayedVideoIcon = By.xpath("//img[@data-test-id='imgStartVideoCall']");
 	By VisitSummaryPageText = By.xpath("//li[text()=' Visit Summary ']");
@@ -516,9 +515,6 @@ public class AppointmentPage extends BasePage {
 	public void VerifyThePatientDetailsOnAppointments() throws Throwable {
 		Thread.sleep(2000);
 		List<WebElement> patientsList = elementActions.getElements(lstPatients);
-		if (patientsList == null) {
-			patientsList = elementActions.getElements(lstAppPatientInDashboard);
-		}
 		for (int i = 0; i < patientsList.size(); i++) {
 			patientsList = elementActions.getElements(lstPatients);
 			patientsList.get(i).click();
@@ -582,6 +578,7 @@ public class AppointmentPage extends BasePage {
 
 			}
 		}
+
 
 	}
 

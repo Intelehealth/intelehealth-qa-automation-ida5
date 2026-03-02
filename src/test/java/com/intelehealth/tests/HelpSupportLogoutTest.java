@@ -127,6 +127,7 @@ public class HelpSupportLogoutTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyNoDataDisplayedForInvalidSearch() {
 
+		helpSupportLogoutPage.clickOnHelpAndSupportScreen();
 		Assert.assertEquals(
 				helpSupportLogoutPage.searchTicketAndVerifyNoDataDisplayed(prop.getProperty("invalid.ticket.number")),
 				prop.getProperty("no.data.display.text"),
@@ -138,6 +139,7 @@ public class HelpSupportLogoutTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyNoDataDisplayedForSearchWhenThereAreNoTickets() {
 
+		helpSupportLogoutPage.clickOnHelpAndSupportScreen();
 		Assert.assertEquals(
 				helpSupportLogoutPage.searchTicketAndVerifyNoDataDisplayed(prop.getProperty("valid.ticket.number")),
 				prop.getProperty("no.data.display.text"),

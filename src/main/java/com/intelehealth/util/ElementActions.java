@@ -344,6 +344,8 @@ public class ElementActions {
 			WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			return element.isDisplayed();
 		} catch (Exception e) {
+			
+			System.out.println(e);
 			return false;
 		}
 
