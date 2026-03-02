@@ -1,10 +1,13 @@
 package com.intelehealth.tests;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -16,6 +19,7 @@ import com.intelehealth.util.Credentials;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.restassured.response.Response;
 
 public class End2EndTest extends BasePage {
 
@@ -26,7 +30,24 @@ public class End2EndTest extends BasePage {
 	End2EndPage end2endPage;
 	Credentials credentials;
 	String testEnum;
+	private Boolean medication = false;
+	private Boolean typeOfConsultation = false;
 
+	@BeforeClass
+	public void getAdminData() throws IOException {
+		basePage = new BasePage();
+		Response response = basePage.getAdmitDataAPI();
+		medication = response.jsonPath().getBoolean("patient_visit_summary.standard_medication")
+		/*
+		 * response.jsonPath().getBoolean( "patient_visit_summary.standard_medication")
+		 */;
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + medication);
+		String responseBody = response.getBody().asPrettyString();
+
+		try (FileWriter file = new FileWriter("target/api-response.json")) {
+			file.write(responseBody);
+		}
+	}
 	@BeforeMethod
 	public void setUp(Method method) throws Throwable {
 		basePage = new BasePage();
@@ -73,7 +94,7 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1671_End2End() throws Throwable {
 
-		end2endPage.LoginPriorityVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
+		end2endPage.LoginPriorityVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription(medication);
 	}
 
 	@Test(priority = 5, description = "IDA4_1672_End2End_Login, awaiting visit, visit summary, start visit note, share/update/view prescription", enabled = true)
@@ -82,7 +103,7 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1672_End2End() throws Throwable {
 
-		end2endPage.LoginAwaitingVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
+		end2endPage.LoginAwaitingVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription(medication);
 	}
 
 	@Test(priority = 6, description = "IDA4_1673_End2End_Login, in-progress visit, visit summary, start visit note, share/update/view prescription", enabled = true)
@@ -91,7 +112,7 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1673_End2End() throws Throwable {
 
-		end2endPage.LoginInProgressVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
+		end2endPage.LoginInProgressVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription(medication);
 	}
 
 	@Test(priority = 7, description = "IDA4_1674_End2End_Login, awaiting/appointment/in-progress/priority, visit summary, past visit history, view visit summary", enabled = true)
@@ -182,7 +203,7 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1683_End2End() throws Throwable {
 
-		end2endPage.LoginPrescriptionSentVisitSummaryUpdatePrescription();
+		end2endPage.LoginPrescriptionSentVisitSummaryUpdatePrescription(medication);
 	}
 
 	@Test(priority = 17, description = "IDA4_1684_End2End_Login, prescription sent, visit summary, view prescription", enabled = true)
@@ -201,7 +222,7 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1685_End2End() throws Throwable {
 
-		end2endPage.LoginPrescriptionSentVisitSummarySharePrescription();
+		end2endPage.LoginPrescriptionSentVisitSummarySharePrescription(medication);
 	}
 
 	@Test(priority = 12, description = "IDA4_1686_End2End_Login, completed visit sent, visit summary, view prescription", enabled = true)

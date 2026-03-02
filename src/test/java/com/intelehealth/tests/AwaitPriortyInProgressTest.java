@@ -235,7 +235,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1728_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1728");
-		awaitPriortyInProgress.VerifyIfUserCanTypeInDrugNameTextboxAndIfNumbersOrSplCharactersAllowed();
+		awaitPriortyInProgress.VerifyIfUserCanTypeInDrugNameTextboxAndIfNumbersOrSplCharactersAllowed(medication);
 	}
 
 	@Test(priority = 21, description = "IDA4_1729_StartVisitNote_Verify if the selected drug appears if choosed", enabled = true)
@@ -251,7 +251,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1730_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1730");
-		awaitPriortyInProgress.VerifyIfUserCanTypeInStrengthAndIfCharactersOrSplCharactersAreAllowed();
+		awaitPriortyInProgress.VerifyIfUserCanTypeInStrengthAndIfCharactersOrSplCharactersAreAllowed(medication);
 	}
 
 	@Test(priority = 23, description = "IDA4_1731_StartVisitNote_Verify if the selected strength appears if selected", enabled = true)
@@ -259,7 +259,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1731_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1731");
-		awaitPriortyInProgress.VerifyIfTheSelectedStrengthAppearsIfSelected();
+		awaitPriortyInProgress.VerifyIfTheSelectedStrengthAppearsIfSelected(medication);
 	}
 
 	@Test(priority = 24, description = "IDA4_1732_StartVisitNote_Verify if user can type in No of days and characters or spl characters in the textbox", enabled = true)
@@ -268,7 +268,7 @@ public class AwaitPriortyInProgressTest {
 	public void IDA4_1732_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1732");
 		awaitPriortyInProgress.VerifyIfUserCanTypeInNoOfDaysAndCharactersOrSplCharactersInTheTextbox(
-				prop.getProperty("NoOfdaysValue"));
+				prop.getProperty("NoOfdaysValue"),medication);
 	}
 
 	@Test(priority = 25, description = "IDA4_1733_StartVisitNote_Verify if the selected days appears if selected", enabled = true)
@@ -276,7 +276,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1733_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1733");
-		awaitPriortyInProgress.VerifyIfTheSelectedDaysAppearsIfSelected(prop.getProperty("NoOfdaysValue"));
+		awaitPriortyInProgress.VerifyIfTheSelectedDaysAppearsIfSelected(prop.getProperty("NoOfdaysValue"),medication);
 	}
 
 	@Test(priority = 26, description = "IDA4_1734_StartVisitNote_Verify if user can type in timings dropdown", enabled = true)
@@ -284,7 +284,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1734_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1734");
-		awaitPriortyInProgress.VerifyIfUserCanTypeInTimingsDropdown();
+		awaitPriortyInProgress.VerifyIfUserCanTypeInTimingsDropdown(medication);
 	}
 
 	@Test(priority = 27, description = "IDA4-1735,Verify if the selected time appears once chosen", enabled = true)
@@ -343,7 +343,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1743_StartVisitNote() throws Exception {
 
-		awaitPriortyInProgress.addMultipleMedications();
+		awaitPriortyInProgress.addMultipleMedications(medication);
 		awaitPriortyInProgress.verifyDeleteIcon();
 	}
 

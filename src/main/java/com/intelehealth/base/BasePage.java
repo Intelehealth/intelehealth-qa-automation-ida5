@@ -335,14 +335,14 @@ public class BasePage {
 	public Response getAdmitDataAPI() {
 		RequestSpecification req;
 		req = RestAssured.given().contentType("application/json");
-		Response response = req.get("https://nasstagingnew.intelehealth.org:4004/api/config/getPublishedConfig");
+		Response response = req.get("https://pathqa.intelehealth.org:4004/api/config/getPublishedConfig");
 		return response;
 	}
 
 	public Boolean getAdmitDataAPIKey(String pathKey) {
 		RequestSpecification req;
 		req = RestAssured.given().contentType("application/json");
-		Response response = req.get("https://nasstaging.intelehealth.org:4004/api/config/getPublishedConfig");
+		Response response = req.get("https://pathqa.intelehealth.org:4004/api/config/getPublishedConfig");
 		Boolean isEnabled = response.jsonPath().getBoolean(pathKey);
 
 		return isEnabled;

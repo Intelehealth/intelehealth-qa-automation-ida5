@@ -70,6 +70,7 @@ public class AppointmentPage extends BasePage {
 	By RescheduledTime = By.xpath("//td[contains(@data-test-id,'apStart0')]");
 	By FirstPatient = By.xpath("//td[contains(@data-test-id,'td-patient_id-Appointment-0')]");
 	By lstPatients = By.xpath("//td[contains(@data-test-id,'apPatient')]");
+	By lstAppPatientInDashboard = By.xpath("//td[contains(@data-test-id,'td-patient_name-Appointment-0')]");
 	By inProgressFirstPatient = By.xpath("//td[@data-test-id='td-patient_id-InProgress-0']");
 	By VisitSummaryPageDisplayedVideoIcon = By.xpath("//img[@data-test-id='imgStartVideoCall']");
 	By VisitSummaryPageText = By.xpath("//li[text()=' Visit Summary ']");
@@ -515,6 +516,9 @@ public class AppointmentPage extends BasePage {
 	public void VerifyThePatientDetailsOnAppointments() throws Throwable {
 		Thread.sleep(2000);
 		List<WebElement> patientsList = elementActions.getElements(lstPatients);
+		if (patientsList == null) {
+			patientsList = elementActions.getElements(lstAppPatientInDashboard);
+		}
 		for (int i = 0; i < patientsList.size(); i++) {
 			patientsList = elementActions.getElements(lstPatients);
 			patientsList.get(i).click();
@@ -578,7 +582,6 @@ public class AppointmentPage extends BasePage {
 
 			}
 		}
-
 
 	}
 

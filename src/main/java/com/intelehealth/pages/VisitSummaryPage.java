@@ -119,7 +119,7 @@ public class VisitSummaryPage extends BasePage {
 	By vsPrescriptionDrugStrengthTextBox = By.xpath("//input[@data-test-id='etDrugStrength']");
 	By vsPrescriptionDrugNoOfDaysTextBox = By.xpath("//input[@data-test-id='etDays']");
 	By vsPrescriptionDrugTimingDrpdown = By.xpath("//ng-select[@data-test-id='selectTiming']");
-	By vsPrescriptionDrugRemarks = By.xpath("//input[@data-test-id='etRemarkMed']");
+	By vsPrescriptionDrugRemarks = By.xpath("//input[@data-test-id='etStandardInstructionRemark']");
 	By vsPrescriptionDrugTimingDrpdownval = By.xpath("//span[text()='1 - 0 - 0']");
 	By vsPrescriptionDrugAddButton = By.xpath("//button[@data-test-id='btnSubmitMed']");
 	By lblOpenMRSIDInVisitSummary = By.xpath("//p[@data-test-id='etPatienOpenMRSId']");
