@@ -2,7 +2,7 @@ name: CI — Tests → Allure → Pages → Email
 
 on:
   push:
-    branches: [ cnu ]
+    branches: [ ida-master ]
   workflow_dispatch:
 
 permissions:
