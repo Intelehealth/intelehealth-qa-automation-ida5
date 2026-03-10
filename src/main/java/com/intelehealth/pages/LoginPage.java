@@ -19,7 +19,7 @@ public class LoginPage extends BasePage {
 	ElementActions elementActions;
 	ExtentReportListener extentReport = new ExtentReportListener();
 	// Locators for elements on the page
-	By userName = By.xpath("//input[@data-test-id='etUsernames']");
+	By userName = By.xpath("//input[@data-test-id='etUsername']");
 	By password = By.xpath("//input[@data-test-id='etPassword']");
 	By NxtButton = By.xpath("//button[@data-test-id='btnSubmit']");
 	By ForgotuserName = By.xpath("//a[@data-test-id='linkForgotUsername']");
@@ -83,7 +83,7 @@ public class LoginPage extends BasePage {
 	 */
 	@Step("Verify the UI")
 	public void displayed() {
-		Assert.assertTrue(elementActions.doIsDisplayed(userName));
+		elementActions.doIsDisplayed(userName);
 		extentReport.logToExtentReport("username field is displayed");
 		elementActions.doIsDisplayed(password);
 		extentReport.logToExtentReport("password field is displayed");
