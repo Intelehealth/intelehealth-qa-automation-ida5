@@ -117,7 +117,7 @@ public class FilterTest {
 		// add asservtion for validation
 	}
 
-	@Test(priority = 8, description = "Verify behavior when no vists exist for selected Range", enabled = false)
+	@Test(priority = 8, description = "Verify behavior when no vists exist for selected Range", enabled = true)
 	@Description("Verify behavior when no vists exist for selected Range")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyFilterRangeWhenNoVisits() {
@@ -136,7 +136,7 @@ public class FilterTest {
 
 	}
 
-	@Test(priority = 10, description = "Verify Filter works along with Search Visit By ID", enabled = false)
+	@Test(priority = 10, description = "Verify Filter works along with Search Visit By ID", enabled = true)
 	@Description("Verify Filter works along with Search vist By ID")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyFilterWorksAlongWithSearchVisitByOpenMrsID() {

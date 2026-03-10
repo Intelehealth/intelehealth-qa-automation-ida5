@@ -46,7 +46,7 @@ public class HelpSupportLogoutTest {
 		ScreenshotListener.setDriver(driver);
 	}
 
-	@Test(priority = 1, description = "IDA4_1648_Verify the Logout functionality", enabled = false)
+	@Test(priority = 1, description = "IDA4_1648_Verify the Logout functionality", enabled = true)
 	@Description("Verify the Logout functionality")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1648_HelpSupport() throws InterruptedException {
@@ -55,7 +55,7 @@ public class HelpSupportLogoutTest {
 		helpSupportLogoutPage.logoutConfirmDialog();
 	}
 
-	@Test(priority = 2, description = "IDA4_1650_Verify the User can logout from app if clicking yes", enabled = false)
+	@Test(priority = 2, description = "IDA4_1650_Verify the User can logout from app if clicking yes", enabled = true)
 	@Description("Verify the User can logout from app if clicking yes")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1650_HelpSupport() throws InterruptedException {
