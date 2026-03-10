@@ -1,26 +1,61 @@
 package com.intelehealth.listeners;
 
+import java.io.ByteArrayInputStream;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import com.intelehealth.base.BasePage;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
 
-public class TestAllureListener extends BasePage implements ITestListener {
+public class TestAllureListener implements ITestListener {
 
 	private static String getTestMethodName(ITestResult iTestResult) {
 		return iTestResult.getMethod().getConstructorOrMethod().getName();
 	}
 
-	// Text attachments for Allure
+	/*
+	 * // Text attachments for Allure
+	 * 
+	 * @Attachment(value = "Screenshot", type = "image/png") public byte[]
+	 * saveScreenshotPNG(WebDriver driver) { return ((TakesScreenshot)
+	 * driver).getScreenshotAs(OutputType.BYTES); }
+	 */
+
 	@Attachment(value = "Page screenshot", type = "image/png")
-	public byte[] saveScreenshotPNG(WebDriver driver) {
-		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+	public static byte[] saveScreenshotPNG(WebDriver driver) {
+		if (driver == null) {
+			// return empty byte[] so Allure doesn't crash; alternatively return null
+			return new byte[0];
+		}
+		try {
+			// For remote drivers (BrowserStack/LambdaTest) augment if needed
+			if (driver instanceof RemoteWebDriver) {
+				try {
+					driver = new Augmenter().augment(driver);
+				} catch (Throwable t) {
+					// Augmenter can sometimes fail depending on selenium version — ignore and try
+					// normally
+				}
+			}
+			if (driver instanceof TakesScreenshot) {
+				return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+			} else {
+				return new byte[0];
+			}
+		} catch (Exception e) {
+			// optional: log the exception to Allure or console
+			saveTextLog("Failed to capture screenshot: " + e.getMessage());
+			return new byte[0];
+		}
 	}
 
 	// Text attachments for Allure
@@ -63,24 +98,47 @@ public class TestAllureListener extends BasePage implements ITestListener {
 		System.out.println("I am in onTestSuccess method " + getTestMethodName(iTestResult) + " succeed");
 	}
 
-//	@Override
+	/*
+	 * @Override public void onTestFailure(ITestResult iTestResult) {
+	 * 
+	 * System.out.println("I am in onTestFailure method " +
+	 * getTestMethodName(iTestResult) + " failed");
+	 * 
+	 * Object testClass = iTestResult.getInstance(); // WebDriver driver =
+	 * BasePage.getDriver(); // Allure ScreenShotRobot and SaveTestLog if
+	 * (BasePage.getDriver() instanceof WebDriver) {
+	 * 
+	 * // System.out.println("Screenshot captured for test case:" + //
+	 * getTestMethodName(iTestResult));
+	 * 
+	 * System.out.println("Screenshot captured for test case:" +
+	 * getTestMethodName(iTestResult));
+	 * 
+	 * saveScreenshotPNG(BasePage.getDriver()); } // Save a log on allure.
+	 * saveTextLog(getTestMethodName(iTestResult) +
+	 * " failed and screenshot taken!"); }
+	 */
+	@Override
 	public void onTestFailure(ITestResult iTestResult) {
 
-		System.out.println("I am in onTestFailure method " + getTestMethodName(iTestResult) + " failed");
+		System.out.println("Test Failed: " + getTestMethodName(iTestResult));
 
-		Object testClass = iTestResult.getInstance();
-		// WebDriver driver = BasePage.getDriver();
-		// Allure ScreenShotRobot and SaveTestLog
-		if (getDriver() instanceof WebDriver) {
+		WebDriver driver = BasePage.getDriver();
 
-			// System.out.println("Screenshot captured for test case:" +
-			// getTestMethodName(iTestResult));
+		if (driver != null) {
 
-			System.out.println("Screenshot captured for test case:" + getTestMethodName(iTestResult));
+			System.out.println("Screenshot captured for test case: " + getTestMethodName(iTestResult));
 
-			saveScreenshotPNG(getDriver());
+		//	saveScreenshotPNG(driver);
+			byte[]screenshot=((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+			Allure.addAttachment("Failure screenshot","image/png",new ByteArrayInputStream(screenshot),".png");
+
+		} else {
+
+			System.out.println("Driver is NULL, screenshot not captured");
+
 		}
-		// Save a log on allure.
+
 		saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
 	}
 
