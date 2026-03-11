@@ -2,7 +2,7 @@ name: CI — Tests → Allure → Pages
 
 on:
   push:
-    branches: [ ida-master ]
+    branches: [ feature/allure-ci-integration ]
   workflow_dispatch:
 
 permissions:
