@@ -1,4 +1,4 @@
-name: CI — Tests → Allure → Pages → Email
+name: CI — Tests → Allure → Pages
 
 on:
   push:
@@ -68,7 +68,6 @@ jobs:
           mkdir -p allure-report
           allure generate allure-results --clean -o allure-report || true
 
-          # ensure report exists
           if [ ! -f allure-report/index.html ]; then
             echo "Creating fallback report"
             echo "<html><body><h2>No Allure results found</h2></body></html>" > allure-report/index.html
@@ -85,60 +84,16 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      # STEP 10: Send Email
-      - name: Send email with report link
+      # STEP 10: Add Allure report link to GitHub run summary
+      - name: Add Allure report link to summary
         if: always()
         env:
-          MAIL_CONNECTION: ${{ secrets.MAIL_CONNECTION }}
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
-          REPO: ${{ github.repository }}
-          RUN_ID: ${{ github.run_id }}
         run: |
-
-          python3 <<EOF
-
-          import os, smtplib, ssl
-          from urllib.parse import urlparse
-          from email.message import EmailMessage
-
-          conn = os.getenv("MAIL_CONNECTION")
-
-          if not conn:
-              print("MAIL_CONNECTION missing")
-              exit(0)
-
-          parsed = urlparse(conn)
-
-          username = parsed.username
-          password = parsed.password
-          host = parsed.hostname
-          port = parsed.port or 587
-
-          page_url = os.getenv("PAGE_URL")
-
-          msg = EmailMessage()
-
-          msg['Subject'] = "Automation Allure Report"
-          msg['From'] = username
-          msg['To'] = username
-
-          msg.add_alternative(f'''
-          <h2>Allure Report Ready</h2>
-          <p><a href="{page_url}">CLICK HERE TO VIEW REPORT</a></p>
-          <br>
-          <p>GitHub Run:</p>
-          <a href="https://github.com/{os.getenv("REPO")}/actions/runs/{os.getenv("RUN_ID")}">
-          View Workflow Run
-          </a>
-          ''', subtype='html')
-
-          context = ssl.create_default_context()
-
-          with smtplib.SMTP(host, port) as server:
-              server.starttls(context=context)
-              server.login(username, password)
-              server.send_message(msg)
-
-          print("EMAIL SENT SUCCESSFULLY")
-
-          EOF
+          echo "## 🚀 Automation Execution Completed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Test Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [Open Allure Report]($PAGE_URL)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 [View Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
