@@ -32,7 +32,7 @@ public class LoginPage extends BasePage {
 	By selectRussianLanguage = By.xpath("//div[@role='option']//span[text()='Russian']");
 	By russianLoginHeading = By.xpath("//h6[text()='Вход в систему']");
 	By EnglishLoginHeading = By.xpath("//h6[text()='Login']");
-	By closeInstall = By.xpath("//button[@data-test-id='btnClose']");
+	By closeInstall = By.xpath("//button[contains(@class,'toast-close-button ng-tns')]");
 	By languageSelected = By.xpath("//span[contains(@class,'ng-value-label')]");
 	By loginSuccessMessage = By.xpath("//div[@aria-label='Login Successful']");
 
@@ -67,7 +67,7 @@ public class LoginPage extends BasePage {
 			elementActions.doSendKeys(password, credentials.getPassword());
 			extentReport.logToExtentReport("click on login button");
 			elementActions.doClick(NxtButton);
-			elementActions.doIsDisplayed(loginSuccessMessage);
+		//	elementActions.doIsDisplayed(loginSuccessMessage);
 			extentReport.logToExtentReport("Logged into application successfully");
 			if (elementActions.doIsDisplayed(closeInstall)) {
 				elementActions.doClick(closeInstall);

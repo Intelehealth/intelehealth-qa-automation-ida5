@@ -51,7 +51,6 @@ public class OptionsManager {
 		co.addArguments("--remote-allow-origins=*");
 		co.addArguments("--use-fake-ui-for-media-stream");
 		co.addArguments("--disable-media-stream");
-		co.addArguments("--window-size=1920,1080");
 
 		// Optional from config
 		if (Boolean.parseBoolean(prop.getProperty("incognito"))) {

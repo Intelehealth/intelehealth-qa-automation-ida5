@@ -11,7 +11,7 @@
 
 	<test name="Regression Functional Regression Test" verbose="2">
 		<classes>
-			<class name="com.intelehealth.tests.LoginPageTest" />
+			<class name="com.intelehealth.tests.AwaitPriortyInProgressTest" />
 		<!--	<class name="com.intelehealth.tests.ProfilePageTest" />
 			<class name="com.intelehealth.tests.SearchPageTest" />
 			<class name="com.intelehealth.tests.NotificationPageTest" />
