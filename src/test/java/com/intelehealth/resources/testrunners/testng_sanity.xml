@@ -29,7 +29,6 @@
 			<class name="com.intelehealth.tests.FilterTest" />
 			<class name="com.intelehealth.tests.ChangePasswordLanguageTest" />-->
 			<!--<class name="com.intelehealth.tests.ForgotUsernamePasswordTest" />-->
-
 		</classes>
 	</test>
 </suite>
