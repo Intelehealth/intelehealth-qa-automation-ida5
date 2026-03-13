@@ -2,7 +2,7 @@ name: Automation CI Pipeline (JMeter + Selenium + Allure Report)
 
 on:
   push:
-    branches: [ jmeter-ci-integration ]
+    branches: [ feature/allure-ci-integration ]
   workflow_dispatch:
 
 permissions:
