@@ -16,7 +16,7 @@
 		<classes>
 
 			<class name="com.intelehealth.tests.LoginPageTest" />
-			<class name="com.intelehealth.tests.ChatPageTest" />
+		<class name="com.intelehealth.tests.ChatPageTest" />
 			<class name="com.intelehealth.tests.DashboardPageTest" />
 			<class name="com.intelehealth.tests.End2EndTest" />
 			<class name="com.intelehealth.tests.FilterTest" />
