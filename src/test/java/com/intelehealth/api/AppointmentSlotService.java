@@ -74,7 +74,7 @@ public class AppointmentSlotService {
         List<Map<String, Object>> slots = callSlotApi(
                 token,
                 DateTimeUtils.getTodayForSlotApi(),
-                DateTimeUtils.getTodayForSlotApi()
+                DateTimeUtils.getTomorrowForSlotApi()
         );
 
         // No slots today (night time / all booked) → try tomorrow
