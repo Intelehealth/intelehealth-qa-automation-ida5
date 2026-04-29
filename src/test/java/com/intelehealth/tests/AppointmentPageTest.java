@@ -1,14 +1,22 @@
 package com.intelehealth.tests;
 
+import static org.testng.Assert.fail;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.intelehealth.api.APIServices;
+import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.AppointmentPage;
@@ -20,17 +28,48 @@ import com.intelehealth.util.Credentials;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.restassured.response.Response;
 
 public class AppointmentPageTest {
 	Properties prop;
 	WebDriver driver;
-	BasePage basePage;
+	static BasePage basePage;
 	LoginPage loginPage;
 	DashboardPage dashboardPage;
 	AppointmentPage appointmentPage;
 	CalendarPage calendarPage;
 	Credentials credentials;
 	String testEnum;
+	public static final boolean APPOINTMENT_MODULE_ENABLED_KEY =false;
+
+	@BeforeClass
+	public void getAdminData() throws IOException {
+		basePage = new BasePage();
+		Response response = basePage.getAdmitDataAPI();
+		/*
+		 * boolean appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath()
+		 * .getBoolean("patient_visit_summary.standard_medication");
+		 */
+		boolean appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath()
+				.getBoolean("sidebar_menus.appointment");
+		System.out.println("==========================================================================================="
+				+ appointmentModuleEnabled);
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		}
+
+		// appointmentModuleEnabled =
+		// response.jsonPath().getBoolean("patient_visit_summary.standard_medication")
+		/*
+		 * response.jsonPath().getBoolean( "patient_visit_summary.standard_medication")
+		 */;
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + appointmentModuleEnabled);
+		String responseBody = response.getBody().asPrettyString();
+
+		try (FileWriter file = new FileWriter("target/api-response.json")) {
+			file.write(responseBody);
+		}
+	}
 
 	@BeforeMethod
 	public void setUp(Method method) throws Exception {
@@ -45,9 +84,10 @@ public class AppointmentPageTest {
 		appointmentPage = new AppointmentPage(driver);
 		calendarPage = new CalendarPage(driver);
 		ScreenshotListener.setDriver(driver);
+		//APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
 	}
 
-	@Test(priority = 1, description = "IDA4_1784_Appointments_Verify the UI elements of Appointment page", enabled = true)
+	@Test(priority = 1, description = "IDA4_1784_Appointments_Verify the UI elements of Appointment page", enabled = APPOINTMENT_MODULE_ENABLED_KEY)
 	@Description("Verify the UI elements of Appointment page")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1784_Appointments() throws InterruptedException {

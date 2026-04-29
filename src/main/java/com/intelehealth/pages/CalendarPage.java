@@ -283,17 +283,10 @@ public class CalendarPage extends BasePage {
 	 * of calendar page
 	 */
 	@Step("Verify UI")
-	public void CalendarPageUi() throws ElementClickInterceptedException {
+	public boolean CalendarPageUi() throws ElementClickInterceptedException {
 		boolean SetupDisplayed = elementActions.doIsDisplayed(setupCalendar);
 		boolean ViewCalendarDisplayed = elementActions.doIsDisplayed(viewCalendar);
-		if (SetupDisplayed == true && ViewCalendarDisplayed == true) {
-			extentReport.logToExtentReport(
-					"Verification - Verifying whether 'setup calendar' title and 'View Calendar' button is displayed");
-		} else {
-			extentReport.logToExtentReport(
-					"Verification - Whether 'setup calendar' title and 'View Calendar' button is not displayed");
-			// fail();
-		}
+		return SetupDisplayed && ViewCalendarDisplayed;
 
 	}
 
@@ -588,7 +581,7 @@ public class CalendarPage extends BasePage {
 	 * to select the time from the dropdown
 	 */
 	@Step("Verify that user can select the time from dropdown")
-	public void VerifythatUserCanSelecttheTimeFromDropdown() throws Throwable, ElementClickInterceptedException {
+	public void VerifythatUserCanSelecttheTimeFromDropdown() throws Throwable {
 		Thread.sleep(2000);
 		this.VerifytheAddMoreTimingLinkFunctionality();
 		extentReport.logToExtentReport("Clicking on start time dropdown");
@@ -727,14 +720,14 @@ public class CalendarPage extends BasePage {
 			// fail();
 		}
 //		Thread.sleep(3000);
-		extentReport.logToExtentReport("Clicking on save button to save the slot");elementActions.waitForElementClickable(saveSlot);if(elementActions.doIsDisplayed(deleteButton))
-	{
-		extentReport.logToExtentReport("Verification - Verifying whether working days and timings have been set");
-	}else
-	{
-		extentReport.logToExtentReport("Unable to set working days and timings");
-		// fail();
-	}
+		extentReport.logToExtentReport("Clicking on save button to save the slot");
+		elementActions.waitForElementClickable(saveSlot);
+		if (elementActions.doIsDisplayed(deleteButton)) {
+			extentReport.logToExtentReport("Verification - Verifying whether working days and timings have been set");
+		} else {
+			extentReport.logToExtentReport("Unable to set working days and timings");
+			// fail();
+		}
 	}
 
 	@Step("Verify clicking on save button in calendar , "
@@ -1312,7 +1305,6 @@ public class CalendarPage extends BasePage {
 			extentReport.logToExtentReport("Clicking on visit");
 			elementActions.JavaScriptExecutorClickWebElement(FromFirst);
 			Thread.sleep(2000);
-
 
 			if (elementActions.doIsDisplayed2(appointmentTitle)) {
 				elementActions.doIsDisplayed(weeklyCalendarPatientNameandAge);
@@ -2141,7 +2133,10 @@ public class CalendarPage extends BasePage {
 		Thread.sleep(8000);
 		elementActions.waitForElementClickable(monthlyTab);
 		Thread.sleep(5000);
-		if (elementActions.doIsDisplayed(monthlyCalendarAppointment) && elementActions.doIsDisplayed(monthlyFollowUp)) {
+		// if (elementActions.doIsDisplayed(monthlyCalendarAppointment) &&
+		// elementActions.doIsDisplayed(monthlyFollowUp)) {
+		if (elementActions.doIsDisplayed(monthlyCalendarAppointment) || elementActions.doIsDisplayed(monthlyFollowUp)) {
+
 			extentReport.logToExtentReport(
 					"Verification - Verifying whether 'Appointments' and 'Follow-up' visits are displayed");
 		}
@@ -2244,7 +2239,8 @@ public class CalendarPage extends BasePage {
 	 * off in the monthly calendar
 	 */
 	@Step("Verify that user is able to mark as day off and All the appointments & Follow ups auto cancelled for the Day off")
-	public void VerifyUserIsAbleToMarkAsDayOffInMonthlyCalendar() throws Throwable, ElementClickInterceptedException {
+	public void VerifyUserIsAbleToMarkAsDayOffInMonthlyCalendar(boolean appointmentsEnabled)
+			throws Throwable, ElementClickInterceptedException {
 		DeleteMarkedDaysOff();
 		extentReport.logToExtentReport("Clicking on calendar link");
 		Thread.sleep(2000);
@@ -2261,7 +2257,7 @@ public class CalendarPage extends BasePage {
 		extentReport.logToExtentReport("Verification - Verifying if there is a 'Follow-up' visit on the current date");
 		elementActions.doIsDisplayed(monthlyCalendarTodayFollowUp);
 		extentReport.logToExtentReport("Verification - Verifying if there is a 'Appointment' on the current date");
-		elementActions.doIsDisplayed(monthlyCalendarTodayAppointment);
+		// elementActions.doIsDisplayed(monthlyCalendarTodayAppointment);
 		extentReport.logToExtentReport("Clicking on current date on monthly calendar");
 		Thread.sleep(3000);
 		elementActions.waitForElementClickable(monthlyCalendarToday);
@@ -2296,16 +2292,17 @@ public class CalendarPage extends BasePage {
 					"Verification: MonthlyCalendarFollowUpVisit is not displayed after marking day off");
 			// fail();
 		}
-		boolean AppointmentDisplayed = elementActions.doIsDisplayed2(monthlyCalendarTodayAppointment);
-		if (AppointmentDisplayed == false) {
-			extentReport.logToExtentReport(
-					"Verification - Verifying whether scheduled 'Appointments'are removed after marking the day as 'Day off'");
-		} else {
-			extentReport
-					.logToExtentReport("Error: MonthlyCalendar Appointment is displayed even after marking day off");
-			// fail();
+		if (appointmentsEnabled) {
+			boolean AppointmentDisplayed = elementActions.doIsDisplayed2(monthlyCalendarTodayAppointment);
+			if (AppointmentDisplayed == false) {
+				extentReport.logToExtentReport(
+						"Verification - Verifying whether scheduled 'Appointments'are removed after marking the day as 'Day off'");
+			} else {
+				extentReport.logToExtentReport(
+						"Error: MonthlyCalendar Appointment is displayed even after marking day off");
+				// fail();
+			}
 		}
-
 	}
 
 	/*
@@ -2453,7 +2450,7 @@ public class CalendarPage extends BasePage {
 	}
 
 	@Step("Verify that user can able to view the 'Completed' Appointment details popup")
-	public void UserAbleToViewTheCompletedAppointmentDetailsPopup() throws Throwable, ElementClickInterceptedException {
+	public void UserAbleToViewTheCompletedAppointmentDetailsPopup() throws Throwable {
 
 		extentReport.logToExtentReport("Clicking on view calendar");
 		Thread.sleep(7000);

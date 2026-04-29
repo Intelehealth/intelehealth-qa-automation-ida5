@@ -142,12 +142,19 @@ public class TestAllureListener implements ITestListener {
 		saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");
 	}
 
-//	@Override
-	public void onTestSkipped(ITestResult iTestResult) {
+	@Override
+	public void onTestSkipped(ITestResult result) {
 
-		System.out.println("I am in onTestSkipped method " + getTestMethodName(iTestResult) + " skipped");
+	    System.out.println("Test Skipped: " + getTestMethodName(result));
+
+	    // ✅ Attach skip reason to Allure
+	    if (result.getThrowable() != null) {
+	        Allure.addAttachment(
+	            "Skip Reason",
+	            result.getThrowable().toString()
+	        );
+	    }
 	}
-
 //	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
 

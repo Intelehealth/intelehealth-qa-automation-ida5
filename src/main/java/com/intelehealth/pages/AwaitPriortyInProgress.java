@@ -23,7 +23,9 @@ public class AwaitPriortyInProgress extends BasePage {
 	VisitSummaryPage visitSummaryPage;
 
 	BasePage basePage = new BasePage();
-	Properties prop = basePage.init_prop();
+	// Properties prop = basePage.init_prop();
+	Properties prop;
+
 	ExtentReportListener extentReport = new ExtentReportListener();
 	By VsPatientDetailsName = By.xpath("//h6[@data-test-id='etPatientName']");
 	By vstsumpatientSectionAge = By.xpath("//p[@data-test-id='etPatient']");
@@ -157,7 +159,8 @@ public class AwaitPriortyInProgress extends BasePage {
 	By FollowupOptionYes = By.xpath("//input[@data-test-id='radioFollowUpYes']");
 	By FollowupOptionNo = By.xpath("//input[@data-test-id='radioFollowUpNo']");
 	By FollowupCalendar = By.xpath("//mat-datepicker-toggle[@data-test-id='dpFollowUpDate']");
-	By FollowupDatePick = By.xpath("//div[@class='mat-calendar-body-cell-content mat-focus-indicator mat-calendar-body-today']");
+	By FollowupDatePick = By
+			.xpath("//div[@class='mat-calendar-body-cell-content mat-focus-indicator mat-calendar-body-today']");
 	By FollowupTimeClick = By.xpath("//ng-select[@data-test-id='selectFollowUpTime']");
 	By FollowupTimePick = By.xpath("//div[@class='ng-option ng-star-inserted']/span");
 	By FollowupSaveButton = By.xpath("//button[@data-test-id='btnSubmitFollowUp']");
@@ -184,8 +187,8 @@ public class AwaitPriortyInProgress extends BasePage {
 	By AddNoteButton = By.xpath("//button[@data-test-id='btnSubmitNote']");
 	By Buffering = By.xpath("//div[@class='sk-ball-spin-clockwise']");
 	By PleaseWaitText = By.xpath("//span[text()='Please Wait...']");
-	By DrugNameTextField = By.xpath("//input[@data-test-id='etDrugName']");
-	By DrugNameTextFieldDropdown = By.xpath("(//input[@data-test-id='etDrugName']/..//button)[1]");
+	By DrugNameTextField = By.xpath("//input[@data-test-id='etStandardDrugName']");
+	By DrugNameTextFieldDropdown = By.xpath("(//input[@data-test-id='etStandardDrugName']/..//button)[1]");
 	By StrengthTextField = By.xpath("//input[@data-test-id='etDrugStrength']");
 	By NoteText = By.xpath("//div[@class='d-flex justify-content-between align-items-center']");
 	By SelectHighlighted = By.xpath("//span[@class='ngb-highlight ng-star-inserted']");
@@ -248,7 +251,6 @@ public class AwaitPriortyInProgress extends BasePage {
 	By lblPatientNameInAppointmentsSection = By.xpath("//td[@data-test-id='awPatient0']//span");
 	By lblPatientNameInAwaitingVisitsSection = By
 			.xpath("//tr[@data-test-id='aw0']//span[contains(@class,'font-bold')]");
-
 	By inpDosage = By.xpath("//input[@data-test-id='etDose']");
 	By inpFrequency = By.xpath("//ng-select[@data-test-id='selectFrequency']//input");
 	By inpFrequencyValue = By.xpath("//span[text()='Three times daily']");
@@ -262,6 +264,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	public AwaitPriortyInProgress(WebDriver driver) {
 		this.driver = driver;
 		elementActions = new ElementActions(this.driver);
+		prop = basePage.init_prop();
 	}
 
 	/*
@@ -888,6 +891,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(2000);
+		
 		elementActions.doActionsSendKeys(DrugNameTextField, prop.getProperty("Drugname"));
 		extentReport.logToExtentReport("Verification: Entered Data in Drug Name text field");
 
@@ -1287,7 +1291,7 @@ public class AwaitPriortyInProgress extends BasePage {
 			elementActions.doSendKeys(inpAdditionalInstructions, "Drink more waters");
 			elementActions.doSendKeys(remarksTextField, "Suffering from Fever");
 			elementActions.doClick(drugSaveButton);
-
+			
 		} else {
 			Thread.sleep(7000);
 			elementActions.doSendKeys(DrugNameTextField, "Paracetomol");

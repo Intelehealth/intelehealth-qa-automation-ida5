@@ -17,6 +17,7 @@ public class VideoFunctionalityPage extends BasePage {
 	ExtentReportListener extentReport = new ExtentReportListener();
 
 	By appointmentLink = By.xpath("//h6[@data-test-id='appointment-count']");
+	By inprogressPatient = By.xpath("//div[@data-test-id='td-patient_name-InProgress-0']");
 	By FirstAppointmentPatient = By.xpath("//td[@data-test-id='td-patient_id-Appointment-0']");
 	By vstsumpatientVideoIcon = By.xpath("//img[@data-test-id='imgStartVideoCall']");
 	By startvisitnote = By.xpath("//button[@data-test-id='btnStartVisitNote']");
@@ -36,11 +37,11 @@ public class VideoFunctionalityPage extends BasePage {
 		 */
 		@Step("Verify that user can make the video call")
 		public void verifyVideoCall() throws InterruptedException{
-			elementActions.doClick(appointmentLink);
-			extentReport.logToExtentReport("Clicked on Appointment link from side panel");
+			elementActions.doClick(inprogressPatient);
+			//extentReport.logToExtentReport("Clicked on Appointment link from side panel");
 			Thread.sleep(3000);
-			elementActions.doClick(FirstAppointmentPatient);
-			extentReport.logToExtentReport("Clicked on  first Appointment patient from table");
+			//elementActions.doClick(FirstAppointmentPatient);
+			extentReport.logToExtentReport("Clicked on  first inprogres patient from table");
 			Thread.sleep(3000);
 			//elementActions.doClick(startvisitnote);
 			elementActions.doClick(vstsumpatientVideoIcon);
@@ -58,11 +59,11 @@ public class VideoFunctionalityPage extends BasePage {
 		 */
 		@Step("Verify that user can make the video call")
 		public void verifyVideoCallButton() throws InterruptedException{
-			elementActions.doClick(appointmentLink);
-			extentReport.logToExtentReport("Clicked on Appointment link from side panel");
+			elementActions.doClick(inprogressPatient);
+			//extentReport.logToExtentReport("Clicked on Appointment link from side panel");
 			Thread.sleep(5000);
-			elementActions.doClick(FirstAppointmentPatient);
-			extentReport.logToExtentReport("Clicked on  first Appointment patient from table");
+			//elementActions.doClick(FirstAppointmentPatient);
+			extentReport.logToExtentReport("Clicked on  first inprogress patient from table");
 			Thread.sleep(5000);
 			//elementActions.doClick(startvisitnote);
 			elementActions.doClick(vstsumpatientVideoIcon);

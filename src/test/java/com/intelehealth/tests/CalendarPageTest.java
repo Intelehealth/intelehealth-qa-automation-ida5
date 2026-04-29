@@ -1,13 +1,20 @@
 package com.intelehealth.tests;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.intelehealth.api.APIServices;
+import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
 import com.intelehealth.pages.CalendarPage;
 import com.intelehealth.pages.DashboardPage;
@@ -17,6 +24,7 @@ import com.intelehealth.util.Credentials;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.restassured.response.Response;
 
 public class CalendarPageTest {
 
@@ -28,9 +36,34 @@ public class CalendarPageTest {
 	CalendarPage calendarPage;
 	Credentials credentials;
 	String testEnum;
+	boolean appointmentModuleEnabled = false;
+
+	@BeforeClass
+	public void getAdminData() throws IOException {
+		basePage = new BasePage();
+		Response response = basePage.getAdmitDataAPI();
+		/*
+		 * boolean appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath()
+		 * .getBoolean("patient_visit_summary.standard_medication");
+		 */
+		appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath().getBoolean("sidebar_menus.appointment");
+		System.out.println("==========================================================================================="
+				+ appointmentModuleEnabled);
+
+		// appointmentModuleEnabled =
+		// response.jsonPath().getBoolean("patient_visit_summary.standard_medication")
+		/*
+		 * response.jsonPath().getBoolean( "patient_visit_summary.standard_medication")
+		 */;
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + appointmentModuleEnabled);
+		String responseBody = response.getBody().asPrettyString();
+
+		try (FileWriter file = new FileWriter("target/api-response.json")) {
+			file.write(responseBody);
+		}
+	}
 
 	@BeforeMethod(alwaysRun = true)
-
 	public void setUp(Method method) throws Throwable {
 		basePage = new BasePage();
 		prop = basePage.init_prop();
@@ -51,7 +84,8 @@ public class CalendarPageTest {
 	public void IDA4_1857_Calendar() throws Throwable {
 		calendarPage.RemoveAllDaysOff();
 		calendarPage.OpenCalendar();
-		calendarPage.CalendarPageUi();
+
+		Assert.assertTrue(calendarPage.CalendarPageUi());
 	}
 
 	@Test(priority = 24, description = "IDA4_1859_Verify clicking on any of the month in calendar", enabled = true)
@@ -129,7 +163,6 @@ public class CalendarPageTest {
 	@Test(priority = 30, description = "IDA4_1868_Calendar_Verify delete functionality in calendar", enabled = true)
 	@Description("Verify delete functionality in calendar")
 	@Severity(SeverityLevel.CRITICAL)
-
 	public void IDA4_1868_Calendar() throws Throwable {
 
 		calendarPage.OpenCalendar();
@@ -259,7 +292,6 @@ public class CalendarPageTest {
 
 		calendarPage.OpenCalendar();
 		calendarPage.VerifyWheTherUserAbleToChangeorUpdateSelectedDates();
-
 	}
 
 	@Test(priority = 43, description = "IDA4_1887_Calendar_Verify save functionality after selecting multiple dates under days off section", enabled = true)
@@ -317,16 +349,27 @@ public class CalendarPageTest {
 	@Severity(SeverityLevel.CRITICAL)
 
 	public void IDA4_1894_Calendar() throws Throwable {
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+		//	APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithDoctorAuthorization());
 
-		calendarPage.OpenCalendar();
-		calendarPage.VerifyThatAppointmentListDisplayInTimeSlot();
+			calendarPage.OpenCalendar();
+			calendarPage.VerifyThatAppointmentListDisplayInTimeSlot();
+		}
 	}
+//===================================================================================================================================================
+	// NEED TO CHECK THIS TEST CASE FOR THE FOLLOWUP VISITS BECAUSE IN THE CODE THEY
+	// HAVE WRITTEN FOLLOWUP APPOINTMENT SO NEED TO CHECK
+	// WHILE EXECUTING
+//===================================================================================================================================================
 
 	@Test(priority = 3, description = "IDA4_1896_Calendar_Verify that Gender and Age is displayed beside patient name and Nurse name is displayed in the popup", enabled = true)
 	@Description("Verify that Gender and Age is displayed beside patient name and Nurse name is displayed in the popup")
 	@Severity(SeverityLevel.CRITICAL)
 
 	public void IDA4_1896_Calendar() throws Throwable {
+		//	APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithDoctorAuthorization());
 
 		calendarPage.OpenCalendar();
 		calendarPage.GenderAgeisdisplayedbesidePatientNameAndNurseNameDisplayed();
@@ -337,9 +380,14 @@ public class CalendarPageTest {
 	@Severity(SeverityLevel.CRITICAL)
 
 	public void IDA4_1897_Calendar() throws Throwable {
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			//	APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithDoctorAuthorization());
 
-		calendarPage.OpenCalendar();
-		calendarPage.UserAbleToViewTheCompletedAppointmentDetailsPopup();
+			calendarPage.OpenCalendar();
+			calendarPage.UserAbleToViewTheCompletedAppointmentDetailsPopup();
+		}
 	}
 
 	@Test(priority = 5, description = "IDA4_1898_Calendar_Verify that Appointment status , Prescription created message , Nurse name displaying correctly on appointment details popup", enabled = true)
@@ -347,9 +395,15 @@ public class CalendarPageTest {
 	@Severity(SeverityLevel.CRITICAL)
 
 	public void IDA4_1898_Calendar() throws Throwable {
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			//	APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithDoctorAuthorization());
 
-		calendarPage.OpenCalendar();
-		calendarPage.AppointmentStatusPrescriptionCreatedMessageNurseNameDisplayingCorrectlyOnAppointmentDetailsPopup();
+			calendarPage.OpenCalendar();
+			calendarPage
+					.AppointmentStatusPrescriptionCreatedMessageNurseNameDisplayingCorrectlyOnAppointmentDetailsPopup();
+		}
 	}
 
 	@Test(priority = 6, description = "IDA4_1899_Calendar_Verify user can navigate to visit summary page by clicking  view details link on Appointment details popup", enabled = true)
@@ -357,11 +411,14 @@ public class CalendarPageTest {
 	@Severity(SeverityLevel.CRITICAL)
 
 	public void IDA4_1899_Calendar() throws Throwable {
-
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			//	APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithDoctorAuthorization());
 		calendarPage.OpenCalendar();
 		calendarPage.VerifyUserCanNavigateToVisitSummaryPageByClickingViewDetailsLinkOnAppointmentDetailsPopup();
 	}
-
+	}
 	@Test(priority = 7, description = "IDA4_1900_Calendar_Verify user can navigate to visit summary page by clicking  Provide Prescription Button on Appointment/Follow-up visit details popup", enabled = true)
 
 	@Description("Verify user can navigate to visit summary page by clicking  Provide Prescription Button on Appointment/Follow-up visit details popup")
@@ -514,7 +571,7 @@ public class CalendarPageTest {
 
 		calendarPage.RemoveAllDaysOff();
 		calendarPage.OpenCalendar();
-		calendarPage.VerifyUserIsAbleToMarkAsDayOffInMonthlyCalendar();
+		calendarPage.VerifyUserIsAbleToMarkAsDayOffInMonthlyCalendar(appointmentModuleEnabled);
 	}
 
 	@Test(priority = 20, description = "IDA4_1922_Calendar_Verify that user can select the FROM and TO dates", enabled = true)

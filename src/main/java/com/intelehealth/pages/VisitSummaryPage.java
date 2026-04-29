@@ -157,13 +157,8 @@ public class VisitSummaryPage extends BasePage {
 	@Step("Navigate to VisitSummary Page")
 	public void goToVisitSummaryPage() throws InterruptedException {
 		Thread.sleep(5000);
-		// elementActions.doClick(appointmentLink);
-
-		extentReport.logToExtentReport("Clicked on Appointment link");
-		Thread.sleep(3000);
-		// elementActions.doClick(apPatient1Name);
 		elementActions.doClick(awtvstPatient1Name);
-		extentReport.logToExtentReport("Clicked on first appointment patient");
+		extentReport.logToExtentReport("Clicked on first awaiting patient");
 	}
 
 	/*

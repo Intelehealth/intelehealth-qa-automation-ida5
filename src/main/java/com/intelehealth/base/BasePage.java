@@ -19,7 +19,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -35,6 +40,8 @@ public class BasePage {
 	private Properties testData;
 	private String browsername;
 	Response response;
+	protected ConfigManager config;
+
 	// At top of BasePage class
 	private static final Map<String, WebDriver> driverMap = new ConcurrentHashMap<>();
 
@@ -60,6 +67,27 @@ public class BasePage {
 	 * @param prop Properties object containing configuration properties
 	 * @return WebDriver instance
 	 */
+
+	@Parameters({ "project", "env" })
+	@BeforeSuite(alwaysRun = true)
+	public void initConfig(@Optional("ida") String project, @Optional("dev") String env) {
+
+		ConfigManager config = ConfigManager.getInstance();
+		config.setProjectAndEnv(project, env);
+
+		System.out.println("[BaseTest] Project : " + config.getProject());
+		System.out.println("[BaseTest] Env     : " + config.getEnv());
+		System.out.println("[BaseTest] Web URL : " + config.getSiteURL());
+		System.out.println("[BaseTest] API URL : " + config.getApiURL());
+	}
+
+	private java.util.Properties buildLegacyProps() {
+		java.util.Properties p = new java.util.Properties();
+		p.setProperty("headless", String.valueOf(config.isHeadless()));
+		p.setProperty("incognito", String.valueOf(config.isIncognito()));
+		return p;
+	}
+
 	public WebDriver init_driver(Properties prop) {
 		String browserName = prop.getProperty("browser");
 		// System.setProperty("webdriver.manager", "false");
@@ -95,7 +123,7 @@ public class BasePage {
 		String browserName = prop.getProperty("browser");
 
 		// System.setProperty("webdriver.manager", "false");
-		System.setProperty("selenium.manager.disabled", "true");
+		//System.setProperty("selenium.manager.disabled", "true");
 		// System.out.println("Running on ----> " + browserName + " browser");
 		optionsManager = new OptionsManager(prop);
 
@@ -125,45 +153,10 @@ public class BasePage {
 		}
 
 		driver.manage().deleteAllCookies();
-		driver.get(prop.getProperty("url"));
+		driver.get(ConfigManager.getInstance().getSiteURL());
 		return driver;
 	}
 
-	/*
-	 * public WebDriver init_driver2(Properties prop, String browserType,String
-	 * browserName) {
-	 * 
-	 * // String browserName = prop.getProperty("browser");
-	 * 
-	 * // System.setProperty("webdriver.manager", "false");
-	 * //System.setProperty("selenium.manager.disabled", "true"); //
-	 * System.out.println("Running on ----> " + browserName + " browser");
-	 * optionsManager = new OptionsManager(prop);
-	 * 
-	 * if (browserName.equalsIgnoreCase("chrome")) { driver = new
-	 * ChromeDriver(optionsManager.getChromeOptions()); } else if
-	 * (browserName.equalsIgnoreCase("firefox")) {
-	 * WebDriverManager.firefoxdriver().setup(); driver = new
-	 * FirefoxDriver(optionsManager.getFirefoxOptions()); } else if
-	 * (browserName.equalsIgnoreCase("safari")) { driver = new SafariDriver(); }
-	 * else { System.out.println(browserName +
-	 * " is not found, Defaulting to Chrome."); driver = new
-	 * ChromeDriver(optionsManager.getChromeOptions()); //browserType = "chrome"; //
-	 * Override browserType to match the actual browser being used }
-	 * 
-	 * tlDriver.set(driver); driverMap.put(browserType, driver);
-	 * ScreenshotListener.setDriver(driver);
-	 * 
-	 * System.out.println("🧹 Driver successfully created for: " + browserType);
-	 * System.out.println("🧹 Driver map: " + driverMap.toString());
-	 * 
-	 * driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); try {
-	 * driver.manage().window().maximize(); } catch (Exception e) {
-	 * driver.manage().window().setSize(new Dimension(1920, 1080)); }
-	 * driver.manage().deleteAllCookies(); driver.get(prop.getProperty("url"));
-	 * return driver; }
-	 */
-	// in com.intelehealth.base.BasePage
 	public WebDriver init_driver2(Properties prop, String browserType, String browserName) {
 
 		optionsManager = new OptionsManager(prop);
@@ -240,40 +233,50 @@ public class BasePage {
 	 * 
 	 * @return Properties object containing configuration properties
 	 */
+	/*
+	 * public Properties init_prop() {
+	 * 
+	 * prop = new Properties(); String path = null; String env = null;
+	 * 
+	 * try { env = System.getProperty("env"); if (env == null) { path =
+	 * "./src/main/java/com/intelehealth/config/config.qa.properties"; } else {
+	 * switch (env) { case "qa": path =
+	 * "./src/main/java/com/intelehealth/config/config.qa.properties"; break; case
+	 * "stg": path =
+	 * "./src/main/java/com/intelehealth/config/config.stg.properties"; break; case
+	 * "prod": path = "./src/main/java/com/qa/hubspot/config/config.properties";
+	 * break; default: // System.out.println("no env is passed"); break; } }
+	 * FileInputStream ip = new FileInputStream(path); prop.load(ip); } catch
+	 * (FileNotFoundException e) { e.printStackTrace(); //
+	 * System.out.println("config file is not found....."); } catch (IOException e)
+	 * { e.printStackTrace(); } return prop; }
+	 */
 	public Properties init_prop() {
-
-		prop = new Properties();
-		String path = null;
-		String env = null;
-
+		Properties prop = new Properties();
+		FileInputStream fis = null;
 		try {
-			env = System.getProperty("env");
-			if (env == null) {
-				path = "./src/main/java/com/intelehealth/config/config.qa.properties";
-			} else {
-				switch (env) {
-				case "qa":
-					path = "./src/main/java/com/intelehealth/config/config.qa.properties";
-					break;
-				case "stg":
-					path = "./src/main/java/com/intelehealth/config/config.stg.properties";
-					break;
-				case "prod":
-					path = "./src/main/java/com/qa/hubspot/config/config.properties";
-					break;
-				default:
-					// System.out.println("no env is passed");
-					break;
-				}
-			}
-			FileInputStream ip = new FileInputStream(path);
-			prop.load(ip);
+			fis = new FileInputStream(System.getProperty("user.dir") + "/src/main/java/com/intelehealth/config/config.qa.properties");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			// System.out.println("config file is not found.....");
-		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			prop.load(fis);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Overlay env-specific values from ConfigManager
+		// This means prop.getProperty("url"), "username", "password"
+		// always reflect the active environment
+		ConfigManager config = ConfigManager.getInstance();
+		prop.setProperty("url", config.getSiteURL());
+		prop.setProperty("api.url", config.getApiURL()); // ← API URL injected here
+		prop.setProperty("username", config.getUsername());
+		prop.setProperty("password", config.getPassword());
+		prop.setProperty("browser", config.getBrowser());
+		prop.setProperty("headless", String.valueOf(config.isHeadless()));
 		return prop;
 	}
 
@@ -334,23 +337,25 @@ public class BasePage {
 
 	public Response getAdmitDataAPI() {
 		RequestSpecification req;
+		System.out.println(ConfigManager.getInstance().getApiURL());
 		req = RestAssured.given().contentType("application/json");
-		Response response = req.get("https://nasstagingnew.intelehealth.org:4004/api/config/getPublishedConfig");
+		Response response = req.get(ConfigManager.getInstance().getApiURL());
 		return response;
 	}
 
 	public Boolean getAdmitDataAPIKey(String pathKey) {
 		RequestSpecification req;
 		req = RestAssured.given().contentType("application/json");
-		Response response = req.get("https://nasstaging.intelehealth.org:4004/api/config/getPublishedConfig");
+		Response response = req.get("https://pathqa.intelehealth.org:4004/api/config/getPublishedConfig");
 		Boolean isEnabled = response.jsonPath().getBoolean(pathKey);
 
 		return isEnabled;
 	}
-
-	public void samplemethid() {
-		System.out.println("sample method");
-
+//write a refresh method to refresh the driver and page also handle the case when driver is null
+	public void refreshDriver() {
+		WebDriver driver = getDriver();
+		if (driver != null) {
+			driver.navigate().refresh();
+		}
 	}
-
 }

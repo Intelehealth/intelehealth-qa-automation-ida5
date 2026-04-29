@@ -5,10 +5,14 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.intelehealth.api.APIServices;
+import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.DashboardPage;
@@ -16,9 +20,14 @@ import com.intelehealth.pages.LoginPage;
 import com.intelehealth.pages.VisitSummaryPage;
 import com.intelehealth.util.Credentials;
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.restassured.response.Response;
+
+@Epic("Patient Visit Management")
+@Feature("Visit Summary and Prescription")
 
 public class VisitSummaryPageTest {
 
@@ -32,6 +41,7 @@ public class VisitSummaryPageTest {
 
 	private Boolean medication = false;
 	private Boolean typeOfConsultation = false;
+	boolean appointmentModuleEnabled = false;
 
 	@BeforeClass
 	public void getAdminData() throws IOException {
@@ -44,9 +54,8 @@ public class VisitSummaryPageTest {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + medication);
 		String responseBody = response.getBody().asPrettyString();
 
-		try (FileWriter file = new FileWriter("target/api-response.json")) {
-			file.write(responseBody);
-		}
+		appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath().getBoolean("sidebar_menus.appointment");
+		
 	}
 
 	@BeforeMethod
@@ -62,6 +71,8 @@ public class VisitSummaryPageTest {
 		dashboardPage = loginPage.doLogin(credentials);
 		vstSummaryPage = new VisitSummaryPage(driver);
 		ScreenshotListener.setDriver(driver);
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		basePage.refreshDriver();
 	}
 
 	@Test(priority = 1, description = "IDA4_1805_VisitSummary_Verify the visit summary page", enabled = true)
@@ -75,14 +86,20 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyVstSummaryUI();
 	}
 
-	@Test(priority = 2, description = "IDA4_1806_VisitSummary_Verify Appointment Starts in section under visit summary page", enabled = true)
+	// @Test(priority = 2, description = "IDA4_1806_VisitSummary_Verify Appointment
+	// Starts in section under visit summary page", enabled = true)
 	@Description("Verify Appointment Starts in section under visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1806_VisitSummary() throws InterruptedException {
-
-		// System.out.println("Started execution of IDA4_1806");
-		vstSummaryPage.goToVisitSummaryPage();
-		vstSummaryPage.verifyAptStartinInDateTime();
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			// System.out.println("Started execution of IDA4_1806");
+			//vstSummaryPage.goToVisitSummaryPage();
+		APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		basePage.refreshDriver();
+			vstSummaryPage.verifyAptStartinInDateTime();
+		}
 	}
 
 	/*

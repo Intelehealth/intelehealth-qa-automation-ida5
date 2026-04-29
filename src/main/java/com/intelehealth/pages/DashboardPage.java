@@ -374,7 +374,7 @@ public class DashboardPage extends BasePage {
 		elementActions.doClick(icnCalendar);
 		selectDateInFilter("NOV");
 		elementActions.doClick(btnApply);
-		
+
 		return elementActions.doGetText(txtNoVisitFound);
 	}
 
@@ -650,6 +650,7 @@ public class DashboardPage extends BasePage {
 	 */
 	@Step("verify dashboard page Appointments field contents")
 	public void verifyDashboardAppointmentVisitField() {
+
 		elementActions.doIsDisplayed(aptPatientField);
 		extentReport.logToExtentReport("appointment patient field is displayed");
 		elementActions.doIsDisplayed(aptAgeField);
@@ -687,10 +688,11 @@ public class DashboardPage extends BasePage {
 	 * to verify Appointment navigate to Visit summary page
 	 */
 	@Step("verify click on appointments Patient navigate to Visit summary page")
-	public void verifyPatientCountHeader() {
-
-		elementActions.doIsDisplayed(appointmentCountHeader);
-		extentReport.logToExtentReport("Appointment Patient count is displayed in Header");
+	public void verifyPatientCountHeader(boolean appointmentEnabled) {
+		if (appointmentEnabled) {
+			elementActions.doIsDisplayed(appointmentCountHeader);
+			extentReport.logToExtentReport("Appointment Patient count is displayed in Header");
+		}
 		elementActions.doIsDisplayed(priorityCountHeader);
 		extentReport.logToExtentReport("Priority Visit Count is displayed in Header");
 		elementActions.doIsDisplayed(awaitingCountHeader);

@@ -1,21 +1,32 @@
 package com.intelehealth.tests;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.intelehealth.api.APIServices;
+import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
 import com.intelehealth.pages.End2EndPage;
 import com.intelehealth.pages.LoginPage;
 import com.intelehealth.util.Credentials;
 
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import io.restassured.response.Response;
+
+@Epic("Doctor Workflow Management")
+@Feature("End-to-End User Flows")
 
 public class End2EndTest extends BasePage {
 
@@ -26,6 +37,19 @@ public class End2EndTest extends BasePage {
 	End2EndPage end2endPage;
 	Credentials credentials;
 	String testEnum;
+
+	boolean appointmentModuleEnabled = false;
+
+	@BeforeClass
+	public void getAdminData() throws IOException {
+		basePage = new BasePage();
+		Response response = basePage.getAdmitDataAPI();
+
+		appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath().getBoolean("sidebar_menus.appointment");
+		System.out.println("==========================================================================================="
+				+ appointmentModuleEnabled);
+
+	}
 
 	@BeforeMethod
 	public void setUp(Method method) throws Throwable {
@@ -46,7 +70,11 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1668_End2End() throws Throwable {
 
-		end2endPage.LoginRescheduleAppointmentLogout();
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			end2endPage.LoginRescheduleAppointmentLogout();
+		}
 	}
 
 	@Test(priority = 2, description = "IDA4_1669_End2End_Login, Cancel appointment, logout", enabled = true)
@@ -54,8 +82,12 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1669_End2End() throws Throwable {
-
-		end2endPage.LoginCancelAppointmentLogout();
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+			end2endPage.LoginCancelAppointmentLogout();
+		}
 	}
 
 	@Test(priority = 3, description = "IDA4_1670_End2End_Login, appointment, visit summary, view prescription", enabled = true)
@@ -63,8 +95,13 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1670_End2End() throws Throwable {
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
 
-		end2endPage.LoginAppointmentVisitSummaryViewPrescription();
+			end2endPage.LoginAppointmentVisitSummaryViewPrescription();
+		}
 	}
 
 	@Test(priority = 4, description = "IDA4_1671_End2End_Login, priority visit, visit summary, start visit note, share/update/view prescription", enabled = true)
@@ -72,7 +109,8 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1671_End2End() throws Throwable {
-
+		APIServices.createPriorityVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		refreshDriver();
 		end2endPage.LoginPriorityVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
 	}
 
@@ -81,7 +119,8 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1672_End2End() throws Throwable {
-
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		refreshDriver();
 		end2endPage.LoginAwaitingVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
 	}
 
@@ -100,8 +139,11 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1674_End2End() throws Throwable {
-
-		end2endPage.LoginAwaitingAppointmentInProgressPriorityVisitSummaryPastVisitHistoryViewVisitSummary();
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			end2endPage.LoginAwaitingAppointmentInProgressPriorityVisitSummaryPastVisitHistoryViewVisitSummary();
+		}
 	}
 
 	@Test(priority = 8, description = "IDA4_1675_End2End_Login, search patient, view, visit summary, call patient no", enabled = true)
@@ -109,7 +151,8 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1675_End2End() throws Throwable {
-
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		refreshDriver();
 		end2endPage.LoginSearchPatientViewVisitSummaryCallPatientNo();
 	}
 
@@ -118,7 +161,8 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1676_End2End() throws Throwable {
-
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		refreshDriver();
 		end2endPage.LoginSearchPatientViewVisitSummaryWhatsappPatientNo();
 	}
 
@@ -127,7 +171,8 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1677_End2End() throws Throwable {
-
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		refreshDriver();
 		end2endPage.LoginSearchPatientViewVisitSummaryChatWithHealthworker();
 	}
 
@@ -136,7 +181,8 @@ public class End2EndTest extends BasePage {
 	@Severity(SeverityLevel.NORMAL)
 
 	public void IDA4_1678_End2End() throws Throwable {
-
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+		refreshDriver();
 		end2endPage.LoginSearchPatientViewVisitSummaryVideoCallWithHealthworker();
 	}
 
@@ -155,7 +201,7 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1680_End2End() throws Throwable {
 
-		end2endPage.LoginCalendarViewCalendarFollowupMarkAsDayOffHourlyOff();
+		end2endPage.LoginCalendarViewCalendarFollowupMarkAsDayOffHourlyOff(appointmentModuleEnabled);
 	}
 
 	@Test(priority = 14, description = "IDA4_1681_End2End_Login, calendar, view calendar, appointment, mark as hourly off", enabled = true)
@@ -164,7 +210,11 @@ public class End2EndTest extends BasePage {
 
 	public void IDA4_1681_End2End() throws Throwable {
 
-		end2endPage.LoginCalendarViewCalendarAppointmentMarkAsHourlyOff();
+		if (!appointmentModuleEnabled) {
+			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
+		} else {
+			end2endPage.LoginCalendarViewCalendarAppointmentMarkAsHourlyOff();
+		}
 	}
 
 	@Test(priority = 15, description = "IDA4_1682_End2End_Login, calendar, view calendar, followup visit, provide prescription", enabled = true)

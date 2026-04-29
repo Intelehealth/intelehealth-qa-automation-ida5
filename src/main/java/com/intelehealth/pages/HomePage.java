@@ -18,6 +18,8 @@ public class HomePage extends BasePage {
 	ExtentReportListener extentReport = new ExtentReportListener();
 
 	By patientName = By.xpath("//td[@data-test-id='apPatient0']");
+    By awaitingPatient = By.xpath("//div[@data-test-id='td-patient_name-Awaiting-0']");
+
 	By lblpatientName = By.xpath("//h6[@data-test-id='etPatientName']");
 	By lblpatientOpenMRSID = By.xpath("//p[@data-test-id='etPatienOpenMRSId']");
 	By lblDashBoard = By.xpath("//li[@class='breadcrumb-item ng-star-inserted']//a");
@@ -59,7 +61,7 @@ public class HomePage extends BasePage {
 	public String getPatientName() {
 		try {
 //		elementActions.doClick(patientName);
-		return elementActions.doGetText(patientName);
+		return elementActions.doGetText(awaitingPatient);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

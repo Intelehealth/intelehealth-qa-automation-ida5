@@ -64,7 +64,6 @@ public class AppointmentPage extends BasePage {
 	By ReschedulingSuccessfulMessage = By.xpath("//div[text()=' The appointment has been rescheduled successfully! ']");
 	By ReschedulingErrorMessage = By
 			.xpath("//div[@aria-label='Another appointment has already been booked for this time slot.']");
-
 	By vsStartVisitNote = By.xpath("//button[@data-test-id='btnStartVisitNote']");
 	By RescheduleTime = By.xpath("//div[text()=' 7:00 PM ']");
 	By RescheduledTime = By.xpath("//td[contains(@data-test-id,'apStart0')]");
@@ -153,9 +152,7 @@ public class AppointmentPage extends BasePage {
 			elementActions.doIsDisplayed2(NoPatientsInAppointments);
 			// System.out.println("No any appointments scheduled");
 			extentReport.logToExtentReport("No appointments are scheduled");
-
 		}
-
 	}
 
 	/*

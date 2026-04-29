@@ -611,9 +611,9 @@ public class End2EndPage extends BasePage {
 	 * scheduled
 	 */
 	@Step("Login, calendar, view calendar, followup, mark as day off/hourly off")
-	public void LoginCalendarViewCalendarFollowupMarkAsDayOffHourlyOff() throws Throwable {
+	public void LoginCalendarViewCalendarFollowupMarkAsDayOffHourlyOff(boolean isEnabledAppointment) throws Throwable {
 		calendarPage.OpenCalendar();
-		//calendarPage.VerifyUserIsAbleToMarkAsDayOffInMonthlyCalendar();
+		calendarPage.VerifyUserIsAbleToMarkAsDayOffInMonthlyCalendar(isEnabledAppointment);
 	}
 
 	/*
@@ -625,7 +625,7 @@ public class End2EndPage extends BasePage {
 	@Step("Login, calendar, view calendar, appointment, mark as hourly off")
 	public void LoginCalendarViewCalendarAppointmentMarkAsHourlyOff() throws Throwable {
 		calendarPage.OpenCalendar();
-		//calendarPage.VerifyUserCanAbleToSetTheOffHours();
+		calendarPage.VerifyUserCanAbleToSetTheOffHours();
 	}
 
 	/*

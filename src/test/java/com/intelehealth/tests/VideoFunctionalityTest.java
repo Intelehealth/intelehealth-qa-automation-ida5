@@ -1,10 +1,14 @@
 package com.intelehealth.tests;
 
 import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import com.intelehealth.api.APIServices;
+import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
 import com.intelehealth.listeners.ExtentReportListener;
 import com.intelehealth.listeners.ScreenshotListener;
@@ -12,9 +16,15 @@ import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
 import com.intelehealth.pages.VideoFunctionalityPage;
 import com.intelehealth.util.Credentials;
+
 import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+
+@Epic("Doctor-Patient Interaction")
+@Feature("Video Call Functionality")
 
 public class VideoFunctionalityTest {
 
@@ -37,6 +47,8 @@ public class VideoFunctionalityTest {
 		dashboardPage = loginPage.doLogin(credentials);
 		videoFunctionalityPage = new VideoFunctionalityPage(driver);
 		ScreenshotListener.setDriver(driver);
+		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+	//	APIServices.startVisitUsingRestAssured(Auth.buildRequestWithDoctorAuthorization());
 	}
 
 	@Test(priority = 1, description = "IDA4_1843_Verify that user can make the video call", enabled = true)
