@@ -55,7 +55,7 @@ public class VisitSummaryPageTest {
 		String responseBody = response.getBody().asPrettyString();
 
 		appointmentModuleEnabled = basePage.getAdmitDataAPI().jsonPath().getBoolean("sidebar_menus.appointment");
-		
+
 	}
 
 	@BeforeMethod
@@ -95,9 +95,16 @@ public class VisitSummaryPageTest {
 			throw new SkipException("Skipping tests: Appointment module not enabled for this project");
 		} else {
 			// System.out.println("Started execution of IDA4_1806");
-			//vstSummaryPage.goToVisitSummaryPage();
-		APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
-		basePage.refreshDriver();
+			// vstSummaryPage.goToVisitSummaryPage();
+			boolean appointmentCreated = APIServices
+					.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+
+			if (!appointmentCreated) {
+				throw new SkipException("⚠️ Skipping AppointmentPageTest — no slots available. "
+						+ "Tests will resume when slots are available.");
+			}
+		//	APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
+			basePage.refreshDriver();
 			vstSummaryPage.verifyAptStartinInDateTime();
 		}
 	}

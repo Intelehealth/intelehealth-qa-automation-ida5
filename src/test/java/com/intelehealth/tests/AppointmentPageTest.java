@@ -1,7 +1,5 @@
 package com.intelehealth.tests;
 
-import static org.testng.Assert.fail;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -84,8 +82,15 @@ public class AppointmentPageTest {
 		appointmentPage = new AppointmentPage(driver);
 		calendarPage = new CalendarPage(driver);
 		ScreenshotListener.setDriver(driver);
-		//APIServices.createAppointmentUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
-	}
+		boolean appointmentCreated = APIServices
+	            .createAppointmentUsingRestAssured(
+	                    Auth.buildRequestWithNurseAuthorization());
+
+	    if (!appointmentCreated) {
+	        throw new SkipException(
+	            "⚠️ Skipping AppointmentPageTest — no slots available. "
+	            + "Tests will resume when slots are available.");
+	    }	}
 
 	@Test(priority = 1, description = "IDA4_1784_Appointments_Verify the UI elements of Appointment page", enabled = APPOINTMENT_MODULE_ENABLED_KEY)
 	@Description("Verify the UI elements of Appointment page")
