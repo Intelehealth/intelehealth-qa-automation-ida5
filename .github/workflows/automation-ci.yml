@@ -8,7 +8,7 @@ on:
       project:
         description: 'Project to test'
         required: true
-        default: 'nas'
+        default: 'ida'
         type: choice
         options:
           - ida
@@ -16,7 +16,7 @@ on:
       environment:
         description: 'Environment to test against'
         required: true
-        default: 'staging'
+        default: 'pathqa'
         type: choice
         options:
           - dev
@@ -48,8 +48,8 @@ jobs:
     # workflow_dispatch inputs are empty on push triggers, so we fall back
     # to safe defaults so the push-triggered run still works.
     env:
-      PROJECT:  ${{ github.event.inputs.project     || 'ida' }}
-      ENV_NAME: ${{ github.event.inputs.environment || 'pathqa' }}
+      PROJECT:  ${{ github.event.inputs.project     || 'nas' }}
+      ENV_NAME: ${{ github.event.inputs.environment || 'staging' }}
       BROWSER:  ${{ github.event.inputs.browser     || 'chrome' }}
 
     steps:
