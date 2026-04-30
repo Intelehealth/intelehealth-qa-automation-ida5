@@ -48,7 +48,7 @@ public class APIServices {
 	}
 
 	public static String createVisitUsingRestAssured(RequestSpecification request) {
-		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured()).post(VISIT_PUSH_ENDPOINT);
+		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured_NewPayload()).post(VISIT_PUSH_ENDPOINT);
 		System.out.println(response.asPrettyString());
 		System.out.println(
 				"======================================================================================================"
@@ -118,7 +118,15 @@ public class APIServices {
 		response.then().statusCode(200);
 		return true;
 	}
+	public static String createVisitUsingRestAssured_NewPayload(RequestSpecification request) {
+		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured_NewPayload()).post(VISIT_PUSH_ENDPOINT);
+		System.out.println(response.asPrettyString());
+		System.out.println(
+				"======================================================================================================"
+						+ response.jsonPath().getString("data.patientlist[0].openmrs_id"));
+		return response.jsonPath().getString("data.patientlist[0].openmrs_id");
 
+	}
 	public static void startVisitUsingRestAssured(RequestSpecification request) {
 		request.body(PayloadGenerator.startVisitNote()).post(START_VISIT_ENDPOINT);
 	}
