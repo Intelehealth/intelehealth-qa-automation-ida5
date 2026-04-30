@@ -16,7 +16,8 @@ public class Auth {
 	 */
 
 	public static RequestSpecification buildRequestWithNurseAuthorization(/* Map<String, Object> body */) {
-		return RestAssured.given().header("authorization", "Basic c3Jpbml2YXNkOkRvY3RvciMxMjM=").
+		return RestAssured.given().header("authorization", "Basic c3Jpbml2YXNuOk51cnNlQDEyMw==").
+			//	header("authorization", "Basic c3Jpbml2YXNkOkRvY3RvciMxMjM=").
 		// basic("nurse1", "Nurse@123")
 				contentType(ContentType.JSON);
 		// .body(body); // Set content type to JSON
@@ -24,7 +25,7 @@ public class Auth {
 	}
 
 	public static RequestSpecification buildRequestWithDoctorAuthorization(/* Map<String, Object> body */) {
-		return RestAssured.given().header("authorization", "Basic ZG9jdG9yMTpEb2N0b3JAMTIz").
+		return RestAssured.given().header("authorization", "Basic c3Jpbml2YXNkOkRvY3RvckAxMjM=").
 		// basic("nurse1", "Nurse@123")
 				contentType(ContentType.JSON);
 		// .body(body); // Set content type to JSON

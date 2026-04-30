@@ -8,7 +8,7 @@ on:
       project:
         description: 'Project to test'
         required: true
-        default: 'ida'
+        default: 'nas'
         type: choice
         options:
           - ida
@@ -16,7 +16,7 @@ on:
       environment:
         description: 'Environment to test against'
         required: true
-        default: 'pathqa'
+        default: 'staging'
         type: choice
         options:
           - dev
