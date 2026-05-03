@@ -48,7 +48,7 @@ public class APIServices {
 	}
 
 	public static String createVisitUsingRestAssured(RequestSpecification request) {
-		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured_NewPayload()).post(VISIT_PUSH_ENDPOINT);
+		Response response = request.body(resolveVisitPayload()).post(VISIT_PUSH_ENDPOINT);
 		System.out.println(response.asPrettyString());
 		System.out.println(
 				"======================================================================================================"
@@ -118,8 +118,20 @@ public class APIServices {
 		response.then().statusCode(200);
 		return true;
 	}
+	// ── Single routing method — picks payload based on project ────────────────
+	private static Map<String, Object> resolveVisitPayload() {
+	    String project = ConfigManager.getInstance().getProject();
+	    
+	    if ("nas".equalsIgnoreCase(project)) {
+	        System.out.println("[APIServices] Using NAS visit payload");
+	        return PayloadGenerator.createVisitUsingRestAssured_NAS_Payload(); 
+	    }
+	    
+	    System.out.println("[APIServices] Using IDA visit payload");
+	    return PayloadGenerator.createVisitUsingRestAssured(); // ← your IDA method
+	}
 	public static String createVisitUsingRestAssured_NewPayload(RequestSpecification request) {
-		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured_NewPayload()).post(VISIT_PUSH_ENDPOINT);
+		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured_NAS_Payload()).post(VISIT_PUSH_ENDPOINT);
 		System.out.println(response.asPrettyString());
 		System.out.println(
 				"======================================================================================================"

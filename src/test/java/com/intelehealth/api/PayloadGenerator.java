@@ -623,7 +623,7 @@ public class PayloadGenerator {
 		return requestBody;
 	}
 
-	public static Map<String, Object> createVisitUsingRestAssured_NewPayload() {
+	public static Map<String, Object> createVisitUsingRestAssured_NAS_Payload() {
 		final String PERSON_UUID = generateUUID();
 		final String ENCOUNTER_ONE_UUID = generateUUID();
 		final String ENCOUNTER_TWO_UUID = generateUUID();
