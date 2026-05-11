@@ -132,4 +132,12 @@ public class ConfigManager {
 	public String getAppointmentUrl() {
 	    return prop.getProperty(project + "." + env + ".appointment.url");
 	}
+	
+	public String getChwCredentialsBase64() {
+	    return prop.getProperty(project + "." + env + ".chw.credentials.base64");
+	}
+
+	public String getDoctorCredentialsBase64() {
+	    return prop.getProperty(project + "." + env + ".doctor.credentials.base64");
+	}
 }

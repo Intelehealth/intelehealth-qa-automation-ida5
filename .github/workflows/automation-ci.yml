@@ -13,6 +13,7 @@ on:
         options:
           - ida
           - nas
+		  - abdm
       environment:
         description: 'Environment to test against'
         required: true
@@ -23,6 +24,7 @@ on:
           - pathqa
           - staging
           - demo
+		  - testing
       browser:
         description: 'Browser'
         required: false
@@ -48,8 +50,8 @@ jobs:
     # workflow_dispatch inputs are empty on push triggers, so we fall back
     # to safe defaults so the push-triggered run still works.
     env:
-      PROJECT:  ${{ github.event.inputs.project     || 'ida' }}
-      ENV_NAME: ${{ github.event.inputs.environment || 'pathqa' }}
+      PROJECT:  ${{ github.event.inputs.project     || 'abdm' }}
+      ENV_NAME: ${{ github.event.inputs.environment || 'testing' }}
       BROWSER:  ${{ github.event.inputs.browser     || 'chrome' }}
 
     steps:

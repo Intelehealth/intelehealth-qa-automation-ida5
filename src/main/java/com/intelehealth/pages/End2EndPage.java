@@ -17,6 +17,7 @@ public class End2EndPage extends BasePage {
 	AppointmentPage appointmentPage;
 	EndToEndMethods endToEndMethods;
 	CalendarPage calendarPage;
+	VisitSummaryPage visitSummaryPage;
 	WebDriver driver;
 	ElementActions elementActions;
 	ExtentReportListener extentReport = new ExtentReportListener();
@@ -167,6 +168,7 @@ public class End2EndPage extends BasePage {
 		appointmentPage = new AppointmentPage(driver);
 		endToEndMethods = new EndToEndMethods(driver);
 		calendarPage = new CalendarPage(driver);
+		visitSummaryPage = new VisitSummaryPage(driver);
 	}
 
 	/*
@@ -290,7 +292,8 @@ public class End2EndPage extends BasePage {
 		elementActions.doSelect(FollowUpNoRadioButton);
 		Thread.sleep(2000);
 		extentReport.logToExtentReport("Clicking on 'Share Prescription' button");
-		elementActions.doClick(SharePrescriptionButton);
+		//elementActions.doClick(SharePrescriptionButton);
+		visitSummaryPage.sharePrescription();
 		Thread.sleep(2000);
 		extentReport.logToExtentReport("Clicking on 'Confirm' button");
 		elementActions.doClick(ConfirmButton);
@@ -784,7 +787,8 @@ public class End2EndPage extends BasePage {
 				elementActions.doSelect(FollowUpNoRadioButton);
 				Thread.sleep(2000);
 				extentReport.logToExtentReport("Clicking on 'Share Prescription' button");
-				elementActions.doClick(SharePrescriptionButton);
+			//	elementActions.doClick(SharePrescriptionButton);
+				visitSummaryPage.sharePrescription();
 				Thread.sleep(2000);
 				extentReport.logToExtentReport("Clicking on 'Confirm' button");
 				elementActions.doClick(ConfirmButton);

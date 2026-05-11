@@ -1,5 +1,7 @@
 package com.intelehealth.api;
 
+import com.intelehealth.config.ConfigManager;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -15,20 +17,16 @@ public class Auth {
 	 * 
 	 */
 
-	public static RequestSpecification buildRequestWithNurseAuthorization(/* Map<String, Object> body */) {
-		return RestAssured.given().header("authorization", "Basic c3Jpbml2YXNuOk51cnNlQDEyMw==").
-			//	header("authorization", "Basic c3Jpbml2YXNkOkRvY3RvciMxMjM=").
-		// basic("nurse1", "Nurse@123")
-				contentType(ContentType.JSON);
-		// .body(body); // Set content type to JSON
-
+	public static RequestSpecification buildRequestWithNurseAuthorization() {
+		String credentials = ConfigManager.getInstance().getChwCredentialsBase64();
+		return RestAssured.given().header("Authorization", "Basic " + credentials).contentType(ContentType.JSON);
 	}
 
-	public static RequestSpecification buildRequestWithDoctorAuthorization(/* Map<String, Object> body */) {
-		return RestAssured.given().header("authorization", "Basic c3Jpbml2YXNkOkRvY3RvckAxMjM=").
-		// basic("nurse1", "Nurse@123")
-				contentType(ContentType.JSON);
-		// .body(body); // Set content type to JSON
-
+	/**
+	 * Doctor authorization — resolves credentials based on project + env
+	 */
+	public static RequestSpecification buildRequestWithDoctorAuthorization() {
+		String credentials = ConfigManager.getInstance().getDoctorCredentialsBase64();
+		return RestAssured.given().header("Authorization", "Basic " + credentials).contentType(ContentType.JSON);
 	}
 }

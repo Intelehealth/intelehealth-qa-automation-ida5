@@ -14,8 +14,8 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<suiteXmlFile>testng_sanity</suiteXmlFile>
-		<project>nas</project>
-		<env>staging</env>
+		<project>abdm</project>
+		<env>testing</env>
 		<browser>chrome</browser>
 	</properties>
 

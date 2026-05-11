@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ExtentReportListener;
 import com.intelehealth.util.ElementActions;
 
@@ -31,7 +32,10 @@ public class VisitSummaryPage extends BasePage {
 	By apPatient5Name = By.xpath("//td[@data-test-id='apPatient4']");
 	By apPatientNames = By.xpath("//h6[@data-test-id='etPatientName']");
 	By vstSummaryAptStartBanner = By.xpath("//div[@class='appointment-banner']");
-	By awtvstPatient1Name = By.xpath("//td[@data-test-id='td-patient_id-Awaiting-0']");
+//	By awtvstPatient1Name = By.xpath("//td[@data-test-id='td-patient_id-Awaiting-0']");
+
+	By awtvstPatient1Name = By.xpath("//td[@data-test-id='awPatient0']");
+
 	By dashboardLink = By.xpath("//a[@data-test-id='linkDashboard']");
 	By NextPage = By.xpath("//button[@aria-label='Next page']");
 	By vstsumpatientAptStartsField = By.xpath("//td[@data-test-id='td-starts_in-0']");
@@ -139,6 +143,13 @@ public class VisitSummaryPage extends BasePage {
 	By drpDrugList = By
 			.xpath("//input[@data-test-id='etDrugStrength']/following-sibling::ngb-typeahead-window//button");
 	By drpDaysList = By.xpath("//input[@data-test-id='etDays']/following-sibling::ngb-typeahead-window//button");
+
+	// ── ABDM related locators────────────────────────────
+	By uploadAdditionalDocumentButton = By.xpath("//input[@type='file']");
+	By popUpVisitCareContext = By.xpath("//div[contains(@id,'mat-dialog-title')]");
+
+	By lstHITypeCheckbox = By.xpath("//input[@type='checkbox']/../..");
+	By btnSendData = By.xpath("//button[@class='blue-btn']");
 	public static String lblDrugNames = "//input[@data-test-id='${lblDrugNames}']";
 	public static String lblNames = "//h6[@data-test-id='${lblSections}']";
 
@@ -368,9 +379,13 @@ public class VisitSummaryPage extends BasePage {
 		extentReport.logToExtentReport("Clicked on Follow up time pick");
 		elementActions.doClick(FollowupSaveButton);
 		extentReport.logToExtentReport("Clicked on Save button");
-		elementActions.doClick(vsSharePrescription);
-		extentReport.logToExtentReport("Clicked on Share Prescription button");
-		elementActions.doIsDisplayed(vsSharePrescriptionSubmitButton);
+		/*
+		 * elementActions.doClick(vsSharePrescription);
+		 * extentReport.logToExtentReport("Clicked on Share Prescription button");
+		 * elementActions.doIsDisplayed(vsSharePrescriptionSubmitButton);
+		 */
+		sharePrescription();
+
 		extentReport.logToExtentReport("Submit button is displayed from Share Prescription popup");
 		elementActions.doClick(vsSharePrescriptionSubmitButton);
 		extentReport.logToExtentReport("Clicked on Submit button from Share Prescription popup");
@@ -391,18 +406,22 @@ public class VisitSummaryPage extends BasePage {
 	 */
 	@Step("Verify doing any changes in any of the section in visit summary page")
 	public void verifyvsprescrptionChanges() throws Throwable {
-		elementActions.doClick(awtvstPatient1Name);
+		// elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Appointment Patient");
 		Thread.sleep(3000);
 		elementActions.doClick(vsStartVisitNote);
 		Thread.sleep(5000);
 		awaitPriortyInProgress.VerifyAddDiagnosisAndFollowupFunctionality("");
-		//awaitPriortyInProgress.addMultipleMedications(medication);
-		elementActions.doClick(vsSharePrescription);
-		extentReport.logToExtentReport("Clicked on Share Prescription button");
-		elementActions.doIsDisplayed(vsSharePrescriptionSubmitButton);
+		// awaitPriortyInProgress.addMultipleMedications(medication);
+		/*
+		 * elementActions.doClick(vsSharePrescription);
+		 * extentReport.logToExtentReport("Clicked on Share Prescription button");
+		 * elementActions.doIsDisplayed(vsSharePrescriptionSubmitButton);
+		 */
+		sharePrescription();
+
 		extentReport.logToExtentReport("Share prescription is displayed");
-		
+
 		/*
 		 * 
 		 * extentReport.logToExtentReport("Clicked on Start Visit Note");
@@ -473,9 +492,10 @@ public class VisitSummaryPage extends BasePage {
 		extentReport.logToExtentReport("Clicked on Follow up time pick");
 		elementActions.doClick(FollowupSaveButton);
 		extentReport.logToExtentReport("Clicked on Save button");
-		elementActions.doClick(vsSharePrescription);
-		extentReport.logToExtentReport("Clicked on Share Prescription button");
-		elementActions.doIsDisplayed(vsSharePrescPopupConfText);
+		// elementActions.doClick(vsSharePrescription);
+		// elementActions.doIsDisplayed(vsSharePrescPopupConfText);
+		sharePrescription();
+
 		extentReport.logToExtentReport("Share prescription Confirmation text is displayed");
 		elementActions.doClick(vsSharePrescriptionSubmitButton);
 		extentReport.logToExtentReport("Clicked on Share prescription Submit button");
@@ -536,7 +556,9 @@ public class VisitSummaryPage extends BasePage {
 		extentReport.logToExtentReport("Clicked on Follow up time pick");
 		elementActions.doClick(FollowupSaveButton);
 		extentReport.logToExtentReport("Clicked on Save button");
-		elementActions.doClick(vsSharePrescription);
+		// elementActions.doClick(vsSharePrescription);
+		sharePrescription();
+
 		extentReport.logToExtentReport("Clicked on Share Prescription button");
 		elementActions.doClick(vsSharePrescriptionSubmitButton);
 		extentReport.logToExtentReport("Clicked on Share prescription Submit button");
@@ -597,8 +619,10 @@ public class VisitSummaryPage extends BasePage {
 		extentReport.logToExtentReport("Clicked on Follow up time pick");
 		elementActions.doClick(FollowupSaveButton);
 		extentReport.logToExtentReport("Clicked on Save button");
-		elementActions.doClick(vsSharePrescription);
-		extentReport.logToExtentReport("Clicked on Share Prescription button");
+		// elementActions.doClick(vsSharePrescription);
+		// extentReport.logToExtentReport("Clicked on Share Prescription button");
+		sharePrescription();
+
 		elementActions.doClick(vsSharePrescriptionSubmitButton);
 		extentReport.logToExtentReport("Clicked on Share prescription Submit button");
 		Thread.sleep(3000);
@@ -624,7 +648,9 @@ public class VisitSummaryPage extends BasePage {
 		Thread.sleep(4000);
 		elementActions.doClick(btnStartVisitNote);
 		Thread.sleep(3000);
-		elementActions.doClick(vsSharePrescription);
+		// elementActions.doClick(vsSharePrescription);
+		sharePrescription();
+
 		elementActions.doIsDisplayed(vsGoToDashboardBtn);
 		extentReport.logToExtentReport("Confirm button is displayed");
 	}
@@ -882,4 +908,45 @@ public class VisitSummaryPage extends BasePage {
 
 	}
 
+	/**
+	 * Handles share prescription flow for all projects. ABDM → extra HI type
+	 * selection popup before confirmation All others → direct confirmation popup
+	 */
+	@Step("Share prescription based on project")
+	public void sharePrescription() throws InterruptedException {
+		String project = ConfigManager.getInstance().getProject();
+
+		extentReport.logToExtentReport("Clicked on Share Prescription button");
+		Thread.sleep(2000);
+
+		// ── Step 2: ABDM only — handle extra HI type popup ────────────────────
+		if ("abdm".equalsIgnoreCase(project)) {
+			elementActions.doClick(vsSharePrescription);
+			handleAbdmHiTypeSelection();
+		} else {
+			elementActions.doClick(vsSharePrescription);
+			// ── Step 3: Common confirmation popup for all projects ─────────────────
+			elementActions.doIsDisplayed(vsSharePrescriptionSubmitButton);
+			extentReport.logToExtentReport("Share prescription confirmation popup displayed");
+		}
+	}
+
+	/**
+	 * ABDM specific — select HI type and click send data button
+	 */
+	private void handleAbdmHiTypeSelection() throws InterruptedException {
+		elementActions.doIsDisplayed(popUpVisitCareContext);
+		extentReport.logToExtentReport("ABDM: HI Type popup displayed");
+		List<WebElement> hiTypeOptions = elementActions.getElements(lstHITypeCheckbox);
+
+		for (WebElement option : hiTypeOptions) {
+			if (option.isDisplayed() && option.isEnabled() && !option.isSelected()) {
+				option.click();
+				extentReport.logToExtentReport("ABDM: Selected HI Type - " + option.getText());
+			}
+		}
+		elementActions.doActionsClick(btnSendData);
+
+		Thread.sleep(2000);
+	}
 }
