@@ -8,23 +8,23 @@ on:
       project:
         description: 'Project to test'
         required: true
-        default: 'ida'
+        default: 'abdm'
         type: choice
         options:
           - ida
           - nas
-		  - abdm
+          - abdm
       environment:
         description: 'Environment to test against'
         required: true
-        default: 'pathqa'
+        default: 'testing'
         type: choice
         options:
           - dev
           - pathqa
           - staging
           - demo
-		  - testing
+          - testing
       browser:
         description: 'Browser'
         required: false
@@ -46,14 +46,10 @@ jobs:
     environment:
       name: github-pages
 
-    # ── Resolve inputs ────────────────────────────────────────────────────────
-    # workflow_dispatch inputs are empty on push triggers, so we fall back
-    # to safe defaults so the push-triggered run still works.
     env:
       PROJECT:  ${{ github.event.inputs.project     || 'abdm' }}
       ENV_NAME: ${{ github.event.inputs.environment || 'testing' }}
       BROWSER:  ${{ github.event.inputs.browser     || 'chrome' }}
-
     steps:
 
       # STEP 1: Checkout source
