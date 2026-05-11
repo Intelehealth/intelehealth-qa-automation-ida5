@@ -946,6 +946,7 @@ public class VisitSummaryPage extends BasePage {
 				extentReport.logToExtentReport("ABDM: Selected HI Type - " + option.getText());
 			}
 		}
+		
 		elementActions.doActionsClick(btnSendData);
 
 		Thread.sleep(2000);
