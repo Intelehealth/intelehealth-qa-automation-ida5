@@ -409,6 +409,7 @@ public class VisitSummaryPage extends BasePage {
 		// elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Appointment Patient");
 		Thread.sleep(3000);
+		elementActions.doClick(awtvstPatient1Name);
 		elementActions.doClick(vsStartVisitNote);
 		Thread.sleep(5000);
 		awaitPriortyInProgress.VerifyAddDiagnosisAndFollowupFunctionality("");
