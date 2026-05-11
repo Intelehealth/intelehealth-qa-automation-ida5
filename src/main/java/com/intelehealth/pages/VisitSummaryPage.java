@@ -406,10 +406,9 @@ public class VisitSummaryPage extends BasePage {
 	 */
 	@Step("Verify doing any changes in any of the section in visit summary page")
 	public void verifyvsprescrptionChanges() throws Throwable {
-		// elementActions.doClick(awtvstPatient1Name);
+		 elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Appointment Patient");
 		Thread.sleep(3000);
-		elementActions.doClick(awtvstPatient1Name);
 		elementActions.doClick(vsStartVisitNote);
 		Thread.sleep(5000);
 		awaitPriortyInProgress.VerifyAddDiagnosisAndFollowupFunctionality("");

@@ -187,8 +187,8 @@ public class VisitSummaryPageTest {
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1815_VisitSummary() throws Throwable {
 
-		// System.out.println("Started execution of IDA4_1815");
-//		vstSummaryPage.goToVisitSummaryPage();
+		//System.out.println("Started execution of IDA4_1815");
+//			vstSummaryPage.goToVisitSummaryPage();
 		vstSummaryPage.verifyvsprescrptionChanges();
 	}
 
