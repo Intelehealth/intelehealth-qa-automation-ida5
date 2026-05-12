@@ -52,12 +52,13 @@ public class AwaitPriortyInProgressTest {
 		/*
 		 * response.jsonPath().getBoolean( "patient_visit_summary.standard_medication")
 		 */;
-		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + medication);
-		String responseBody = response.getBody().asPrettyString();
+	//	System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + medication);
+	//	String responseBody = response.getBody().asPrettyString();
 
-		try (FileWriter file = new FileWriter("target/api-response.json")) {
-			file.write(responseBody);
-		}
+	/*
+	 * try (FileWriter file = new FileWriter("target/api-response.json")) {
+	 * file.write(responseBody); }
+	 */
 	}
 
 	@BeforeMethod

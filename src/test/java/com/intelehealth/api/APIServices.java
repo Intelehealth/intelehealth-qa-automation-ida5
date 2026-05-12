@@ -40,16 +40,15 @@ public class APIServices {
 		SIGN_AND_SUBMIT_ENDPOINT = openmrsBase + "/encounter";
 		SEARCH_PATIENT_ENDPOINT = openmrsBase
 				+ "/patient?q=%s&v=custom:(uuid,identifiers:(identifierType:(name),identifier),person)";
-		System.out.println("Resolved API Endpoints:");
-		System.out.println("VISIT_PUSH_ENDPOINT: " + VISIT_PUSH_ENDPOINT);
-		System.out.println("START_VISIT_ENDPOINT: " + START_VISIT_ENDPOINT);
-		System.out.println("SIGN_AND_SUBMIT_ENDPOINT: " + SIGN_AND_SUBMIT_ENDPOINT);
-		System.out.println("SEARCH_PATIENT_ENDPOINT: " + SEARCH_PATIENT_ENDPOINT);
+//		System.out.println("Resolved API Endpoints:");
+//		System.out.println("VISIT_PUSH_ENDPOINT: " + VISIT_PUSH_ENDPOINT);
+//		System.out.println("START_VISIT_ENDPOINT: " + START_VISIT_ENDPOINT);
+//		System.out.println("SIGN_AND_SUBMIT_ENDPOINT: " + SIGN_AND_SUBMIT_ENDPOINT);
+//		System.out.println("SEARCH_PATIENT_ENDPOINT: " + SEARCH_PATIENT_ENDPOINT);
 	}
 
 	public static String createVisitUsingRestAssured(RequestSpecification request) {
 		Response response = request.body(resolveVisitPayload()).post(VISIT_PUSH_ENDPOINT);
-		System.out.println(response.asPrettyString());
 		System.out.println(
 				"======================================================================================================"
 						+ response.jsonPath().getString("data.patientlist[0].openmrs_id"));
@@ -60,10 +59,10 @@ public class APIServices {
 	public static String createPriorityVisitUsingRestAssured(RequestSpecification request) {
 		Response response = request.body(PayloadGenerator.createPriorityVisitUsingRestAssured())
 				.post(VISIT_PUSH_ENDPOINT);
-		System.out.println(response.asPrettyString());
-		System.out.println(
-				"======================================================================================================"
-						+ response.jsonPath().getString("data.patientlist[0].openmrs_id"));
+//		System.out.println(response.asPrettyString());
+//		System.out.println(
+//				"======================================================================================================"
+//						+ response.jsonPath().getString("data.patientlist[0].openmrs_id"));
 		return response.jsonPath().getString("data.patientlist[0].openmrs_id");
 
 	}
@@ -113,7 +112,7 @@ public class APIServices {
 		// Step 3: Push appointment
 		Response response = request.body(payload).post(VISIT_PUSH_ENDPOINT);
 
-		System.out.println("[APIServices] Appointment response → " + response.asPrettyString());
+		//System.out.println("[APIServices] Appointment response → " + response.asPrettyString());
 
 		response.then().statusCode(200);
 		return true;
@@ -132,10 +131,10 @@ public class APIServices {
 	}
 	public static String createVisitUsingRestAssured_NewPayload(RequestSpecification request) {
 		Response response = request.body(PayloadGenerator.createVisitUsingRestAssured_NAS_Payload()).post(VISIT_PUSH_ENDPOINT);
-		System.out.println(response.asPrettyString());
-		System.out.println(
-				"======================================================================================================"
-						+ response.jsonPath().getString("data.patientlist[0].openmrs_id"));
+		//System.out.println(response.asPrettyString());
+		//System.out.println(
+		///		"======================================================================================================"
+		//				+ response.jsonPath().getString("data.patientlist[0].openmrs_id"));
 		return response.jsonPath().getString("data.patientlist[0].openmrs_id");
 
 	}

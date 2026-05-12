@@ -38,7 +38,7 @@ public class AppointmentPageTest {
 	CalendarPage calendarPage;
 	Credentials credentials;
 	String testEnum;
-	public static final boolean APPOINTMENT_MODULE_ENABLED_KEY = false;
+//	public static final boolean APPOINTMENT_MODULE_ENABLED_KEY = false;
 
 	@BeforeClass
 	public void getAdminData() throws IOException {
@@ -91,7 +91,7 @@ public class AppointmentPageTest {
 		ScreenshotListener.setDriver(driver);
 	}
 
-	@Test(priority = 1, description = "IDA4_1784_Appointments_Verify the UI elements of Appointment page", enabled = APPOINTMENT_MODULE_ENABLED_KEY)
+	@Test(priority = 1, description = "IDA4_1784_Appointments_Verify the UI elements of Appointment page", enabled = true)
 	@Description("Verify the UI elements of Appointment page")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1784_Appointments() throws InterruptedException {

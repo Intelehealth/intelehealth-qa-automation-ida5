@@ -373,7 +373,7 @@ public class BasePage {
 
 	public Response getAdmitDataAPI() {
 		RequestSpecification req;
-		System.out.println(ConfigManager.getInstance().getApiURL());
+	//	System.out.println(ConfigManager.getInstance().getApiURL());
 		req = RestAssured.given().contentType("application/json");
 		Response response = req.get(ConfigManager.getInstance().getApiURL());
 		return response;
