@@ -1,0 +1,1 @@
+verifyPopupClosesAfterApply failed and screenshot taken!
