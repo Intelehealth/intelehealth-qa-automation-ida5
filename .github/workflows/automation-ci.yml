@@ -1,21 +1,24 @@
-name: Automation CI Pipeline 
+name: Automation CI Pipeline
 
 on:
   push:
-    branches: [ feature/unified-framework-multi-env-support ]
+    branches:
+      - feature/unified-framework-multi-env-support
+
   workflow_dispatch:
     inputs:
       project:
         description: 'Project to test'
         required: true
-        default: 'abdm'
+        default: 'ida'
         type: choice
         options:
           - ida
           - nas
           - abdm
+
       environment:
-        description: 'Environment to test against'
+        description: 'Environment'
         required: true
         default: 'testing'
         type: choice
@@ -25,9 +28,10 @@ on:
           - staging
           - demo
           - testing
+
       browser:
         description: 'Browser'
-        required: false
+        required: true
         default: 'chrome'
         type: choice
         options:
@@ -35,207 +39,383 @@ on:
           - firefox
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 jobs:
-  test-and-publish:
-    runs-on: ubuntu-latest
+  automation-execution:
 
-    environment:
-      name: github-pages
+    runs-on: ubuntu-latest
 
     env:
       PROJECT:  ${{ github.event.inputs.project     || 'ida' }}
       ENV_NAME: ${{ github.event.inputs.environment || 'pathqa' }}
       BROWSER:  ${{ github.event.inputs.browser     || 'chrome' }}
+
     steps:
 
-      # STEP 1: Checkout source
-      - name: Checkout repository
+################################################################################
+# Checkout Repository
+################################################################################
+
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # STEP 2: Setup Java
-      - name: Set up JDK 17
+################################################################################
+# Setup Java
+################################################################################
+
+      - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: zulu
           java-version: '17'
 
-      # STEP 3: Cache Maven
-      - name: Cache Maven dependencies
+################################################################################
+# Cache Maven Dependencies
+################################################################################
+
+      - name: Cache Maven
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-          restore-keys: maven-${{ runner.os }}
-   
+          restore-keys: |
+            maven-${{ runner.os }}
+
 ################################################################################
-# Selenium Automation Execution
+# Run Automation Tests
 ################################################################################
 
-      # STEP 4: Run Maven tests
-      # -Dproject / -Denv / -Dbrowser are picked up by ConfigManager
-      # -Dheadless=true is always forced on CI 
-      - name: Run Maven tests
+      - name: Run Automation Tests
         run: |
-          echo "Running suite → project: $PROJECT | env: $ENV_NAME | browser: $BROWSER"
+          echo "Project     : $PROJECT"
+          echo "Environment : $ENV_NAME"
+          echo "Browser     : $BROWSER"
+
           mvn clean test \
             -Dproject=$PROJECT \
             -Denv=$ENV_NAME \
             -Dbrowser=$BROWSER \
             -Dheadless=true
+
         continue-on-error: true
 
 ################################################################################
-# Allure Report Generation
+# Verify Allure Results
 ################################################################################
 
-      # STEP 5: Verify results folder
-      - name: Check allure results
+      - name: Verify Allure Results
         run: |
-          if [ -d allure-results ]; then
-            echo "Allure results found"
-            ls -la allure-results
-          else
-            echo "Creating empty allure-results"
+          if [ ! -d allure-results ]; then
             mkdir -p allure-results
           fi
 
-      # STEP 6: Install Allure CLI
+################################################################################
+# Install Allure CLI
+################################################################################
+
       - name: Install Allure CLI
         run: |
-          curl -Ls -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.24.1/allure-2.24.1.tgz
+          curl -Ls -o allure.tgz \
+          https://github.com/allure-framework/allure2/releases/download/2.24.1/allure-2.24.1.tgz
+
           sudo tar -zxvf allure.tgz -C /opt/
           sudo ln -sf /opt/allure-2.24.1/bin/allure /usr/bin/allure
           allure --version
 
-      # STEP 7: Generate Allure report
-      # Report title includes project + env so you know which run you're looking at
-      - name: Generate Allure report
+################################################################################
+# Generate Timestamp
+################################################################################
+
+      - name: Generate Timestamp
+        run: |
+          echo "TIME_STAMP=$(date +"%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
+
+################################################################################
+# Checkout gh-pages to restore history + previous timestamps
+# *** THIS IS THE KEY STEP FOR TREND ***
+# Allure trend works by reading allure-results/history/ from the PREVIOUS run
+# We fetch that history folder from the last deployed report on gh-pages
+################################################################################
+
+      - name: Checkout gh-pages branch
+        run: |
+          git fetch origin gh-pages || echo "gh-pages branch not yet created"
+
+          if git show-ref --quiet refs/remotes/origin/gh-pages; then
+            git worktree add gh-pages-branch origin/gh-pages
+            echo "gh-pages branch checked out successfully"
+          else
+            mkdir -p gh-pages-branch
+            echo "No gh-pages branch yet — first run"
+          fi
+
+################################################################################
+# Restore Allure History for Trend
+# Copies history/ from the previous latest report into allure-results/
+# This is what makes the Trend graph show data across runs
+################################################################################
+
+      - name: Restore Allure History for Trend
+        run: |
+          HISTORY_SOURCE="gh-pages-branch/latest/$PROJECT/history"
+
+          if [ -d "$HISTORY_SOURCE" ]; then
+            echo "Found previous history — restoring for trend graph"
+            cp -r "$HISTORY_SOURCE" allure-results/history
+          else
+            echo "No previous history found — trend will start from this run"
+          fi
+
+################################################################################
+# Generate Allure Report
+################################################################################
+
+      - name: Generate Allure Report
         run: |
           mkdir -p allure-report
-          allure generate allure-results --clean -o allure-report \
-            --report-name "IDA/NAS Regression — $PROJECT / $ENV_NAME" || true
+
+          allure generate allure-results \
+            --clean \
+            -o allure-report \
+            --report-name "$PROJECT Automation Report" || true
 
           if [ ! -f allure-report/index.html ]; then
-            echo "Creating fallback report"
-            echo "<html><body><h2>No Allure results found for $PROJECT / $ENV_NAME</h2></body></html>" \
+            echo "<html><body><h2>No results for $PROJECT / $ENV_NAME</h2></body></html>" \
               > allure-report/index.html
           fi
 
 ################################################################################
-# Publish Report to GitHub Pages
+# Prepare Report Structure
 ################################################################################
 
-      # STEP 8: Upload Pages artifact
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: allure-report
+      - name: Prepare Report Structure
+        run: |
+          mkdir -p github-pages/reports/$PROJECT/$TIME_STAMP
+          mkdir -p github-pages/latest/$PROJECT
 
-      # STEP 9: Deploy Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # Copy into timestamped folder
+          cp -r allure-report/* github-pages/reports/$PROJECT/$TIME_STAMP/
+
+          # Copy into latest folder
+          rm -rf github-pages/latest/$PROJECT/*
+          cp -r allure-report/* github-pages/latest/$PROJECT/
+
+          # Carry over existing timestamped folders from gh-pages branch
+          if [ -d gh-pages-branch/reports/$PROJECT ]; then
+            cp -rn gh-pages-branch/reports/$PROJECT/* \
+              github-pages/reports/$PROJECT/ 2>/dev/null || true
+          fi
+
+################################################################################
+# Create History Index Pages
+################################################################################
+
+      - name: Create History Index Pages
+        run: |
+          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+
+          for proj in ida nas abdm; do
+
+            mkdir -p github-pages/reports/$proj
+
+            REPORT_DIR="github-pages/reports/$proj"
+
+            TIMESTAMPS=$(ls -r $REPORT_DIR 2>/dev/null | grep -v index.html || true)
+
+            ROWS=""
+            INDEX=1
+            for TS in $TIMESTAMPS; do
+              ROWS="$ROWS
+              <tr>
+                <td style='padding:12px 16px;border-bottom:1px solid #e5e7eb;'>$INDEX</td>
+                <td style='padding:12px 16px;border-bottom:1px solid #e5e7eb;'>$TS</td>
+                <td style='padding:12px 16px;border-bottom:1px solid #e5e7eb;'>
+                  <a href='$BASE_URL/reports/$proj/$TS/index.html'
+                     style='color:#2563eb;font-weight:bold;text-decoration:none;'>
+                    Open Report
+                  </a>
+                </td>
+              </tr>"
+              INDEX=$((INDEX + 1))
+            done
+
+            if [ -z "$TIMESTAMPS" ]; then
+              ROWS="<tr><td colspan='3' style='padding:20px;text-align:center;color:#6b7280;'>
+                No reports found yet.</td></tr>"
+            fi
+
+            cat > github-pages/reports/$proj/index.html <<HEREDOC
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${proj^^} Historical Reports</title>
+            <style>
+              body { margin:0; padding:0; background:#f4f7fb; font-family:Arial,sans-serif; }
+              .header { background:#111827; color:white; padding:24px 30px; }
+              .header h1 { margin:0; font-size:24px; }
+              .header p  { margin:6px 0 0; color:#9ca3af; font-size:14px; }
+              .back { display:inline-block; margin:20px 30px 0; color:#2563eb;
+                      text-decoration:none; font-size:14px; }
+              .back:hover { text-decoration:underline; }
+              .container { width:90%; margin:20px auto 60px; }
+              table { width:100%; border-collapse:collapse; background:white;
+                      border-radius:12px; overflow:hidden;
+                      box-shadow:0 4px 10px rgba(0,0,0,0.08); }
+              th { background:#111827; color:white; padding:14px 16px; text-align:left; }
+              tr:hover td { background:#f0f4ff; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>${proj^^} — Historical Reports</h1>
+              <p>All past automation runs for the ${proj^^} project</p>
+            </div>
+            <a class="back" href="$BASE_URL/">← Back to Dashboard</a>
+            <div class="container">
+              <table>
+                <tr>
+                  <th>#</th>
+                  <th>Run Timestamp</th>
+                  <th>Report Link</th>
+                </tr>
+                $ROWS
+              </table>
+            </div>
+          </body>
+          </html>
+          HEREDOC
+
+          done
+
+################################################################################
+# Create Main Dashboard
+################################################################################
+
+      - name: Create Dashboard UI
+        run: |
+          cat > github-pages/index.html <<'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Automation Dashboard</title>
+            <style>
+              body { margin:0; padding:0; background:#f4f7fb; font-family:Arial,sans-serif; }
+              .header { background:#111827; color:white; padding:30px; text-align:center; }
+              .header h1 { margin:0; font-size:32px; }
+              .header p  { margin:8px 0 0; color:#9ca3af; }
+              .container { width:90%; margin:auto; padding:40px 0; }
+              .section-title { margin-bottom:20px; color:#111827; }
+              .cards { display:flex; gap:20px; flex-wrap:wrap; }
+              .card { background:white; width:300px; border-radius:14px; padding:25px;
+                      box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+              .card h2 { margin-top:0; color:#2563eb; }
+              .card p  { color:#4b5563; }
+              .btn { display:inline-block; margin-top:10px; padding:10px 18px;
+                     background:#2563eb; color:white; text-decoration:none;
+                     border-radius:8px; font-weight:bold; margin-right:8px; }
+              .btn:hover { background:#1d4ed8; }
+              .btn-outline { background:white; color:#2563eb; border:2px solid #2563eb; }
+              .btn-outline:hover { background:#eff6ff; }
+              table { width:100%; border-collapse:collapse; background:white;
+                      margin-top:20px; border-radius:12px; overflow:hidden;
+                      box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+              th { background:#111827; color:white; padding:15px; text-align:left; }
+              td { padding:14px; border-bottom:1px solid #e5e7eb; }
+              tr:hover td { background:#f9fafb; }
+              .footer { text-align:center; margin-top:50px; color:#6b7280; }
+            </style>
+          </head>
+          <body>
+            <div class="header">
+              <h1>Automation Allure Dashboard</h1>
+              <p>Project Wise Automation Reports — GitHub Actions + Allure</p>
+            </div>
+            <div class="container">
+              <h2 class="section-title">Latest Reports</h2>
+              <div class="cards">
+                <div class="card">
+                  <h2>IDA Project</h2>
+                  <p>Latest execution report for IDA automation.</p>
+                  <a class="btn" href="./latest/ida/index.html">Open Latest</a>
+                  <a class="btn btn-outline" href="./reports/ida/index.html">History</a>
+                </div>
+                <div class="card">
+                  <h2>NAS Project</h2>
+                  <p>Latest execution report for NAS automation.</p>
+                  <a class="btn" href="./latest/nas/index.html">Open Latest</a>
+                  <a class="btn btn-outline" href="./reports/nas/index.html">History</a>
+                </div>
+                <div class="card">
+                  <h2>ABDM Project</h2>
+                  <p>Latest execution report for ABDM automation.</p>
+                  <a class="btn" href="./latest/abdm/index.html">Open Latest</a>
+                  <a class="btn btn-outline" href="./reports/abdm/index.html">History</a>
+                </div>
+              </div>
+              <br><br>
+              <h2 class="section-title">Historical Reports</h2>
+              <table>
+                <tr><th>Project</th><th>Reports</th></tr>
+                <tr>
+                  <td>IDA</td>
+                  <td><a href="./reports/ida/index.html">View Historical Reports</a></td>
+                </tr>
+                <tr>
+                  <td>NAS</td>
+                  <td><a href="./reports/nas/index.html">View Historical Reports</a></td>
+                </tr>
+                <tr>
+                  <td>ABDM</td>
+                  <td><a href="./reports/abdm/index.html">View Historical Reports</a></td>
+                </tr>
+              </table>
+              <div class="footer">
+                <p>GitHub Actions + Allure Reporting Dashboard</p>
+              </div>
+            </div>
+          </body>
+          </html>
+          EOF
+
+################################################################################
+# Deploy Reports to GitHub Pages
+################################################################################
+
+      - name: Deploy Reports
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./github-pages
+          keep_files: true
 
 ################################################################################
 # Workflow Summary
 ################################################################################
 
-      # STEP 9.5: Add report link + run context to summary
-      - name: Add Allure report link to summary
+      - name: Add Workflow Summary
         if: always()
-        env:
-          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
-          echo "## 🚀 Automation Execution Completed"               >> $GITHUB_STEP_SUMMARY
-          echo ""                                                    >> $GITHUB_STEP_SUMMARY
-          echo "| Key         | Value          |"                   >> $GITHUB_STEP_SUMMARY
-          echo "|-------------|----------------|"                   >> $GITHUB_STEP_SUMMARY
-          echo "| **Project** | \`$PROJECT\`   |"                  >> $GITHUB_STEP_SUMMARY
-          echo "| **Env**     | \`$ENV_NAME\`  |"                  >> $GITHUB_STEP_SUMMARY
-          echo "| **Browser** | \`$BROWSER\`   |"                  >> $GITHUB_STEP_SUMMARY
-          echo ""                                                    >> $GITHUB_STEP_SUMMARY
-          echo "### 📊 Test Report"                                 >> $GITHUB_STEP_SUMMARY
-          echo ""                                                    >> $GITHUB_STEP_SUMMARY
-          echo "🔗 [Open Allure Report]($PAGE_URL)"                 >> $GITHUB_STEP_SUMMARY
-          echo ""                                                    >> $GITHUB_STEP_SUMMARY
-          echo "🔗 [View Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
 
-################################################################################
-# Email Notification
-################################################################################
-
-      # STEP 10: Send Email
-      - name: Send email with report link
-        if: always()
-        env:
-          MAIL_CONNECTION: ${{ secrets.MAIL_CONNECTION }}
-          PAGE_URL:        ${{ steps.deployment.outputs.page_url }}
-          REPO:            ${{ github.repository }}
-          RUN_ID:          ${{ github.run_id }}
-          PROJECT:         ${{ env.PROJECT }}
-          ENV_NAME:        ${{ env.ENV_NAME }}
-          BROWSER:         ${{ env.BROWSER }}
-        run: |
-          python3 <<EOF
-          import os, smtplib, ssl
-          from urllib.parse import urlparse
-          from email.message import EmailMessage
-
-          conn = os.getenv("MAIL_CONNECTION")
-
-          if not conn:
-              print("MAIL_CONNECTION missing")
-              exit(0)
-
-          parsed   = urlparse(conn)
-          username = parsed.username
-          password = parsed.password
-          host     = parsed.hostname
-          port     = parsed.port or 587
-
-          page_url = os.getenv("PAGE_URL")
-          project  = os.getenv("PROJECT",  "ida")
-          env_name = os.getenv("ENV_NAME", "dev")
-          browser  = os.getenv("BROWSER",  "chrome")
-          repo     = os.getenv("REPO")
-          run_id   = os.getenv("RUN_ID")
-
-          msg = EmailMessage()
-          msg['Subject'] = f"[{project.upper()} | {env_name.upper()}] Automation Allure Report"
-          msg['From']    = username
-          msg['To']      = username
-
-          msg.add_alternative(f'''
-          <h2>Automation Report Ready</h2>
-          <table cellpadding="8" style="border-collapse:collapse;font-family:sans-serif;">
-            <tr><td><b>Project</b></td><td>{project.upper()}</td></tr>
-            <tr><td><b>Environment</b></td><td>{env_name.upper()}</td></tr>
-            <tr><td><b>Browser</b></td><td>{browser}</td></tr>
-          </table>
-          <br>
-          <p>
-            <a href="{page_url}" style="padding:10px 20px;background:#4CAF50;color:white;
-               text-decoration:none;border-radius:4px;font-weight:bold;">
-              VIEW ALLURE REPORT
-            </a>
-          </p>
-          <br>
-          <p>
-            <a href="https://github.com/{repo}/actions/runs/{run_id}">
-              View Workflow Run on GitHub
-            </a>
-          </p>
-          ''', subtype='html')
-
-          context = ssl.create_default_context()
-          with smtplib.SMTP(host, port) as server:
-              server.starttls(context=context)
-              server.login(username, password)
-              server.send_message(msg)
-
-          print("EMAIL SENT SUCCESSFULLY")
-          EOF
+          echo "## Automation Execution Completed"            >> $GITHUB_STEP_SUMMARY
+          echo ""                                             >> $GITHUB_STEP_SUMMARY
+          echo "| Key         | Value           |"           >> $GITHUB_STEP_SUMMARY
+          echo "|-------------|-----------------|"           >> $GITHUB_STEP_SUMMARY
+          echo "| Project     | \`$PROJECT\`    |"          >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | \`$ENV_NAME\`   |"          >> $GITHUB_STEP_SUMMARY
+          echo "| Browser     | \`$BROWSER\`    |"          >> $GITHUB_STEP_SUMMARY
+          echo "| Timestamp   | \`$TIME_STAMP\` |"          >> $GITHUB_STEP_SUMMARY
+          echo ""                                             >> $GITHUB_STEP_SUMMARY
+          echo "### Dashboard"                               >> $GITHUB_STEP_SUMMARY
+          echo "$BASE_URL/"                                  >> $GITHUB_STEP_SUMMARY
+          echo ""                                            >> $GITHUB_STEP_SUMMARY
+          echo "### Latest Report"                           >> $GITHUB_STEP_SUMMARY
+          echo "$BASE_URL/latest/$PROJECT/index.html"        >> $GITHUB_STEP_SUMMARY
+          echo ""                                            >> $GITHUB_STEP_SUMMARY
+          echo "### This Run's Report"                       >> $GITHUB_STEP_SUMMARY
+          echo "$BASE_URL/reports/$PROJECT/$TIME_STAMP/index.html" >> $GITHUB_STEP_SUMMARY
