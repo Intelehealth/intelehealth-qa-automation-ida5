@@ -129,7 +129,7 @@ jobs:
 
       - name: Generate Timestamp
         run: |
-          echo "TIME_STAMP=$(date +"%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
+          echo "TIME_STAMP=$(TZ='Asia/Kolkata' date +"%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
 
 ################################################################################
 # Checkout gh-pages to restore history + previous timestamps
