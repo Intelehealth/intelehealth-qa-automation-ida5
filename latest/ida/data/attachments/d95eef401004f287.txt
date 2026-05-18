@@ -1,0 +1,1 @@
+verifyFilterWorksAlongWithSearchVisitByPatientName failed and screenshot taken!
