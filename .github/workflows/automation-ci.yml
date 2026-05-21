@@ -420,23 +420,21 @@ jobs:
           echo "### This Run's Report"                       >> $GITHUB_STEP_SUMMARY
           echo "$BASE_URL/reports/$PROJECT/$TIME_STAMP/index.html" >> $GITHUB_STEP_SUMMARY
 
+
 ################################################################################
-################################################################################
-# Generate Timestamp
+# Slack Notification
 ################################################################################
 
-      - name: Generate Timestamp
+      - name: Send Slack Notification
+        if: always()
         run: |
-          echo "TIME_STAMP=$(TZ='Asia/Kolkata' date +"%Y-%m-%d_%H-%M-%S")" >> $GITHUB_ENV
 
-################################################################################
-# Slack Notification - Workflow Started
-################################################################################
+          TIME_STAMP=$(TZ='Asia/Kolkata' date +"%Y-%m-%d %I:%M:%S %p IST")
 
-      - name: Slack Notification - Started
-        run: |
+          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+
           curl -X POST -H 'Content-type: application/json' \
           --data "{
-            \"text\":\"🚀 Automation Execution Started\n\n Project: $PROJECT\n Environment: $ENV_NAME\n Browser: $BROWSER\n Timestamp: $TIME_STAMP\n Triggered By: ${{ github.actor }}\n🌿 Branch: ${{ github.ref_name }}\"
+            \"text\":\"✅ Automation Execution Completed\n\n Project: $PROJECT\n Environment: $ENV_NAME\n Browser: $BROWSER\n Timestamp: $TIME_STAMP\n Triggered By: ${{ github.actor }}\n\n📊 Dashboard:\n$BASE_URL/\n\n📄 Latest Report:\n$BASE_URL/latest/$PROJECT/index.html\n\n📁 Historical Report:\n$BASE_URL/reports/$PROJECT/$TIME_STAMP/index.html\"
           }" \
           "${{ secrets.SLACK_WEBHOOK_URL }}"
