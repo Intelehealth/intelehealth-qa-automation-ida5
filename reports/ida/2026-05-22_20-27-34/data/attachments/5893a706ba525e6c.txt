@@ -1,0 +1,1 @@
+verifySendingATextMessage failed and screenshot taken!
