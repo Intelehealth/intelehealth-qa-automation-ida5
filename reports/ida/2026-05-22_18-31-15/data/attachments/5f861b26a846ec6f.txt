@@ -1,0 +1,1 @@
+VerifySearchWithInvalidPatientOpenMRSID failed and screenshot taken!
