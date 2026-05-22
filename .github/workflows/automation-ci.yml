@@ -435,6 +435,6 @@ jobs:
 
           curl -X POST -H 'Content-type: application/json' \
           --data "{
-            \"text\":\"✅ Automation Execution Completed\n\n Project: $PROJECT\n Environment: $ENV_NAME\n Browser: $BROWSER\n Timestamp: $TIME_STAMP\n Triggered By: ${{ github.actor }}\n\n📊 Dashboard:\n$BASE_URL/\n\n📄 Latest Report:\n$BASE_URL/latest/$PROJECT/index.html\n\n📁 Historical Report:\n$BASE_URL/reports/$PROJECT/$TIME_STAMP/index.html\"
+            \"text\":\"✅ Automation Execution Completed\n\n Project: $PROJECT\n Environment: $ENV_NAME\n Browser: $BROWSER\n Timestamp: $TIME_STAMP\n Triggered By: ${{ github.actor }}\n\n📊 Dashboard:\n$BASE_URL/\n\n📄 Latest Report:\n$BASE_URL/latest/$PROJECT/index.html\n\n📁 Historical Report:\n$BASE_URL/reports/$PROJECT/index.html\"
           }" \
           "${{ secrets.SLACK_WEBHOOK_URL }}"
