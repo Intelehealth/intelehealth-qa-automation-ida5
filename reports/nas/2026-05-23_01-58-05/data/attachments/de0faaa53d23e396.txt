@@ -1,0 +1,1 @@
+verifyNoDataDisplayedForInvalidSearch failed and screenshot taken!
