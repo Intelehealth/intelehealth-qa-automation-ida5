@@ -420,39 +420,6 @@ jobs:
           echo "### This Run's Report"                       >> $GITHUB_STEP_SUMMARY
           echo "$BASE_URL/reports/$PROJECT/$TIME_STAMP/index.html" >> $GITHUB_STEP_SUMMARY
 
-
-################################################################################
-# Get Pass / Fail / Skip Count
-################################################################################
-
-      - name: Get Test Summary
-        if: always()
-        run: |
-
-          TOTAL=$(find allure-results -name "*.json" | wc -l)
-
-          PASSED=$(grep -r '"status":"passed"' allure-results | wc -l || true)
-
-          FAILED=$(grep -r '"status":"failed"' allure-results | wc -l || true)
-
-          BROKEN=$(grep -r '"status":"broken"' allure-results | wc -l || true)
-
-          SKIPPED=$(grep -r '"status":"skipped"' allure-results | wc -l || true)
-
-          PASS_PERCENTAGE=0
-
-          if [ "$TOTAL" -gt 0 ]; then
-            PASS_PERCENTAGE=$((PASSED * 100 / TOTAL))
-          fi
-
-          echo "TOTAL=$TOTAL" >> $GITHUB_ENV
-          echo "PASSED=$PASSED" >> $GITHUB_ENV
-          echo "FAILED=$FAILED" >> $GITHUB_ENV
-          echo "BROKEN=$BROKEN" >> $GITHUB_ENV
-          echo "SKIPPED=$SKIPPED" >> $GITHUB_ENV
-          echo "PASS_PERCENTAGE=$PASS_PERCENTAGE" >> $GITHUB_ENV
-
-
 ################################################################################
 # Slack Notification
 ################################################################################
