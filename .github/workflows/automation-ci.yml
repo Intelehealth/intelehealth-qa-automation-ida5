@@ -419,3 +419,54 @@ jobs:
           echo ""                                            >> $GITHUB_STEP_SUMMARY
           echo "### This Run's Report"                       >> $GITHUB_STEP_SUMMARY
           echo "$BASE_URL/reports/$PROJECT/$TIME_STAMP/index.html" >> $GITHUB_STEP_SUMMARY
+
+
+################################################################################
+# Get Pass / Fail / Skip Count
+################################################################################
+
+      - name: Get Test Summary
+        if: always()
+        run: |
+
+          TOTAL=$(find allure-results -name "*.json" | wc -l)
+
+          PASSED=$(grep -r '"status":"passed"' allure-results | wc -l || true)
+
+          FAILED=$(grep -r '"status":"failed"' allure-results | wc -l || true)
+
+          BROKEN=$(grep -r '"status":"broken"' allure-results | wc -l || true)
+
+          SKIPPED=$(grep -r '"status":"skipped"' allure-results | wc -l || true)
+
+          PASS_PERCENTAGE=0
+
+          if [ "$TOTAL" -gt 0 ]; then
+            PASS_PERCENTAGE=$((PASSED * 100 / TOTAL))
+          fi
+
+          echo "TOTAL=$TOTAL" >> $GITHUB_ENV
+          echo "PASSED=$PASSED" >> $GITHUB_ENV
+          echo "FAILED=$FAILED" >> $GITHUB_ENV
+          echo "BROKEN=$BROKEN" >> $GITHUB_ENV
+          echo "SKIPPED=$SKIPPED" >> $GITHUB_ENV
+          echo "PASS_PERCENTAGE=$PASS_PERCENTAGE" >> $GITHUB_ENV
+
+
+################################################################################
+# Slack Notification
+################################################################################
+
+      - name: Send Slack Notification
+        if: always()
+        run: |
+
+          TIME_STAMP=$(TZ='Asia/Kolkata' date +"%Y-%m-%d %I:%M:%S %p IST")
+
+          BASE_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+
+          curl -X POST -H 'Content-type: application/json' \
+          --data "{
+            \"text\":\"✅ Automation Execution Completed\n\n Project: $PROJECT\n Environment: $ENV_NAME\n Browser: $BROWSER\n Timestamp: $TIME_STAMP\n Triggered By: ${{ github.actor }}\n\n📊 Test Summary\n━━━━━━━━━━━━━━━\n✅ Passed: $PASSED\n❌ Failed: $FAILED\n⚠️ Broken: $BROKEN\n⏭ Skipped: $SKIPPED\n🧪 Total: $TOTAL\n📈 Pass Percentage: $PASS_PERCENTAGE%\n\n📊 Dashboard:\n$BASE_URL/\n\n📄 Latest Report:\n$BASE_URL/latest/$PROJECT/index.html\n\n📁 Historical Report:\n$BASE_URL/reports/$PROJECT/index.html\"
+          }" \
+          "${{ secrets.SLACK_WEBHOOK_URL }}"
