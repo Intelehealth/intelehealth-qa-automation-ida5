@@ -1,0 +1,1 @@
+verifyMessageHistoryIsDisplayed failed and screenshot taken!
