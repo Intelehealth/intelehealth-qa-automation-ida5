@@ -13,10 +13,8 @@
 	</listeners>
 
 	<test name="Regression Functional Regression Test" verbose="2">
-		<classes>
-					<class name="com.intelehealth.tests.ChangePasswordLanguageTest" />
- 
-		<!--	<class name="com.intelehealth.tests.LoginPageTest" />
+		<classes> 
+		<class name="com.intelehealth.tests.LoginPageTest" />
 			<class name="com.intelehealth.tests.ChatPageTest" />
 			<class name="com.intelehealth.tests.DashboardPageTest" />
 			<class name="com.intelehealth.tests.End2EndTest" />
@@ -33,7 +31,7 @@
 			<class name="com.intelehealth.tests.AwaitPriortyInProgressTest" />
 			<class name="com.intelehealth.tests.AppointmentPageTest" />
 			<class name="com.intelehealth.tests.CalendarPageTest" />
-			<class name="com.intelehealth.tests.ChangePasswordLanguageTest" />-->
+			<class name="com.intelehealth.tests.ChangePasswordLanguageTest" />
 
 			<!--	<class name="com.intelehealth.tests.ChatPageTest" />
 			<class name="com.intelehealth.tests.DashboardPageTest" />
@@ -52,6 +50,7 @@
 			<class name="com.intelehealth.tests.CalendarPageTest" />
 			<class name="com.intelehealth.tests.ChangePasswordLanguageTest" />
 			<class name="com.intelehealth.tests.AppointmentPageTest" />-->
+			
 		</classes>
 	</test>
 </suite>
