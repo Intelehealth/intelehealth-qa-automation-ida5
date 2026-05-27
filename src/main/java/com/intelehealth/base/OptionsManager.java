@@ -69,6 +69,7 @@ public class OptionsManager {
 			System.out.println("Running in HEADLESS mode");
 
 			co.addArguments("--headless=new");
+			co.addArguments("--window-size=1920,1080");
 			co.addArguments("--no-sandbox");
 			co.addArguments("--disable-dev-shm-usage");
 			co.addArguments("--disable-gpu");

@@ -161,6 +161,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	By FollowupOptionYes = By.xpath("//input[@data-test-id='radioFollowUpYes']");
 	By FollowupOptionNo = By.xpath("//input[@data-test-id='radioFollowUpNo']");
 	By FollowupCalendar = By.xpath("//mat-datepicker-toggle[@data-test-id='dpFollowUpDate']");
+	By vsPrescriptionDrugRemarks = By.xpath("//input[@data-test-id='etRemarkMed']");
 	By FollowupDatePick = By
 			.xpath("//div[@class='mat-calendar-body-cell-content mat-focus-indicator mat-calendar-body-today']");
 	By FollowupTimeClick = By.xpath("//ng-select[@data-test-id='selectFollowUpTime']");
@@ -225,14 +226,16 @@ public class AwaitPriortyInProgress extends BasePage {
 	By iconDeleteAI = By.xpath("//span[@class='mat-button-wrapper']/img");
 	By lblselectedText = By.xpath("//span[@data-test-id='txtInvestigation0']");
 	By lblselectedAdviceText = By.xpath("(//div[@class='d-flex justify-content-between'])[2]");
-	By drugSaveButton = By.xpath("//button[@data-test-id='btnSubmitMed']");
+	By drugSaveButton = By.xpath("//button[@data-test-id='btnSubmitStandardMed']");
+	By drugAddButton = By.xpath("//button[@data-test-id='btnSubmitMed']");
 	By expandAdvice = By.cssSelector(".mat-icon.notranslate.ng-tns-c154-266.material-icons.mat-icon-no-color");
 	By addtext = By.xpath("//input[@data-test-id='etTest']");
 	By addAdvice = By.xpath("//input[@data-test-id='etAdvice']");
 	By deleteButton = By.xpath("//button[@data-test-id='btnDeleteAdviceVisitSummary0']");
 	By btnAddAdvice = By.xpath("//button[@data-test-id='btnSubmitAdvice']");
 	By btnClickAddTest = By.xpath("//button[@data-test-id='btnSubmitTest']");
-	By remarksTextField = By.xpath("//input[@data-test-id='etRemarkMed']");
+	By remarksTextField = By.xpath("//input[@data-test-id='etStandardInstructionRemark']");
+	// By remarksTextField = By.xpath("//input[@data-test-id='etRemarkMed']");
 	public static String button = "//button[@data-test-id='${button}']";
 	By drugTimingValue = By.xpath("(//span[@class='ng-option-label ng-star-inserted'])[1]");
 	By patientName = By.xpath("//td[@data-test-id='awPatient0']");
@@ -253,11 +256,15 @@ public class AwaitPriortyInProgress extends BasePage {
 	By lblPatientNameInAppointmentsSection = By.xpath("//td[@data-test-id='awPatient0']//span");
 	By lblPatientNameInAwaitingVisitsSection = By
 			.xpath("//tr[@data-test-id='aw0']//span[contains(@class,'font-bold')]");
-	By inpDosage = By.xpath("//input[@data-test-id='etDose']");
-	By inpFrequency = By.xpath("//ng-select[@data-test-id='selectFrequency']//input");
+	By inpDosage = By.xpath("//input[@data-test-id='etStandardDose']");By inpFrequency = By.xpath("//ng-select[@data-test-id='selectStandardFrequency']//input");
+	//By inpFrequency = By.xpath("//ng-select[@data-test-id='selectFrequency']//input");
 	By inpFrequencyValue = By.xpath("//span[text()='Three times daily']");
-	By inpDurationNumber = By.xpath("//input[@data-test-id='durationNo']");
-	By inpDurationUnits = By.xpath("//ng-select[@data-test-id='etDurationUnit']//input");
+//	By inpDurationNumber = By.xpath("//input[@data-test-id='durationNo']");
+	By inpDurationNumber = By.xpath("//input[@data-test-id='etStandardDurationNo']");
+	By inpDurationUnits = By.xpath("//ng-select[@data-test-id='selectStandardDurationUnit']//input");
+
+	// By inpDurationUnits =
+	// By.xpath("//ng-select[@data-test-id='etDurationUnit']//input");
 	By inpDurationUnitsValue = By.xpath("//span[text()='Days']");
 	By inpAdditionalInstructions = By.xpath("//input[@data-test-id='etAI']");
 
@@ -266,6 +273,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	public AwaitPriortyInProgress(WebDriver driver) {
 		this.driver = driver;
 		elementActions = new ElementActions(this.driver);
+		// visitSummaryPage = new VisitSummaryPage(this.driver);
 		prop = basePage.init_prop();
 	}
 
@@ -926,49 +934,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	 * strength and numbers are allowed
 	 */
 	@Step("Verify if user can type in strength and if characters or spl characters are allowed")
-	public void VerifyIfUserCanTypeInStrengthAndIfCharactersOrSplCharactersAreAllowed() throws Throwable {
-		Thread.sleep(3000);
-		elementActions.doClick(awtvstPatient1Name);
-		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
-		Thread.sleep(5000);
-		elementActions.scrollToElementByText("Refer to Specialist");
-		Thread.sleep(2000);
-		elementActions.doClick(StartVisitNote);
-		extentReport.logToExtentReport("Clicked on Start Visit Note button");
-		Thread.sleep(2000);
-		elementActions.doActionsSendKeys(StrengthTextField, prop.getProperty("DrugStrength"));
-		extentReport.logToExtentReport("Verification: Spl characters are allowed in Drug Strength text field");
-
-	}
-
-	/*
-	 * Author : Rajesh H S Created : 4/10/23 Description : Selected strength appears
-	 * in the text field if selected
-	 */
-	@Step("Verify if the selected strength appears if selected")
-	public void VerifyIfTheSelectedStrengthAppearsIfSelected() throws Throwable {
-		Thread.sleep(3000);
-		elementActions.doClick(awtvstPatient1Name);
-		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
-		Thread.sleep(5000);
-		elementActions.scrollToElementByText("Refer to Specialist");
-		Thread.sleep(2000);
-		elementActions.doClick(StartVisitNote);
-		extentReport.logToExtentReport("Clicked on Start visit note button");
-		Thread.sleep(2000);
-		elementActions.doSendKeys(StrengthTextField, prop.getProperty("DrugStrength"));
-		extentReport.logToExtentReport("Entered the strength of Drug in Strength text field");
-		Thread.sleep(2000);
-		elementActions.doClick(SelectHighlighted);
-		extentReport.logToExtentReport("Verification: Selected the highlighted Drug");
-	}
-
-	/*
-	 * Author : Rajesh H S Created : 4/10/23 Description : User is able to enter the
-	 * number of days
-	 */
-	@Step("Verify if user can type in No. of days and characters or spl characters in the textbox")
-	public void VerifyIfUserCanTypeInNoOfDaysAndCharactersOrSplCharactersInTheTextbox(String NoOfDaysValue)
+	public void VerifyIfUserCanTypeInStrengthAndIfCharactersOrSplCharactersAreAllowed(boolean medication)
 			throws Throwable {
 		Thread.sleep(3000);
 		elementActions.doClick(awtvstPatient1Name);
@@ -976,25 +942,24 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
-		elementActions.doClick(StartVisitNote);
-		extentReport.logToExtentReport("Clicked on Start visit note button");
-		Thread.sleep(5000);
-		elementActions.doActionsSendKeys(NoOfDaysTextField, NoOfDaysValue);
-		extentReport
-				.logToExtentReport("Verification: User is able to enter the data in no of days text field for Drug");
-		Thread.sleep(9000);
-		elementActions.doClick(NoofdaysDropdownValue);
-		extentReport
-				.logToExtentReport("Verification: User is able to select the data in no of days text field for Drug");
-
+		elementActions.JavaScriptExecutorClickWebElement(elementActions.getElement(StartVisitNote));
+		extentReport.logToExtentReport("Clicked on Start Visit Note button");
+		Thread.sleep(2000);
+		if (medication) {
+			elementActions.doActionsSendKeys(inpDosage, prop.getProperty("DrugStrength"));
+			extentReport.logToExtentReport("Verification: Spl characters are allowed in Drug Strength text field");
+		} else {
+			elementActions.doActionsSendKeys(StrengthTextField, prop.getProperty("DrugStrengthWithChars"));
+			extentReport.logToExtentReport("Verification: Characters are allowed in Drug Strength text field");
+		}
 	}
 
 	/*
-	 * Author : Rajesh H S Created : 4/10/23 Description : Selected days appears in
-	 * the text field if selected
+	 * Author : Rajesh H S Created : 4/10/23 Description : Selected strength appears
+	 * in the text field if selected
 	 */
-	@Step("Verify if the selected days appears if selected")
-	public void VerifyIfTheSelectedDaysAppearsIfSelected(String NoOfDaysValue) throws Throwable {
+	@Step("Verify if the selected strength appears if selected")
+	public void VerifyIfTheSelectedStrengthAppearsIfSelected(boolean medication) throws Throwable {
 		Thread.sleep(3000);
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
@@ -1004,11 +969,78 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(2000);
-		elementActions.doSendKeys(NoOfDaysTextField, NoOfDaysValue);
-		extentReport.logToExtentReport("Enter the no of days in text field for drug");
+		System.out.println(prop.getProperty("DrugStrength"));
+		if (medication) {
+			elementActions.doSendKeys(inpDosage, prop.getProperty("DrugStrength"));
+
+		} else {
+			elementActions.doSendKeys(StrengthTextField, prop.getProperty("DrugStrength"));
+			extentReport.logToExtentReport("Entered the strength of Drug in Strength text field");
+			Thread.sleep(2000);
+			elementActions.doClick(SelectHighlighted);
+			extentReport.logToExtentReport("Verification: Selected the highlighted Drug");
+		}
+	}
+
+	/*
+	 * Author : Rajesh H S Created : 4/10/23 Description : User is able to enter the
+	 * number of days
+	 */
+	@Step("Verify if user can type in No. of days and characters or spl characters in the textbox")
+	public void VerifyIfUserCanTypeInNoOfDaysAndCharactersOrSplCharactersInTheTextbox(String NoOfDaysValue,
+			boolean medication) throws Throwable {
+		Thread.sleep(3000);
+		elementActions.doClick(awtvstPatient1Name);
+		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
+		Thread.sleep(5000);
+		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
-		elementActions.doSelect(SelectHighlighted);
-		extentReport.logToExtentReport("Verification: Selected on Highlighted one");
+		elementActions.doClick(StartVisitNote);
+		extentReport.logToExtentReport("Clicked on Start visit note button");
+		Thread.sleep(5000);
+		if (medication) {
+			elementActions.doActionsSendKeys(inpDurationNumber, NoOfDaysValue);
+			extentReport.logToExtentReport(
+					"Verification: User is able to enter the data in no of days text field for Medication");
+		} else {
+			elementActions.doActionsSendKeys(NoOfDaysTextField, NoOfDaysValue);
+			extentReport.logToExtentReport(
+					"Verification: User is able to enter the data in no of days text field for Drug");
+			Thread.sleep(9000);
+			elementActions.doClick(NoofdaysDropdownValue);
+			extentReport.logToExtentReport(
+					"Verification: User is able to select the data in no of days text field for Drug");
+		}
+	}
+
+	/*
+	 * Author : Rajesh H S Created : 4/10/23 Description : Selected days appears in
+	 * the text field if selected
+	 */
+	@Step("Verify if the selected days appears if selected")
+	public void VerifyIfTheSelectedDaysAppearsIfSelected(String NoOfDaysValue, boolean medication) throws Throwable {
+		Thread.sleep(3000);
+		elementActions.doClick(awtvstPatient1Name);
+		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
+		Thread.sleep(5000);
+		elementActions.scrollToElementByText("Refer to Specialist");
+		Thread.sleep(2000);
+		elementActions.doClick(StartVisitNote);
+		extentReport.logToExtentReport("Clicked on Start visit note button");
+		Thread.sleep(2000);
+		if (medication) {
+			elementActions.doActionsSendKeys(inpDurationNumber, NoOfDaysValue);
+			extentReport.logToExtentReport(
+					"Verification: User is able to enter the data in no of days text field for Medication");
+		} else {
+			elementActions.doActionsSendKeys(NoOfDaysTextField, NoOfDaysValue);
+			extentReport.logToExtentReport(
+					"Verification: User is able to enter the data in no of days text field for Drug");
+			Thread.sleep(9000);
+			elementActions.doClick(NoofdaysDropdownValue);
+			extentReport.logToExtentReport(
+					"Verification: User is able to select the data in no of days text field for Drug");
+		}
 
 	}
 
@@ -1016,7 +1048,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	 * Author : Rajesh H S Created : 4/10/23 Description : User can type the timings
 	 */
 	@Step("Verify if user can type in timings dropdown")
-	public void VerifyIfUserCanTypeInTimingsDropdown() throws Throwable {
+	public void VerifyIfUserCanTypeInTimingsDropdown(boolean medication) throws Throwable {
 		Thread.sleep(3000);
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
@@ -1026,8 +1058,14 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start Visit Note button");
 		Thread.sleep(2000);
-		elementActions.doActionsSendKeys(TimingsTextField, prop.getProperty("DrugTimings"));
-		extentReport.logToExtentReport("Verification: User is able to type in the timings dropdown");
+		if (medication) {
+			elementActions.doActionsSendKeys(inpDurationUnits, prop.getProperty("DrugTimings"));
+			elementActions.doTabEnterByRobot(inpDurationUnitsValue);
+			extentReport.logToExtentReport("Verification: User is able to type in timings dropdown for Medication");
+		} else {
+			elementActions.doActionsSendKeys(TimingsTextField, prop.getProperty("DrugTimings"));
+			extentReport.logToExtentReport("Verification: User is able to type in the timings dropdown");
+		}
 	}
 
 	/*
@@ -1126,7 +1164,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
 		elementActions.doClick(StartVisitNote);
-		extentReport.logToExtentReport("Clicked on Start Visit Note button");
+		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(7000);
 		elementActions.doSendKeys(AddAdviceTextField, AdditionalInstructions1);
 		extentReport.logToExtentReport("Entered data in Add Advice text field");
@@ -1233,7 +1271,9 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start visit Note button");
 		Thread.sleep(2000);
-		elementActions.doSelect(FollowupOptionYes);
+		elementActions.scrollToElementByText(" Follow-up ");
+
+		elementActions.clickPrettyRadio(FollowupOptionYes);
 		extentReport.logToExtentReport("Clicked on Follow Up Option as YES");
 		elementActions.doClick(FollowupCalendar);
 		extentReport.logToExtentReport("Clicked on Follow Up Calendar");
@@ -1271,7 +1311,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	public void addTimingsMedication() throws InterruptedException {
 		elementActions.doClick(awtvstPatient1Name);
 		Thread.sleep(4000);
-		elementActions.doClick(btnStartVisitNote);
+		elementActions.doActionsClick(btnStartVisitNote);
 
 	}
 
@@ -1281,8 +1321,6 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(4000);
 		elementActions.doClick(btnStartVisitNote);
 		if (medications == true && medications != null) {
-//write the code related to the medications if the medications toggle is turned on from the admin panel			
-			System.out.println();
 			elementActions.doSendKeys(DrugNameTextField, "Paracetomol");
 			elementActions.doSendKeys(inpDosage, "7.5 ml");
 			elementActions.doClick(inpFrequency);
@@ -1290,7 +1328,7 @@ public class AwaitPriortyInProgress extends BasePage {
 			elementActions.doSendKeys(inpDurationNumber, "10");
 			elementActions.doClick(inpDurationUnits);
 			elementActions.doClick(inpDurationUnitsValue);
-			elementActions.doSendKeys(inpAdditionalInstructions, "Drink more waters");
+			//elementActions.doSendKeys(inpAdditionalInstructions, "Drink more waters");
 			elementActions.doSendKeys(remarksTextField, "Suffering from Fever");
 			elementActions.doClick(drugSaveButton);
 
@@ -1361,7 +1399,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(drugTimingValue);
 		Thread.sleep(2000);
 		elementActions.doSendKeys(remarksTextField, "Suffering from Fever");
-		elementActions.doClick(drugSaveButton);
+		elementActions.doClick(drugAddButton);
 	}
 
 	@Step("Click on close")
@@ -1594,8 +1632,8 @@ public class AwaitPriortyInProgress extends BasePage {
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 //		elementActions.doClick(vsChkupStartVisitNoteFollowup);
 //		extentReport.logToExtentReport("Clicked on Follow up");
-		Thread.sleep(4000);
-		elementActions.doSelect(FollowupOptionYes);
+		Thread.sleep(4000);elementActions.scrollToElementByText(" Follow-up ");
+		elementActions.clickPrettyRadio(FollowupOptionYes);
 		extentReport.logToExtentReport("Clicked on Yes Radio button is Follow up");
 		elementActions.doClick(FollowupCalendar);
 		extentReport.logToExtentReport("Clicked on Follow up calendar");
@@ -1622,7 +1660,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
-		elementActions.doClick(vsChkupStartVisitNoteButton);
+		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(4000);
 //		elementActions.doClick(vsChkupStartVisitNoteFollowup);
@@ -1641,7 +1679,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(6000);
-		elementActions.doClick(vsChkupStartVisitNoteButton);
+		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 //		elementActions.doClick(vsChkupStartVisitNoteFollowup);
 //		extentReport.logToExtentReport("Clicked on Follow up section");
@@ -1659,7 +1697,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	}
 
 	@Step("Verify share prescription button functionality in followup section ")
-	public void verifySharePrescriptionBtn() throws InterruptedException {
+	public void verifySharePrescriptionBtn(VisitSummaryPage visitSummaryPage) throws InterruptedException {
 		Thread.sleep(3000);
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
@@ -1688,7 +1726,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	}
 
 	@Step("Verify Confirm functionality under share prescription")
-	public void verifyConfBtnSharePrescription() throws Throwable {
+	public void verifyConfBtnSharePrescription(VisitSummaryPage visitSummaryPage) throws Throwable {
 		Thread.sleep(3000);
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
@@ -1713,9 +1751,9 @@ public class AwaitPriortyInProgress extends BasePage {
 	}
 
 	@Step("Verify View prescription functionality")
-	public void verifyViewPrescptnSharePrescription() throws Throwable {
+	public void verifyViewPrescptnSharePrescription(VisitSummaryPage visitSummaryPage) throws Throwable {
 		Thread.sleep(3000);
-		// elementActions.doClick(awtvstPatient1Name);
+		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
@@ -1754,7 +1792,7 @@ public class AwaitPriortyInProgress extends BasePage {
 	}
 
 	@Step("Verify buttons are changed once prescription is shared to a patient on visit summary page")
-	public void verifyUpdateViewPrescptnBtninVisitSumPage() throws Throwable {
+	public void verifyUpdateViewPrescptnBtninVisitSumPage(VisitSummaryPage visitSummaryPage) throws Throwable {
 		Thread.sleep(3000);
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
@@ -1946,10 +1984,10 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(DropdownFirstOption);
 		extentReport.logToExtentReport("Select the first option from the diagnosis list");
 		Thread.sleep(2000);
-		elementActions.doSelect(DiagnosisTypePrimary);
+		elementActions.clickPrettyRadio(DiagnosisTypePrimary);
 		extentReport.logToExtentReport("Clicked on Diagnosis type as Primary");
 		Thread.sleep(2000);
-		elementActions.doSelect(DiagnosisStatusProvisional);
+		elementActions.clickPrettyRadio(DiagnosisStatusProvisional);
 		extentReport.logToExtentReport("Clicked on Diagnosis Status as Provisional");
 		Thread.sleep(2000);
 		elementActions.doClick(AddDiagnosis);
@@ -1959,7 +1997,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		extentReport.logToExtentReport("Verified the text of the first option value from Diagnosis column");
 		elementActions.scrollToElementByText("Follow-up");
 		Thread.sleep(4000);
-		elementActions.doSelect(FollowupOptionYes);
+		elementActions.clickPrettyRadio(FollowupOptionYes);
 		extentReport.logToExtentReport("Clicked on Yes Radio button in follow up section");
 		elementActions.doIsDisplayed(FollowupCalendar);
 		extentReport.logToExtentReport("Clicked on Follow up Calendar");
@@ -1975,5 +2013,16 @@ public class AwaitPriortyInProgress extends BasePage {
 		extentReport.logToExtentReport("Clicked on Follow up time pick");
 		elementActions.doClick(FollowupSaveButton);
 		extentReport.logToExtentReport("Clicked on Save button");
+	}
+
+	@Step("set Remarks")
+	public void setRemarks(String Remarks, boolean medication) {
+		if (medication) {
+			elementActions.doSendKeys(remarksTextField, "Suffering from Fever");
+			extentReport.logToExtentReport("Scroll to Remarks text field");
+		} else {
+			elementActions.doSendKeys(vsPrescriptionDrugRemarks, Remarks);
+			extentReport.logToExtentReport("Entered data in Remarks text field");
+		}
 	}
 }

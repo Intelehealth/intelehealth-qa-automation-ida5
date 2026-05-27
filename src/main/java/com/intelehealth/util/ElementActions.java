@@ -46,8 +46,10 @@ public class ElementActions {
 	public WebElement getElement(By locator) throws StaleElementReferenceException {
 		WebElement element = null;
 		try {
+			wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 			element = driver.findElement(locator);
 		} catch (Exception e) {
+			System.err.println("[ERROR] Element not found for locator: " + locator + ". Exception: " + e.getMessage());
 		}
 		return element;
 	}
@@ -259,7 +261,11 @@ public class ElementActions {
 	}
 
 	public void doActionsSendKeys(By locator, String value) {
-		action.sendKeys(getElement(locator), value).build().perform();
+		WebElement element = getElement(locator);
+		if (element == null) {
+			throw new IllegalArgumentException("Element must be set. Locator: " + locator);
+		}
+		action.sendKeys(element, value).build().perform();
 	}
 
 	/*
@@ -1086,6 +1092,119 @@ public class ElementActions {
 			}
 		}
 	}
+	public void clickPrettyRadio(By inputLocator) {
+	    
+	    int maxRetries = 3;
 
-	
+	    for (int i = 1; i <= maxRetries; i++) {
+	        try {
+	            // Find the hidden radio input
+	            WebElement radio = wait.until(
+	                ExpectedConditions.presenceOfElementLocated(inputLocator)
+	            );
+
+	            // Scroll parent wrapper into view
+	            WebElement wrapper = (WebElement) ((JavascriptExecutor) driver)
+	                .executeScript(
+	                    "return arguments[0].closest('div.pretty');", radio
+	                );
+
+	            if (wrapper != null) {
+	                ((JavascriptExecutor) driver)
+	                    .executeScript(
+	                        "arguments[0].scrollIntoView({block:'center'});", wrapper
+	                    );
+	            } else {
+	                ((JavascriptExecutor) driver)
+	                    .executeScript(
+	                        "arguments[0].scrollIntoView({block:'center'});", radio
+	                    );
+	            }
+
+	            Thread.sleep(300);
+
+	            // Strategy 1: Click the visible label sibling
+	            try {
+	                WebElement label = (WebElement) ((JavascriptExecutor) driver)
+	                    .executeScript(
+	                        "return arguments[0]" +
+	                        ".nextElementSibling" +   // div.state
+	                        "?.querySelector('label');",
+	                        radio
+	                    );
+
+	                if (label != null) {
+	                    wait.until(ExpectedConditions.elementToBeClickable(label));
+	                    label.click();
+
+	                    // Verify selection
+	                    if (radio.isSelected()) {
+	                        extentReport.logToExtentReport(
+	                            "✅ Label click succeeded on attempt " + i
+	                        );
+	                        return;
+	                    }
+	                }
+	            } catch (Exception labelEx) {
+	                extentReport.logToExtentReport(
+	                    "Label click failed, trying JS: " + labelEx.getMessage()
+	                );
+	            }
+
+	            // Strategy 2: JS force-check + Angular event dispatch
+	            ((JavascriptExecutor) driver).executeScript(
+	                "arguments[0].checked = true;" +
+	                "arguments[0].dispatchEvent(new Event('change', {bubbles:true}));" +
+	                "arguments[0].dispatchEvent(new Event('click',  {bubbles:true}));",
+	                radio
+	            );
+
+	            extentReport.logToExtentReport(
+	                "✅ JS dispatch succeeded on attempt " + i
+	            );
+	            return;
+
+	        } catch (Exception e) {
+	            extentReport.logToExtentReport(
+	                "Attempt " + i + " failed: " + e.getMessage()
+	            );
+	            if (i == maxRetries) {
+	                throw new RuntimeException(
+	                    "Failed to click pretty radio: " + inputLocator, e
+	                );
+	            }
+	        }
+	    }
+	}
+
+	public void clickWithRetry(By locator) {
+	    int maxRetries = 5;
+
+	    for (int i = 1; i <= maxRetries; i++) {
+	        try {
+	            WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+
+	            ((JavascriptExecutor) driver)
+	                    .executeScript("arguments[0].scrollIntoView(true);", element);
+
+	            wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+	            try {
+	                element.click();
+	            } catch (Exception e) {
+	                ((JavascriptExecutor) driver)
+	                        .executeScript("arguments[0].click();", element);
+	            }
+
+	            return;
+
+	        } catch (Exception e) {
+	            extentReport.logToExtentReport("Retry " + i + " failed: " + e.getMessage());
+
+	            if (i == maxRetries) {
+	                throw new RuntimeException("Failed to click element: " + locator, e);
+	            }
+	        }
+	    }
+	}
 }

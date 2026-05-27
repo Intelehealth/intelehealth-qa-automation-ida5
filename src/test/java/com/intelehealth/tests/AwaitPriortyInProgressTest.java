@@ -1,6 +1,5 @@
 package com.intelehealth.tests;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Properties;
@@ -52,13 +51,14 @@ public class AwaitPriortyInProgressTest {
 		/*
 		 * response.jsonPath().getBoolean( "patient_visit_summary.standard_medication")
 		 */;
-	//	System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" + medication);
-	//	String responseBody = response.getBody().asPrettyString();
+		// System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++=" +
+		// medication);
+		// String responseBody = response.getBody().asPrettyString();
 
-	/*
-	 * try (FileWriter file = new FileWriter("target/api-response.json")) {
-	 * file.write(responseBody); }
-	 */
+		/*
+		 * try (FileWriter file = new FileWriter("target/api-response.json")) {
+		 * file.write(responseBody); }
+		 */
 	}
 
 	@BeforeMethod
@@ -93,7 +93,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1703_StartVisitNote() throws InterruptedException {
 		// System.out.println("Started execution of IDA4_1703");
-	awaitPriortyInProgress.verifyVstSumPageDetails();
+		awaitPriortyInProgress.verifyVstSumPageDetails();
 	}
 
 	@Test(priority = 3, description = "IDA4_1706_StartVisitNote_Verify only one radio button can be selected in refer to specialist section", enabled = true)
@@ -256,7 +256,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1730_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1730");
-		awaitPriortyInProgress.VerifyIfUserCanTypeInStrengthAndIfCharactersOrSplCharactersAreAllowed();
+		awaitPriortyInProgress.VerifyIfUserCanTypeInStrengthAndIfCharactersOrSplCharactersAreAllowed(medication);
 	}
 
 	@Test(priority = 23, description = "IDA4_1731_StartVisitNote_Verify if the selected strength appears if selected", enabled = true)
@@ -264,7 +264,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1731_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1731");
-		awaitPriortyInProgress.VerifyIfTheSelectedStrengthAppearsIfSelected();
+		awaitPriortyInProgress.VerifyIfTheSelectedStrengthAppearsIfSelected(medication);
 	}
 
 	@Test(priority = 24, description = "IDA4_1732_StartVisitNote_Verify if user can type in No of days and characters or spl characters in the textbox", enabled = true)
@@ -273,7 +273,7 @@ public class AwaitPriortyInProgressTest {
 	public void IDA4_1732_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1732");
 		awaitPriortyInProgress.VerifyIfUserCanTypeInNoOfDaysAndCharactersOrSplCharactersInTheTextbox(
-				prop.getProperty("NoOfdaysValue"));
+				prop.getProperty("NoOfdaysValue"), medication);
 	}
 
 	@Test(priority = 25, description = "IDA4_1733_StartVisitNote_Verify if the selected days appears if selected", enabled = true)
@@ -281,7 +281,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1733_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1733");
-		awaitPriortyInProgress.VerifyIfTheSelectedDaysAppearsIfSelected(prop.getProperty("NoOfdaysValue"));
+		awaitPriortyInProgress.VerifyIfTheSelectedDaysAppearsIfSelected(prop.getProperty("NoOfdaysValue"), medication);
 	}
 
 	@Test(priority = 26, description = "IDA4_1734_StartVisitNote_Verify if user can type in timings dropdown", enabled = true)
@@ -289,7 +289,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1734_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1734");
-		awaitPriortyInProgress.VerifyIfUserCanTypeInTimingsDropdown();
+		awaitPriortyInProgress.VerifyIfUserCanTypeInTimingsDropdown(medication);
 	}
 
 	@Test(priority = 27, description = "IDA4-1735,Verify if the selected time appears once chosen", enabled = true)
@@ -308,7 +308,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1736_StartVisitNote() throws InterruptedException {
 		awaitPriortyInProgress.addTimingsMedication();
-		visitSummaryPage.setRemarks(prop.getProperty("remarks"));
+		awaitPriortyInProgress.setRemarks(prop.getProperty("remarks"), medication);
 	}
 
 	@Test(priority = 29, description = "IDA4-1739,Verify if multiple medicines can be added in medication section", enabled = true)
@@ -348,7 +348,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1743_StartVisitNote() throws Exception {
 
-		awaitPriortyInProgress.addMultipleMedications();
+		awaitPriortyInProgress.addMultipleMedications(medication);
 		awaitPriortyInProgress.verifyDeleteIcon();
 	}
 
@@ -552,7 +552,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1772_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1772");
-		awaitPriortyInProgress.verifySharePrescriptionBtn();
+		awaitPriortyInProgress.verifySharePrescriptionBtn(visitSummaryPage);
 	}
 
 	@Test(priority = 54, description = "IDA4_1773_StartVisitNote_Verify Confirm functionality under share prescription", enabled = true)
@@ -560,7 +560,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1773_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1773");
-		awaitPriortyInProgress.verifyConfBtnSharePrescription();
+		awaitPriortyInProgress.verifyConfBtnSharePrescription(visitSummaryPage);
 	}
 
 	@Test(priority = 55, description = "IDA4_1774_StartVisitNote_Verify Confirm functionality under share prescription", enabled = true)
@@ -569,7 +569,7 @@ public class AwaitPriortyInProgressTest {
 	public void IDA4_1774_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1774");
 
-		awaitPriortyInProgress.verifyViewPrescptnSharePrescription();
+		awaitPriortyInProgress.verifyViewPrescptnSharePrescription(visitSummaryPage);
 	}
 
 	@Test(priority = 56, description = "IDA4_1776_StartVisitNote_Verify buttons are changed once prescription is shared to a patient on visit summary page", enabled = true)
@@ -577,7 +577,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1776_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1776");
-		awaitPriortyInProgress.verifyUpdateViewPrescptnBtninVisitSumPage();
+		awaitPriortyInProgress.verifyUpdateViewPrescptnBtninVisitSumPage(visitSummaryPage);
 	}
 
 	@Test(priority = 57, description = "IDA4_1777_StartVisitNote_Verify Update prescription functionality", enabled = true)
@@ -585,7 +585,7 @@ public class AwaitPriortyInProgressTest {
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1777_StartVisitNote() throws Throwable {
 		// System.out.println("Started execution of IDA4_1777");
-		awaitPriortyInProgress.verifyViewPrescptnSharePrescription();
+		awaitPriortyInProgress.verifyViewPrescptnSharePrescription(visitSummaryPage);
 		awaitPriortyInProgress.verifyUpdatePrescptnFnctnlty();
 
 	}

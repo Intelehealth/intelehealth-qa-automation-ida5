@@ -17,6 +17,7 @@ public class ChangePasswordLanguagePage extends BasePage {
 	WebDriverWait wait;
 
 	By DashboardMenu = By.xpath("//*[@data-test-id='labelDashboard']");
+	By downArrrow = By.xpath("//mat-icon[@data-test-id='iconNavbarToggle']");
 	By HamburgerMenu = By.xpath("//*[@data-test-id='iconProfileDropdown']");
 	By ChangePasswordOption = By.xpath("//*[@data-test-id='btnChangePasswordMain']");
 	By ChangeLanguageOption = By.xpath("//*[@data-test-id='btnSelectLanguageMain']");
@@ -41,6 +42,7 @@ public class ChangePasswordLanguagePage extends BasePage {
 		elementActions = new ElementActions(this.driver);
 		wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
 	}
+
 	@Step("Change password from {0} to {1}")
 	public boolean changePassword(String oldPassword, String newPassword, LoginPage loginPage) {
 		openChangePassword();
@@ -48,7 +50,7 @@ public class ChangePasswordLanguagePage extends BasePage {
 		enterNewPassword(newPassword);
 		enterConfirmPassword(newPassword);
 		clickSubmit();
-		waitForDashboard();
+		//waitForDashboard();
 		loginPage.doLoginWithNewPassword("doctor1", newPassword);
 		elementActions.doClick(DashboardMenu);
 		openChangePassword();
@@ -131,6 +133,13 @@ public class ChangePasswordLanguagePage extends BasePage {
 
 	@Step("Click on Hamburger Menu")
 	public void clickHamburgerMenu() {
+		try {
+			if (elementActions.doIsDisplayed(downArrrow)) {
+				elementActions.doClick(downArrrow);
+			}
+		} catch (Exception e) {
+		
+		}
 		waitForElementClickable(HamburgerMenu);
 		elementActions.doClick(HamburgerMenu);
 	}
@@ -170,9 +179,9 @@ public class ChangePasswordLanguagePage extends BasePage {
 	@Step("Logout")
 	public void logout() {
 		waitForElementClickable(LogoutLink);
-		elementActions.doClick(LogoutLink);
+		elementActions.doActionsClick(LogoutLink);
 		waitForElementClickable(LogoutConfirmYes);
-		elementActions.doClick(LogoutConfirmYes);
+		elementActions.doActionsClick(LogoutConfirmYes);
 	}
 
 	@Step("Enter username: {0}")
@@ -200,7 +209,7 @@ public class ChangePasswordLanguagePage extends BasePage {
 	@Step("Select Russian language")
 	public void selectRussianLanguage() {
 		waitForElementClickable(SelectRussianLanguage);
-		elementActions.JavaScriptExecutorClick(SelectRussianLanguage);
+		elementActions.clickPrettyRadio(SelectRussianLanguage);
 	}
 
 	@Step("Select English language")

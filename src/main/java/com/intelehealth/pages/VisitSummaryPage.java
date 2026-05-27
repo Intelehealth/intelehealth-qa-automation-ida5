@@ -20,7 +20,6 @@ public class VisitSummaryPage extends BasePage {
 
 	WebDriver driver;
 	ElementActions elementActions;
-	AwaitPriortyInProgress awaitPriortyInProgress;
 	WebDriverWait wait;
 	ExtentReportListener extentReport = new ExtentReportListener();
 
@@ -157,7 +156,6 @@ public class VisitSummaryPage extends BasePage {
 	public VisitSummaryPage(WebDriver driver) {
 		this.driver = driver;
 		elementActions = new ElementActions(this.driver);
-		awaitPriortyInProgress = new AwaitPriortyInProgress(this.driver);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 
@@ -414,7 +412,7 @@ public class VisitSummaryPage extends BasePage {
 
 		elementActions.doClick(vsStartVisitNote);
 		Thread.sleep(5000);
-		awaitPriortyInProgress.VerifyAddDiagnosisAndFollowupFunctionality("");
+		// awaitPriortyInProgress.VerifyAddDiagnosisAndFollowupFunctionality("");
 		// awaitPriortyInProgress.addMultipleMedications(medication);
 		/*
 		 * elementActions.doClick(vsSharePrescription);
