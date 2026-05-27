@@ -8,7 +8,7 @@
    features to test web applications.
 
 ##Project overview
- - Total Testcases - 462
+ - Total Testcases - 656
  - Regression Testcases(Automatable) - 270
  - High Priority Regression Testcases (Automatable) - 219
 
