@@ -256,8 +256,10 @@ public class AwaitPriortyInProgress extends BasePage {
 	By lblPatientNameInAppointmentsSection = By.xpath("//td[@data-test-id='awPatient0']//span");
 	By lblPatientNameInAwaitingVisitsSection = By
 			.xpath("//tr[@data-test-id='aw0']//span[contains(@class,'font-bold')]");
-	By inpDosage = By.xpath("//input[@data-test-id='etStandardDose']");By inpFrequency = By.xpath("//ng-select[@data-test-id='selectStandardFrequency']//input");
-	//By inpFrequency = By.xpath("//ng-select[@data-test-id='selectFrequency']//input");
+	By inpDosage = By.xpath("//input[@data-test-id='etStandardDose']");
+	By inpFrequency = By.xpath("//ng-select[@data-test-id='selectStandardFrequency']//input");
+	// By inpFrequency =
+	// By.xpath("//ng-select[@data-test-id='selectFrequency']//input");
 	By inpFrequencyValue = By.xpath("//span[text()='Three times daily']");
 //	By inpDurationNumber = By.xpath("//input[@data-test-id='durationNo']");
 	By inpDurationNumber = By.xpath("//input[@data-test-id='etStandardDurationNo']");
@@ -558,6 +560,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		elementActions.doIsDisplayed(vsChkupStartVisitNotePatientInteraction);
@@ -587,6 +590,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		elementActions.doIsDisplayed(vsChkupStartVisitNoteConnLabl);
@@ -609,6 +613,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(awtvstPatient1Name);
 		extentReport.logToExtentReport("Clicked on Awaiting visit patient");
 		Thread.sleep(3000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		elementActions.doIsDisplayed(vsChkupStartVisitNoteConnLabl);
@@ -637,6 +642,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(3000);
@@ -651,6 +657,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(3000);
@@ -665,6 +672,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(8000);
@@ -686,6 +694,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(8000);
@@ -713,6 +722,8 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(3000);
@@ -1328,7 +1339,7 @@ public class AwaitPriortyInProgress extends BasePage {
 			elementActions.doSendKeys(inpDurationNumber, "10");
 			elementActions.doClick(inpDurationUnits);
 			elementActions.doClick(inpDurationUnitsValue);
-			//elementActions.doSendKeys(inpAdditionalInstructions, "Drink more waters");
+			// elementActions.doSendKeys(inpAdditionalInstructions, "Drink more waters");
 			elementActions.doSendKeys(remarksTextField, "Suffering from Fever");
 			elementActions.doClick(drugSaveButton);
 
@@ -1628,11 +1639,14 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 //		elementActions.doClick(vsChkupStartVisitNoteFollowup);
 //		extentReport.logToExtentReport("Clicked on Follow up");
-		Thread.sleep(4000);elementActions.scrollToElementByText(" Follow-up ");
+		Thread.sleep(4000);
+		elementActions.scrollToElementByText(" Follow-up ");
 		elementActions.clickPrettyRadio(FollowupOptionYes);
 		extentReport.logToExtentReport("Clicked on Yes Radio button is Follow up");
 		elementActions.doClick(FollowupCalendar);
@@ -1659,7 +1673,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		extentReport.logToExtentReport("Clicked on Awaiting visit Patient");
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		elementActions.doClick(StartVisitNote);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(4000);
@@ -1704,6 +1718,8 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(4000);
@@ -1733,6 +1749,8 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(4000);
@@ -1758,6 +1776,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(4000);
@@ -1799,6 +1818,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start visit note button");
 		Thread.sleep(4000);
@@ -1825,6 +1845,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		Thread.sleep(7000);
 		elementActions.doClick(vsChkupStartVisitNoteButton);
 		extentReport.logToExtentReport("Clicked on Start Visit Note button");
 		Thread.sleep(4000);

@@ -57,7 +57,7 @@ public class PayloadGenerator {
 		final String ENCOUNTER_ONE_UUID = generateUUID();
 		final String ENCOUNTER_TWO_UUID = generateUUID();
 		final String VISIT_UUID = generateUUID();
-		//VISIT_UUID_New = VISIT_UUID;
+		// VISIT_UUID_New = VISIT_UUID;
 //		String ENCOUNTER_DATE_AND_TIME = generateEncounterDatetime();
 //		final String LOCATION_UUID = "9172f0c5-2a6d-43ba-84f8-37276a2db14b";
 		// Change here
@@ -101,6 +101,8 @@ public class PayloadGenerator {
 		firstEncounter.put("visit", VISIT_UUID);
 		firstEncounter.put("voided", 0);
 		encounters.add(firstEncounter);
+//		System.out.println("========"+firstEncounter.toString());
+
 		// Second Encounter
 		Map<String, Object> secondEncounter = new LinkedHashMap<>();
 		secondEncounter.put("encounterDatetime", ENCOUNTER_DATE_AND_TIME);
@@ -260,7 +262,8 @@ public class PayloadGenerator {
 		requestBody.put("visits", visits);
 
 		// Print the payload
-		// Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		System.out.println("Visit payload ======================================");
 
 		// Print the payload in a pretty JSON format
 		// System.out.println(gson.toJson(requestBody));
@@ -834,9 +837,10 @@ public class PayloadGenerator {
 	protected static String generateEncounterDatetime() {
 		// Get current date-time with UTC offset
 		OffsetDateTime now = OffsetDateTime.now();
-
+		System.out.println("Current date-time with offset: " + now);
 		// Define the formatter for ISO 8601 format: yyyy-MM-dd'T'HH:mm:ssX
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
+		System.out.println(now.format(formatter));
 
 		// Format and return the date-time as a String
 		return now.format(formatter);
