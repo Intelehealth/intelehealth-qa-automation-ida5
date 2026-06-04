@@ -1,0 +1,1 @@
+org.testng.SkipException: ⚠️ Skipping AppointmentPageTest — no slots available. Tests will resume when slots are available.

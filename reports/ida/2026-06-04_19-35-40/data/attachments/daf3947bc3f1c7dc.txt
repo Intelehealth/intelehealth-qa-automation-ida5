@@ -1,0 +1,1 @@
+verifyBehaviorWhenNoVistsExistForSelectedDate failed and screenshot taken!
