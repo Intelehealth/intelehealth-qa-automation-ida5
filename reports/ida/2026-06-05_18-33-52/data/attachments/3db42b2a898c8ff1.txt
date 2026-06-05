@@ -1,0 +1,1 @@
+verifyCloseButtonFuntionalityInCreateTicketModal failed and screenshot taken!

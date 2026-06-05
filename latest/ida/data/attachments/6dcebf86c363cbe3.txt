@@ -1,0 +1,1 @@
+verifyApplyWithoutSelectingFromDateAfterChoosingRangeOption failed and screenshot taken!

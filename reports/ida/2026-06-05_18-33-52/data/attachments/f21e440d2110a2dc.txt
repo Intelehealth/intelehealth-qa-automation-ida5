@@ -1,0 +1,1 @@
+VerifyFilterPopupOpensonClickingFilterIcon failed and screenshot taken!
