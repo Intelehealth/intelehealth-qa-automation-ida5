@@ -178,6 +178,10 @@ public class AwaitPriortyInProgress extends BasePage {
 	By ConstDetViewPrescptn = By.xpath("//button[@data-test-id='btnViewPrescription']");
 	By DiagnosisColumn = By.xpath("//ng-select[@data-test-id='selectDiagnosisName']//input");
 	By TypeColumn = By.xpath("//td[text()='Primary']");
+	By lblPrimaryrdo = By.xpath("//label[@data-test-id='labelDiagnosisTypePrimary']");
+	By lbllProvisionalrdo = By.xpath("//label[@data-test-id='labelDiagnosisStatusProvisional']");
+
+	
 	By StatusColumn = By.xpath("//td[text()='Provisional']");
 	By DeleteIcon = By.xpath("//button[@data-test-id='btnDeleteDiagnosisVisitSummary0']");
 	By DeleteIconMedications = By.xpath("//button[@data-test-id='btnDeleteMedVisitSummary0']");
@@ -426,7 +430,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(3000);
 		elementActions.doClick(vsChkUpRsnReferToSpecialtyDropdown);
 		Thread.sleep(5000);
-		elementActions.doSelect(vsChkupReferToAnotherRadBtnYes);
+		elementActions.clickPrettyRadio(vsChkupReferToAnotherRadBtnYes);
 		extentReport.logToExtentReport("Clicked on Refer speciality YES Radio button");
 		elementActions.doIsNotSelected(vsChkupReferToAnotherRadBtnNo);
 		extentReport.logToExtentReport("Verified that Refer Speciality NO radio button is not selected");
@@ -444,7 +448,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.scrollToElementByText("Additional Documents");
 		Thread.sleep(2000);
 		elementActions.doClick(vsChkUpRsnReferToSpecialtyDropdown);
-		elementActions.doSelect(vsChkupReferToAnotherRadBtnYes);
+		elementActions.clickPrettyRadio(vsChkupReferToAnotherRadBtnYes);
 		extentReport.logToExtentReport("Clicked on Refer speciality Radio button Yes");
 		elementActions.doClick(vsChkupReferSpecialityDrpdwn);
 		extentReport.logToExtentReport("Clicked on Refer Specialty dropdown");
@@ -747,7 +751,9 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(5000);
 		elementActions.scrollToElementByText("Refer to Specialist");
 		Thread.sleep(2000);
+		
 		elementActions.doClick(StartVisitNote);
+		
 		extentReport.logToExtentReport("Clicked on Start Visit Note button");
 		Thread.sleep(4000);
 //		elementActions.doClick(SelectDiagnosisDownArrow);
@@ -760,10 +766,10 @@ public class AwaitPriortyInProgress extends BasePage {
 		elementActions.doClick(DropdownFirstOption);
 		extentReport.logToExtentReport("Select the first option from the diagnosis list");
 		Thread.sleep(2000);
-		elementActions.doSelect(DiagnosisTypePrimary);
+		elementActions.clickPrettyRadio(DiagnosisTypePrimary);
 		extentReport.logToExtentReport("Clicked on Diagnosis type as Primary");
 		Thread.sleep(2000);
-		elementActions.doSelect(DiagnosisStatusProvisional);
+		elementActions.clickPrettyRadio(DiagnosisStatusProvisional);
 		extentReport.logToExtentReport("Clicked on Diagnosis Status as Provisional");
 		Thread.sleep(2000);
 		elementActions.doClick(AddDiagnosis);
@@ -771,9 +777,9 @@ public class AwaitPriortyInProgress extends BasePage {
 		Thread.sleep(2000);
 		elementActions.VerifyText2(DiagnosisColumn, FirstOptionValue);
 		extentReport.logToExtentReport("Verified the text of the first option value from Diagnosis column");
-		elementActions.VerifyText(DiagnosisTypePrimary, TypeColumn);
+		elementActions.VerifyText(lblPrimaryrdo, TypeColumn);
 		extentReport.logToExtentReport("Verified Diagnosis type as primary is displayed");
-		elementActions.VerifyText(DiagnosisStatusProvisional, StatusColumn);
+		elementActions.VerifyText(lbllProvisionalrdo, StatusColumn);
 		extentReport.logToExtentReport("Verified Diagnosis Status as provisional is displayed");
 	}
 
@@ -1261,7 +1267,7 @@ public class AwaitPriortyInProgress extends BasePage {
 		extentReport.logToExtentReport("Selected first Diagnosis dropdown value");
 		String diagnosisSelected = elementActions.doGetText(DiagnosisSelected);
 		extentReport.logToExtentReport("Verified the diagnosis selected");
-		elementActions.doSelect(DiagnosisTypePrimary);
+		elementActions.clickPrettyRadio(DiagnosisTypePrimary);
 		extentReport.logToExtentReport("Clicked on Diagnosis type as Primary");
 		elementActions.doSelect(DiagnosisStatusProvisional);
 		extentReport.logToExtentReport("Clicked on Diagnosis Status as Provisional");

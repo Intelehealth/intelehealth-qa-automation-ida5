@@ -44,20 +44,21 @@ public class ChangePasswordLanguagePage extends BasePage {
 	}
 
 	@Step("Change password from {0} to {1}")
-	public boolean changePassword(String oldPassword, String newPassword, LoginPage loginPage) {
+	public boolean changePassword(String oldPassword, String newPassword,String username, LoginPage loginPage) {
 		openChangePassword();
 		enterOldPassword(oldPassword);
 		enterNewPassword(newPassword);
 		enterConfirmPassword(newPassword);
 		clickSubmit();
 		//waitForDashboard();
-		loginPage.doLoginWithNewPassword("doctor1", newPassword);
+		loginPage.doLoginWithNewPassword(username, newPassword);
 		elementActions.doClick(DashboardMenu);
 		openChangePassword();
 		enterOldPassword(newPassword);
 		enterNewPassword(oldPassword);
 		enterConfirmPassword(oldPassword);
 		clickSubmit();
+		loginPage.doLoginWithNewPassword(username, oldPassword);
 		// Optionally, re-login to verify
 		return isDashboardVisible();
 	}

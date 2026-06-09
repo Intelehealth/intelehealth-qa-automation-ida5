@@ -405,13 +405,18 @@ public class PayloadGenerator {
 
 		List<Map<String, Object>> attributes = new ArrayList<>();
 		attributes.add(createAttributesObservation("14d4f066-15f5-102d-96e4-000c29c2a5d7", "+917777777777"));
+		String date = new SimpleDateFormat("ddMMMMyyyy").format(new Date()).toUpperCase();
 
+		int random = new Random().nextInt(9000) + 1000;
 		person.put("attributes", attributes);
 		person.put("birthdate", "2023-03-02");
 		person.put("gender", "M");
 
 		person.put("names", List
-				.of(Map.of("familyName", "Qa" + new Random().nextInt(100), "givenName", "JAN", "middleName", "Test")));
+				.of(Map.of(
+						"familyName", date + "_" + random,
+						"givenName", "QA Automation ",
+						"middleName", "Test ")));
 
 		person.put("uuid", PERSON_UUID);
 

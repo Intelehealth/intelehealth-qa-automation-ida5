@@ -52,17 +52,11 @@ public class ChangePasswordLanguageTest {
 		// Validate dashboard is loaded
 		// Change password
 		boolean changed = changePasswordLanguagePage.changePassword(prop.getProperty("OldPassword"),
-				prop.getProperty("NewPassword"), loginPage);
+				prop.getProperty("NewPassword"),prop.getProperty("username"), loginPage);
+		
 		Assert.assertTrue(changed, "Password change should succeed");
 		// Validate login with new password
-		boolean loginSuccess = changePasswordLanguagePage.loginWithNewPassword(prop.getProperty("username"),
-				prop.getProperty("NewPassword"));
-		Assert.assertTrue(loginSuccess, "Should be able to login with new password");
-		// Revert password for test idempotency
-		boolean reverted = changePasswordLanguagePage.changePassword(prop.getProperty("NewPassword"),
-				prop.getProperty("OldPassword"), loginPage);
-
-		Assert.assertTrue(reverted, "Password should be reverted to original");
+	
 	}
 
 	@Test(priority = 2, description = "IDA4_1565_Verify Generate password link functionality", enabled = true)

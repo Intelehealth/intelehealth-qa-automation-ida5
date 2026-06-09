@@ -49,11 +49,11 @@ public class APIServices {
 
 	public static String createVisitUsingRestAssured(RequestSpecification request) {
 		Response response = request.body(resolveVisitPayload()).post(VISIT_PUSH_ENDPOINT);
-		/*
-		 * System.out.println(
-		 * "======================================================================================================"
-		 * + response.jsonPath().getString("data.patientlist[0].openmrs_id"));
-		 */
+		
+		  System.out.println(
+		  "======================================================================================================"
+		  + response.jsonPath().getString("data.patientlist[0].openmrs_id"));
+		 System.out.println(response.asPrettyString());
 		return response.jsonPath().getString("data.patientlist[0].openmrs_id");
 
 	}
