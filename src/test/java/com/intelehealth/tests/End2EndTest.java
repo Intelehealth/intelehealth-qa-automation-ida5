@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 import com.intelehealth.api.APIServices;
 import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.pages.End2EndPage;
 import com.intelehealth.pages.LoginPage;
 import com.intelehealth.util.Credentials;
@@ -60,7 +61,9 @@ public class End2EndTest extends BasePage {
 		driver = basePage.init_driver1(prop, testEnum);
 		loginPage = new LoginPage(driver);
 		end2endPage = new End2EndPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		loginPage.doLogin(credentials);
 	}
 

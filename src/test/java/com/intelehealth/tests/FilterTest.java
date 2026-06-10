@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
@@ -41,7 +42,9 @@ public class FilterTest {
 		testEnum = method.getName().toUpperCase();
 		driver = basePage.init_driver1(prop, testEnum);
 		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		dashboardPage = loginPage.doLogin(credentials);
 
 		ScreenshotListener.setDriver(driver);

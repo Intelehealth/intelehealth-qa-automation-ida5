@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.intelehealth.api.APIServices;
 import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.AppointmentPage;
 import com.intelehealth.pages.CalendarPage;
@@ -83,8 +84,8 @@ public class AppointmentPageTest {
 		}
 		driver = basePage.init_driver1(prop, testEnum);
 		// driver = basePage.init_driver(prop);
-		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		dashboardPage = loginPage.doLogin(credentials);
 		appointmentPage = new AppointmentPage(driver);
 		calendarPage = new CalendarPage(driver);

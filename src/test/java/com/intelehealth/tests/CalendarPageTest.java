@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.intelehealth.api.APIServices;
 import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.pages.CalendarPage;
 import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
@@ -73,7 +74,9 @@ public class CalendarPageTest {
 		// driver = basePage.init_driver1(prop,WebDriverEnum.CALENDAR_PAGE_TEST);
 		loginPage = new LoginPage(driver);
 		calendarPage = new CalendarPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		loginPage.doLogin(credentials);
 	}
 

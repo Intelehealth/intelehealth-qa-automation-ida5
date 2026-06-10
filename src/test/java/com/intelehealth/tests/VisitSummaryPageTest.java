@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 import com.intelehealth.api.APIServices;
 import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
@@ -67,7 +68,9 @@ public class VisitSummaryPageTest {
 		// Set implicit wait
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		dashboardPage = loginPage.doLogin(credentials);
 		vstSummaryPage = new VisitSummaryPage(driver);
 		ScreenshotListener.setDriver(driver);

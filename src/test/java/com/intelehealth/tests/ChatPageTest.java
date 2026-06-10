@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.ChatPage;
 import com.intelehealth.pages.DashboardPage;
@@ -34,7 +35,9 @@ public class ChatPageTest {
 		driver = basePage.init_driver(prop);
 		// Initialize  here
 		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		dashboardPage = loginPage.doLogin(credentials);
 		chatPage = new ChatPage(driver);
 		ScreenshotListener.setDriver(driver);

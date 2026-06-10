@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import com.intelehealth.api.APIServices;
 import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.AwaitPriortyInProgress;
 import com.intelehealth.pages.ChatPage;
@@ -70,7 +71,9 @@ public class AwaitPriortyInProgressTest {
 		driver = basePage.init_driver1(prop, testEnum);
 		APIServices.createVisitUsingRestAssured(Auth.buildRequestWithNurseAuthorization());
 		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		dashboardPage = loginPage.doLogin(credentials);
 		awaitPriortyInProgress = new AwaitPriortyInProgress(driver);
 		visitSummaryPage = new VisitSummaryPage(driver);

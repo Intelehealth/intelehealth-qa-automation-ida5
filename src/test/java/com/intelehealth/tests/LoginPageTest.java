@@ -11,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
 import com.intelehealth.util.Credentials;
@@ -49,7 +50,9 @@ public class LoginPageTest {
 		loginPage = new LoginPage(driver);
 		dashboardPage = new DashboardPage(driver);
 
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 	}
 
 	@Test(priority = 1, description = "IDA4_1420_Login_Verify that user can navigate to Login screen", enabled = true)

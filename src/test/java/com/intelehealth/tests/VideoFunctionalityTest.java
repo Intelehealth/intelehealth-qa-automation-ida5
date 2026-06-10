@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import com.intelehealth.api.APIServices;
 import com.intelehealth.api.Auth;
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ExtentReportListener;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.DashboardPage;
@@ -43,7 +44,9 @@ public class VideoFunctionalityTest {
 		prop = basePage.init_prop();
 		driver = basePage.init_driver(prop);
 		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		dashboardPage = loginPage.doLogin(credentials);
 		videoFunctionalityPage = new VideoFunctionalityPage(driver);
 		ScreenshotListener.setDriver(driver);

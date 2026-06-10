@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.listeners.ScreenshotListener;
 import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
@@ -39,7 +40,9 @@ public class ProfilePageTest {
 		driver = basePage.init_driver1(prop, testEnum);
 		// driver = basePage.init_driver1(prop,WebDriverEnum.PROFILE_PAGE_TEST);
 		loginPage = new LoginPage(driver);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		dashboardPage = loginPage.doLogin(credentials);
 		profilePage = new ProfilePage(driver);
 		ScreenshotListener.setDriver(driver);

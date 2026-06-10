@@ -2,6 +2,7 @@ package com.intelehealth.tests;
 
 
 import com.intelehealth.base.BasePage;
+import com.intelehealth.config.ConfigManager;
 import com.intelehealth.pages.DashboardPage;
 import com.intelehealth.pages.LoginPage;
 import com.intelehealth.pages.NotificationPage;
@@ -31,7 +32,9 @@ public class NotificationPageTest {
 		prop = basePage.init_prop();
 		driver_One = basePage.init_driver(prop);
 		loginPage = new LoginPage(driver_One);
-		credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
+
 		notificationPage = new NotificationPage(driver_One);
 		dashboardPage = loginPage.doLogin(credentials);
 	}
