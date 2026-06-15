@@ -1,0 +1,1 @@
+io.restassured.path.json.exception.JsonPathException: Failed to parse the JSON document

@@ -1,0 +1,1 @@
+VerifyResetButtonFunctionality failed and screenshot taken!
