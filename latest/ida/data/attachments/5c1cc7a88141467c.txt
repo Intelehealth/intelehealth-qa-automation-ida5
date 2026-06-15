@@ -1,0 +1,1 @@
+verifyApplyButtonWithoutSelectingRange failed and screenshot taken!
