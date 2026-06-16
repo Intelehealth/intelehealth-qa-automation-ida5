@@ -47,7 +47,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotUsernamePage();
 	}
 	
-	@Test(priority = 2, description = "IDA4_1444_Verify entering mobile number and clicking next", enabled = false)
+	@Test(priority = 2, description = "IDA4_1444_Verify entering mobile number and clicking next", enabled = true)
 	@Description("Verify entering mobile number and clicking next")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1444_ForgotUNPW() throws InterruptedException {
@@ -56,7 +56,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotUsernameMobileNumber();
 	}
 	
-	@Test(priority = 3, description = "IDA4_1446_Verify user should get the OTP through mobile number", enabled = false)
+	@Test(priority = 3, description = "IDA4_1446_Verify user should get the OTP through mobile number", enabled = true)
 	@Description("Verify user should get the OTP through mobile number")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1446_ForgotUNPW() throws InterruptedException {
@@ -66,7 +66,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyOTPVerificationSuccessPopup();
 	}
 	
-	@Test(priority = 4, description = "IDA4_1447_Verify username is retrieved and user should be able to login", enabled = false)
+	@Test(priority = 4, description = "IDA4_1447_Verify username is retrieved and user should be able to login", enabled = true)
 	@Description("Verify username is retrieved and user should be able to login")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1447_ForgotUNPW() throws InterruptedException {
@@ -77,7 +77,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for retrieving Username from Mobile");
 	}
 	
-	@Test(priority = 5, description = "IDA4_1448_Verify the Resend functionality", enabled = false)
+	@Test(priority = 5, description = "IDA4_1448_Verify the Resend functionality", enabled = true)
 	@Description("Verify the Resend functionality")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1448_ForgotUNPW() throws InterruptedException {
@@ -87,7 +87,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for retrieving Username from Mobile");
 	}
 	
-	@Test(priority = 6, description = "IDA4_1454_Verify that 6 digit OTP is received in registered mobile number", enabled = false)
+	@Test(priority = 6, description = "IDA4_1454_Verify that 6 digit OTP is received in registered mobile number", enabled = true)
 	@Description("Verify that 6 digit OTP is received in registered mobile number")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1454_ForgotUNPW() throws InterruptedException {
@@ -97,7 +97,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from Mobile");
 	}
 	
-	@Test(priority = 7, description = "IDA4_1457_Verify user entering valid Email ID and clicking Next", enabled = false)
+	@Test(priority = 7, description = "IDA4_1457_Verify user entering valid Email ID and clicking Next", enabled = true)
 	@Description("Verify user entering valid Email ID and clicking Next")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1457_ForgotUNPW() throws InterruptedException {
@@ -106,7 +106,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotUsernameEmailID();
 	}
 	
-	@Test(priority = 8, description = "IDA4_1458_Verify user gets the OTP through Email ID", enabled = false)
+	@Test(priority = 8, description = "IDA4_1458_Verify user gets the OTP through Email ID", enabled = true)
 	@Description("Verify user gets the OTP through Email ID")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1458_ForgotUNPW() throws InterruptedException {
@@ -117,7 +117,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from EmailID");
 	}
 	
-	@Test(priority = 9, description = "IDA4_1459_Verify username is retrieved and user should be able to login", enabled = false)
+	@Test(priority = 9, description = "IDA4_1459_Verify username is retrieved and user should be able to login", enabled = true)
 	@Description("Verify username is retrieved and user should be able to login")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1459_ForgotUNPW() throws InterruptedException {
@@ -128,7 +128,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from EmailID");
 	}
 	
-	@Test(priority = 10, description = "IDA4_1460_Verify the Resend functionality", enabled = false)
+	@Test(priority = 10, description = "IDA4_1460_Verify the Resend functionality", enabled = true)
 	@Description("Verify the Resend functionality")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1460_ForgotUNPW() throws InterruptedException {
@@ -139,7 +139,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from EmailID");
 	}
 	
-	@Test(priority = 11, description = "IDA4_1466_Verify that 6 digit OTP is received by user through Email", enabled = false)
+	@Test(priority = 11, description = "IDA4_1466_Verify that 6 digit OTP is received by user through Email", enabled = true)
 	@Description("Verify that 6 digit OTP is received by user through Email")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1466_ForgotUNPW() throws InterruptedException {
@@ -150,7 +150,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from EmailID");
 	}
 	
-	@Test(priority = 12, description = "IDA4_1468_Verify that user gets the Forgot password screen on clicking the link", enabled = false)
+	@Test(priority = 12, description = "IDA4_1468_Verify that user gets the Forgot password screen on clicking the link", enabled = true)
 	@Description("Verify that user gets the Forgot password screen on clicking the link")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1468_ForgotUNPW() throws InterruptedException {
@@ -159,7 +159,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotPassword();
 	}
 	
-	@Test(priority = 13, description = "IDA4_1469_Verify that user can navigate to Forgot username screen on clicking link", enabled = false)
+	@Test(priority = 13, description = "IDA4_1469_Verify that user can navigate to Forgot username screen on clicking link", enabled = true)
 	@Description("Verify that user can navigate to Forgot username screen on clicking link")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1469_ForgotUNPW() throws InterruptedException {
@@ -169,7 +169,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotUsernamePage();
 	}
 	
-	@Test(priority = 14, description = "IDA4_1471_Verify entering username and clicking Next", enabled = false)
+	@Test(priority = 14, description = "IDA4_1471_Verify entering username and clicking Next", enabled = true)
 	@Description("Verify entering username and clicking Next")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1471_ForgotUNPW() throws InterruptedException {
@@ -178,7 +178,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotPasswordByUsernameNext(prop.getProperty("username"));
 	}
 	
-	@Test(priority = 15, description = "IDA4_1473_Verify if user gets the OTP to Mobile number and Email", enabled = false)
+	@Test(priority = 15, description = "IDA4_1473_Verify if user gets the OTP to Mobile number and Email", enabled = true)
 	@Description("Verify if user gets the OTP to Mobile number and Email")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1473_ForgotUNPW() throws InterruptedException {
@@ -187,7 +187,7 @@ public class ForgotUsernamePasswordTest {
 		forgotUsernamePasswordPage.VerifyForgotPasswordByUsernameNext(prop.getProperty("username"));
 	}
 	
-	@Test(priority = 16, description = "IDA4_1474_Verify the Resend functionality", enabled = false)
+	@Test(priority = 16, description = "IDA4_1474_Verify the Resend functionality", enabled = true)
 	@Description("Verify the Resend functionality")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1474_ForgotUNPW() throws InterruptedException {
@@ -198,7 +198,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from Mobile Number");
 	}
 	
-	@Test(priority = 17, description = "IDA4_1480_Verify that user receives 6 digit OTP in registered mobile number/email", enabled = false)
+	@Test(priority = 17, description = "IDA4_1480_Verify that user receives 6 digit OTP in registered mobile number/email", enabled = true)
 	@Description("Verify that user receives 6 digit OTP in registered mobile number/email")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1480_ForgotUNPW() throws InterruptedException {
@@ -209,7 +209,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP from Mobile Number");
 	}
 	
-	@Test(priority = 18, description = "IDA4_1482_Verify that user is able to Reset the password", enabled = false)
+	@Test(priority = 18, description = "IDA4_1482_Verify that user is able to Reset the password", enabled = true)
 	@Description("Verify that user is able to Reset the password")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1482_ForgotUNPW() throws InterruptedException {
@@ -220,7 +220,7 @@ public class ForgotUsernamePasswordTest {
 		extentReport.logToExtentReport( "Not verified for OTP");
 	}
 	
-	@Test(priority = 19, description = "IDA4_1483_Verify that user is able to Login using new password", enabled = false)
+	@Test(priority = 19, description = "IDA4_1483_Verify that user is able to Login using new password", enabled = true)
 	@Description("Verify that user is able to Login using new password")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1483_ForgotUNPW() throws InterruptedException {

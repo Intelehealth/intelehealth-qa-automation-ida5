@@ -42,9 +42,6 @@ public class ProfilePageTest {
 		loginPage = new LoginPage(driver);
 	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-		System.out.println("========== Username in ProfilePageTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-		    (ConfigManager.getInstance().getPassword() != null));
 		dashboardPage = loginPage.doLogin(credentials);
 		profilePage = new ProfilePage(driver);
 		ScreenshotListener.setDriver(driver);
@@ -63,7 +60,7 @@ public class ProfilePageTest {
 		}
 	}
 
-	@Test(priority = 2, description = "IDA4_1526_Verify that user can update the Mobile number, Whatsapp number and Email ID", enabled = false)
+	@Test(priority = 2, description = "IDA4_1526_Verify that user can update the Mobile number, Whatsapp number and Email ID", enabled = true)
 	@Description("Verify that user can update the Mobile number, Whatsapp number and Email ID")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1526_Profile() throws InterruptedException {
@@ -76,7 +73,7 @@ public class ProfilePageTest {
 		}
 	}
 
-	@Test(priority = 3, description = "IDA4_1532_Verify that user can select the signature from dropdown", enabled = false)
+	@Test(priority = 3, description = "IDA4_1532_Verify that user can select the signature from dropdown", enabled = true)
 	@Description("Verify that user can select the signature from dropdown")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1532_Profile() throws InterruptedException, IOException {
@@ -89,7 +86,7 @@ public class ProfilePageTest {
 		}
 	}
 
-	@Test(priority = 4, description = "IDA4_1534_Verify that user can add signature by Uploading jpg, jpeg and png images between 5kb to 50kb sizes.", enabled = false)
+	@Test(priority = 4, description = "IDA4_1534_Verify that user can add signature by Uploading jpg, jpeg and png images between 5kb to 50kb sizes.", enabled = true)
 	@Description("Verify that user can add signature by Uploading jpg, jpeg and png images between 5kb to 50kb sizes.")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1534_Profile() throws InterruptedException, IOException {
@@ -102,7 +99,7 @@ public class ProfilePageTest {
 		}
 	}
 
-	@Test(priority = 5, description = "IDA4_1550_Verify that user can able to update the profile", enabled = false)
+	@Test(priority = 5, description = "IDA4_1550_Verify that user can able to update the profile", enabled = true)
 	@Description("Verify that user can able to update the profile")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1550_Profile() throws InterruptedException, IOException {

@@ -43,9 +43,6 @@ public class ChangePasswordLanguageTest {
 		driver = basePage.init_driver(prop);
 		loginPage = new LoginPage(driver);
 		config = ConfigManager.getInstance();
-		System.out.println("========== Username in ChangePasswordLanguageTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-		    (ConfigManager.getInstance().getPassword() != null));
 		credentials = new Credentials(config.getUsername(), config.getPassword());
 		dashboardPage = loginPage.doLogin(credentials);
 		changePasswordLanguagePage = new ChangePasswordLanguagePage(driver);
@@ -66,7 +63,7 @@ public class ChangePasswordLanguageTest {
 
 	}
 
-	@Test(priority = 2, description = "IDA4_1565_Verify Generate password link functionality", enabled = false)
+	@Test(priority = 2, description = "IDA4_1565_Verify Generate password link functionality", enabled = true)
 	@Description("Verify Generate password link functionality")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1565_ChangePasswordLanguage() {
@@ -75,7 +72,7 @@ public class ChangePasswordLanguageTest {
 		Assert.assertTrue(generated, "Generate password link should be functional");
 	}
 
-	@Test(priority = 3, description = "IDA4_1568_Verify user can login using new password", enabled = false)
+	@Test(priority = 3, description = "IDA4_1568_Verify user can login using new password", enabled = true)
 	@Description("Verify user can login using new password")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1568_ChangePasswordLanguage() {
@@ -84,7 +81,7 @@ public class ChangePasswordLanguageTest {
 		Assert.assertTrue(loginSuccess, "Should be able to login with current password");
 	}
 
-	@Test(priority = 4, description = "IDA4_1569_Verify that user can change the language", enabled = false)
+	@Test(priority = 4, description = "IDA4_1569_Verify that user can change the language", enabled = true)
 	@Description("Verify that user can select the language")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1569_ChangePasswordLanguage() {

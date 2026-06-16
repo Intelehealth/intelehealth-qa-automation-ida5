@@ -37,10 +37,7 @@ public class ChatPageTest {
 		loginPage = new LoginPage(driver);
 	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-		System.out.println("========== Username in ChatPageTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-		    (ConfigManager.getInstance().getPassword() != null));
-		dashboardPage = loginPage.doLogin(credentials);
+				dashboardPage = loginPage.doLogin(credentials);
 		chatPage = new ChatPage(driver);
 		ScreenshotListener.setDriver(driver);
 	}
@@ -54,7 +51,7 @@ public class ChatPageTest {
 		chatPage.chatOptionvisibility();
 	}
 	
-	@Test(priority = 2, description = "IDA4_1828_Verify chat option functionality in visit summary page", enabled = false)
+	@Test(priority = 2, description = "IDA4_1828_Verify chat option functionality in visit summary page", enabled = true)
 	@Description("Verify chat option visibility")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1828_Chat() throws InterruptedException {
@@ -63,7 +60,7 @@ public class ChatPageTest {
 		chatPage.chatOptionfunctionality();
 	}
 	
-	@Test(priority = 3, description = "IDA4_1830_Verify sending message in chat", enabled = false)
+	@Test(priority = 3, description = "IDA4_1830_Verify sending message in chat", enabled = true)
 	@Description("Verify sending message in chat")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1830_Chat() throws InterruptedException {
@@ -72,7 +69,7 @@ public class ChatPageTest {
 		chatPage.chatSendMessage();
 	}
 	
-	@Test(priority = 4, description = "IDA4_1833_Verify whether HW able to click on the PN when doctor send a chat msg", enabled = false)
+	@Test(priority = 4, description = "IDA4_1833_Verify whether HW able to click on the PN when doctor send a chat msg", enabled = true)
 	@Description("Verify whether HW able to click on the PN when doctor send a chat msg")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1833_Chat() throws InterruptedException {
@@ -81,7 +78,7 @@ public class ChatPageTest {
 		chatPage.chatSendMessagetoHW();
 	}
 	
-	@Test(priority = 5, description = "IDA4_1834_Verify whether healthworker able to reply to doctor message/Check the sent message from doctor by logging into mobile", enabled = false)
+	@Test(priority = 5, description = "IDA4_1834_Verify whether healthworker able to reply to doctor message/Check the sent message from doctor by logging into mobile", enabled = true)
 	@Description("Verify whether healthworker able to reply to doctor message/Check the sent message from doctor by logging into mobile")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1834_Chat() throws InterruptedException {

@@ -46,10 +46,7 @@ public class MessagesPageTest {
 		messagesPage = new MessagesPage(driver);
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-		System.out.println("========== Username in MessagesPageTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-		    (ConfigManager.getInstance().getPassword() != null));
-		dashboardPage = loginPage.doLogin(credentials);
+			dashboardPage = loginPage.doLogin(credentials);
 		ScreenshotListener.setDriver(driver);
 	}
 
@@ -65,7 +62,7 @@ public class MessagesPageTest {
 		Assert.assertTrue(messagesPage.isDisplayedPatientsListAlongWithPreviewMessage());
 	}
 
-	@Test(priority = 2, description = "Verify Search by Patient Name", enabled = false)
+	@Test(priority = 2, description = "Verify Search by Patient Name", enabled = true)
 	@Description("Verify Search by Patient Name")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifySearchByPatientName() {
@@ -74,7 +71,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 3, description = "Verify Search by Patient OpenMRSID", enabled = false)
+	@Test(priority = 3, description = "Verify Search by Patient OpenMRSID", enabled = true)
 	@Description("Verify Search by Patient OpenMRSID")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifySearchByPatientOpenMRSID() {
@@ -83,7 +80,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 4, description = "verify Opening A Patient Conversation", enabled = false)
+	@Test(priority = 4, description = "verify Opening A Patient Conversation", enabled = true)
 	@Description("verify Opening A Patient Conversation")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifyOpeningAPatientConversation() {
@@ -92,7 +89,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 5, description = "Verify Message History Is Displayed", enabled = false)
+	@Test(priority = 5, description = "Verify Message History Is Displayed", enabled = true)
 	@Description("Verify Message History Is Displayed")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifyMessageHistoryIsDisplayed() {
@@ -101,7 +98,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 6, description = "Verify Sending a Text Message", enabled = false)
+	@Test(priority = 6, description = "Verify Sending a Text Message", enabled = true)
 	@Description("Verify Sending a Text Message")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifySendingATextMessage() {
@@ -110,7 +107,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 7, description = "Verify Sending a Text Message", enabled = false)
+	@Test(priority = 7, description = "Verify Sending a Text Message", enabled = true)
 	@Description("Verify Sending a Text Message")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifySentMessageStatusIsUpdated() {
@@ -120,7 +117,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 8, description = "Verify Message Date Display", enabled = false)
+	@Test(priority = 8, description = "Verify Message Date Display", enabled = true)
 	@Description("Verify Message Date Display")
 	@Severity(SeverityLevel.BLOCKER)
 	public void verifyMessageDateDisplay() {
@@ -129,7 +126,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 9, description = "Verify Search with Invalid Patient OpenMRSID", enabled = false)
+	@Test(priority = 9, description = "Verify Search with Invalid Patient OpenMRSID", enabled = true)
 	@Description("Verify Search with Invalid Patient OpenMRSID")
 	@Severity(SeverityLevel.BLOCKER)
 	public void VerifySearchWithInvalidPatientOpenMRSID() {
@@ -139,7 +136,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 10, description = "Verify Search with Invalid Patient Name", enabled = false)
+	@Test(priority = 10, description = "Verify Search with Invalid Patient Name", enabled = true)
 	@Description("Verify Search with Invalid Patient Name")
 	@Severity(SeverityLevel.BLOCKER)
 	public void VerifySearchWithInvalidPatientName() {
@@ -149,7 +146,7 @@ public class MessagesPageTest {
 
 	}
 
-	@Test(priority = 11, description = "Verify Sending an Empty Message Is Not Allowed", enabled = false)
+	@Test(priority = 11, description = "Verify Sending an Empty Message Is Not Allowed", enabled = true)
 	@Description("Verify Sending an Empty Message Is Not Allowed")
 	@Severity(SeverityLevel.BLOCKER)
 	public void VerifySendingAnEmptyMessageIsNotAllowed() {

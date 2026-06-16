@@ -47,10 +47,7 @@ public class SearchPageTest {
 		searchPage = new SearchPage(driver);
 		homePage = new HomePage(driver);
 		visitSummaryPage = new VisitSummaryPage(driver);
-		System.out.println("========== Username in SearchPageTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-		    (ConfigManager.getInstance().getPassword() != null));
-		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
+			//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
 
 		dashboardPage = loginPage.doLogin(credentials);
@@ -72,7 +69,7 @@ public class SearchPageTest {
 		}
 	}
 
-	@Test(priority = 2, description = "IDA4-1489, Search using patient OpenMRS-ID", enabled = false)
+	@Test(priority = 2, description = "IDA4-1489, Search using patient OpenMRS-ID", enabled = true)
 	@Description("Search using patient OpenMRS-ID")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1489_Search() throws InterruptedException {
@@ -84,7 +81,7 @@ public class SearchPageTest {
 		}
 	}
 
-	@Test(priority = 3, description = "IDA4-1491,verify view button", enabled = false)
+	@Test(priority = 3, description = "IDA4-1491,verify view button", enabled = true)
 	@Description("verify view button")
 	@Severity(SeverityLevel.BLOCKER)
 

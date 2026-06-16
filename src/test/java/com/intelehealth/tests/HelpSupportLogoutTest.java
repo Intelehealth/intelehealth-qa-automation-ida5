@@ -41,9 +41,6 @@ public class HelpSupportLogoutTest {
 		testEnum = method.getName().toUpperCase();
 		driver = basePage.init_driver1(prop, testEnum);
 		loginPage = new LoginPage(driver);
-		System.out.println("========== Username in HelpSupportLogoutTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-		    (ConfigManager.getInstance().getPassword() != null));
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
 
@@ -61,7 +58,7 @@ public class HelpSupportLogoutTest {
 		helpSupportLogoutPage.logoutConfirmDialog();
 	}
 
-	@Test(priority = 2, description = "IDA4_1650_Verify the User can logout from app if clicking yes", enabled = false)
+	@Test(priority = 2, description = "IDA4_1650_Verify the User can logout from app if clicking yes", enabled = true)
 	@Description("Verify the User can logout from app if clicking yes")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1650_HelpSupport() throws InterruptedException {
@@ -70,7 +67,7 @@ public class HelpSupportLogoutTest {
 		helpSupportLogoutPage.logoutFunctionality();
 	}
 
-	@Test(priority = 3, description = "Verify that user is navigated to Help & Support screen when clicked from left panel", enabled = false)
+	@Test(priority = 3, description = "Verify that user is navigated to Help & Support screen when clicked from left panel", enabled = true)
 	@Description("Validates successful navigation to Help & Support screen and verifies the screen header")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyNavigationToHelpAndSupportScreen() {
@@ -81,7 +78,7 @@ public class HelpSupportLogoutTest {
 
 	}
 
-	@Test(priority = 4, description = "Verify open tickets count matches total ticket count on Help & Support screen", enabled = false)
+	@Test(priority = 4, description = "Verify open tickets count matches total ticket count on Help & Support screen", enabled = true)
 	@Description("Validates that the open tickets count displayed matches the total tickets count irrespective of ticket availability")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyOpenTicketCountMatchesTotalTicketCount() {
@@ -119,7 +116,7 @@ public class HelpSupportLogoutTest {
 		Assert.assertEquals(actualTexts, expectedTexts, "Create Ticket popup texts mismatch");
 	}
 
-	@Test(priority = 6, description = "verify Search FIeld is Visible and in enabled state", enabled = false)
+	@Test(priority = 6, description = "verify Search FIeld is Visible and in enabled state", enabled = true)
 	@Description("verify Search FIeld is Visible and in enabled state")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifySearchFIeldisVisibleAndInEnabledStates() {
@@ -128,7 +125,7 @@ public class HelpSupportLogoutTest {
 		Assert.assertTrue(helpSupportLogoutPage.verifySearchFIeldisVisibleAndEnabled());
 	}
 
-	@Test(priority = 7, description = "Verify No Data message is displayed when searching with invalid ticket value", enabled = false)
+	@Test(priority = 7, description = "Verify No Data message is displayed when searching with invalid ticket value", enabled = true)
 	@Description("Validates empty search result message when no tickets match the search criteria")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyNoDataDisplayedForInvalidSearch() {
@@ -140,7 +137,7 @@ public class HelpSupportLogoutTest {
 				"No Data message is not displayed after searching with invalid ticket");
 	}
 
-	@Test(priority = 8, description = "Verify No Data message is displayed when searching When There Are No Tickets", enabled = false)
+	@Test(priority = 8, description = "Verify No Data message is displayed when searching When There Are No Tickets", enabled = true)
 	@Description("Validates empty search result message When There Are No Tickets")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyNoDataDisplayedForSearchWhenThereAreNoTickets() {
@@ -152,7 +149,7 @@ public class HelpSupportLogoutTest {
 				"No Data message is not displayed after searching with invalid ticket");
 	}
 
-	@Test(priority = 9, description = "Verify creation of ticket", enabled = false)
+	@Test(priority = 9, description = "Verify creation of ticket", enabled = true)
 	@Description("Verify creation of ticket")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyCreateTicket() throws InterruptedException {
@@ -162,7 +159,7 @@ public class HelpSupportLogoutTest {
 
 	}
 
-	@Test(priority = 10, description = "Verify Create Ticket Modal And Title", enabled = false)
+	@Test(priority = 10, description = "Verify Create Ticket Modal And Title", enabled = true)
 	@Description("Verify Create Ticket Modal And Title")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyCreateTicketModalAndTitle() {
@@ -175,7 +172,7 @@ public class HelpSupportLogoutTest {
 				prop.getProperty("create.ticket.popup.header"), "Create Ticket popup texts mismatch");
 	}
 
-	@Test(priority = 11, description = "Verify Create Ticket With No Data", enabled = false)
+	@Test(priority = 11, description = "Verify Create Ticket With No Data", enabled = true)
 	@Description("Verify Create Ticket With No Data")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyCreateTicketWithNoData() {
@@ -189,7 +186,7 @@ public class HelpSupportLogoutTest {
 				"Error texts mismatch");
 	}
 
-	@Test(priority = 12, description = "Verify close button functionality", enabled = false)
+	@Test(priority = 12, description = "Verify close button functionality", enabled = true)
 	@Description("Verify close button functionality")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyCloseButtonFuntionalityInCreateTicketModal() {
@@ -199,7 +196,7 @@ public class HelpSupportLogoutTest {
 		Assert.assertFalse(helpSupportLogoutPage.VerifyCloseButtonFunctionality());
 	}
 
-	@Test(priority = 13, description = "Verify cancel button functionality", enabled = false)
+	@Test(priority = 13, description = "Verify cancel button functionality", enabled = true)
 	@Description("Verify cancel button functionality")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyCancelButtonFuntionalityInCreateTicketModal() {
@@ -210,7 +207,7 @@ public class HelpSupportLogoutTest {
 		Assert.assertFalse(helpSupportLogoutPage.VerifyCancelButtonFunctionality());
 	}
 
-	@Test(priority = 14, description = "Verify Priority Selection", enabled = false)
+	@Test(priority = 14, description = "Verify Priority Selection", enabled = true)
 	@Description("Verify Priority Selection")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyPrioritySelectionInCreateTicket() {

@@ -59,10 +59,7 @@ public class DashboardPageTest extends BasePage {
 		loginPage = new LoginPage(driver);
 	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-		System.out.println("========== Username in DashboardPageTest class : " + ConfigManager.getInstance().getUsername());
-		System.out.println("========== Password is loaded: " + 
-			    (ConfigManager.getInstance().getPassword() != null));
-		dashboardPage = loginPage.doLogin(credentials);
+				dashboardPage = loginPage.doLogin(credentials);
 		// Set the WebDriver instance in the ScreenshotListener
 		ScreenshotListener.setDriver(driver);
 	}
@@ -75,7 +72,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.verifyPatientCountHeader(appointmentModuleEnabled);
 	}
 
-	@Test(priority = 2, description = "IDA4_1577_Dashboard_Verify that appointment section shows all the appointments scheduled", enabled = false)
+	@Test(priority = 2, description = "IDA4_1577_Dashboard_Verify that appointment section shows all the appointments scheduled", enabled = true)
 	@Description("Verify that appointment section shows all the appointments scheduled")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1577_Dashboard() {
@@ -87,7 +84,7 @@ public class DashboardPageTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 3, description = "IDA4_1578_Verify that Appointment header shows correct count of appointments", enabled = false)
+	@Test(priority = 3, description = "IDA4_1578_Verify that Appointment header shows correct count of appointments", enabled = true)
 	@Description("Verify Dashboard screen is displayed after Login")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1578_Dashboard() {
@@ -99,7 +96,7 @@ public class DashboardPageTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 4, description = "IDA4_1579_Dashboard_Verify clicking on any of the appointment navigates to visit summary page", enabled = false)
+	@Test(priority = 4, description = "IDA4_1579_Dashboard_Verify clicking on any of the appointment navigates to visit summary page", enabled = true)
 	@Description("Verify clicking on any of the appointment navigates to visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1579_Dashboard() {
@@ -119,7 +116,7 @@ public class DashboardPageTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 5, description = "IDA4_1583_Dashboard_Verify that priority visits section shows all the priority visits scheduled", enabled = false)
+	@Test(priority = 5, description = "IDA4_1583_Dashboard_Verify that priority visits section shows all the priority visits scheduled", enabled = true)
 	@Description("Verify that priority visits section shows all the priority visits scheduled")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1583_Dashboard() {
@@ -129,7 +126,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.verifyDashboardPriorityVisitField();
 	}
 
-	@Test(priority = 6, description = "IDA4_1584_Dashboard_Verify that Priority visits header shows the correct count of Priority visits", enabled = false)
+	@Test(priority = 6, description = "IDA4_1584_Dashboard_Verify that Priority visits header shows the correct count of Priority visits", enabled = true)
 	@Description("Verify that Priority visits header shows the correct count of Priority visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1584_Dashboard() {
@@ -139,7 +136,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.PrVstCount();
 	}
 
-	@Test(priority = 7, description = "IDA4_1585_Dashboard_Verify that user on clicking any of the priority visits navigates to visit summary page", enabled = false)
+	@Test(priority = 7, description = "IDA4_1585_Dashboard_Verify that user on clicking any of the priority visits navigates to visit summary page", enabled = true)
 	@Description("Verify that user on clicking any of the priority visits navigates to visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1585_Dashboard() {
@@ -149,7 +146,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.clickPrPatient();
 	}
 
-	@Test(priority = 8, description = "IDA4_1589_Dashboard_Verify that Awaiting visits section shows all the awaiting visits", enabled = false)
+	@Test(priority = 8, description = "IDA4_1589_Dashboard_Verify that Awaiting visits section shows all the awaiting visits", enabled = true)
 	@Description("Verify that Awaiting visits section shows all the awaiting visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1589_Dashboard() {
@@ -159,7 +156,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.verifyDashboardAwaitingVisitField();
 	}
 
-	@Test(priority = 9, description = "IDA4_1590_Dashboard_Verify that Awaiting visits header shows the correct count of awaiting visits", enabled = false)
+	@Test(priority = 9, description = "IDA4_1590_Dashboard_Verify that Awaiting visits header shows the correct count of awaiting visits", enabled = true)
 	@Description("Verify that Awaiting visits header shows the correct count of awaiting visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1590_Dashboard() {
@@ -169,7 +166,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.awVstCount();
 	}
 
-	@Test(priority = 10, description = "IDA4_1591_Dashboard_Verify that user is navigated to visit summary page on clicking any of the awaiting visits from the table", enabled = false)
+	@Test(priority = 10, description = "IDA4_1591_Dashboard_Verify that user is navigated to visit summary page on clicking any of the awaiting visits from the table", enabled = true)
 	@Description("Verify that user is navigated to visit summary page on clicking any of the awaiting visits from the table")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1591_Dashboard() {
@@ -179,7 +176,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.clickawtVstPatient();
 	}
 
-	@Test(priority = 11, description = "IDA4_1572_Dashboard_verify dashboard page contents", enabled = false)
+	@Test(priority = 11, description = "IDA4_1572_Dashboard_verify dashboard page contents", enabled = true)
 	@Description("verify dashboard page contents")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1572_Dashboard() {
@@ -188,7 +185,7 @@ public class DashboardPageTest extends BasePage {
 
 	}
 
-	@Test(priority = 12, description = "IDA4_1595_Dashboard_Verify that In-progress visits section shows all the in-progress visits", enabled = false)
+	@Test(priority = 12, description = "IDA4_1595_Dashboard_Verify that In-progress visits section shows all the in-progress visits", enabled = true)
 	@Description("Verify that In-progress visits section shows all the in-progress visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1595_Dashboard() {
@@ -196,7 +193,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.verifyDashboardInProgressVisitField();
 	}
 
-	@Test(priority = 13, description = "IDA4_1596_Dashboard_Verify that In-progress visits header shows the correct count of In-progress visits", enabled = false)
+	@Test(priority = 13, description = "IDA4_1596_Dashboard_Verify that In-progress visits header shows the correct count of In-progress visits", enabled = true)
 	@Description("Verify that In-progress visits header shows the correct count of In-progress visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1596_Dashboard() {
@@ -204,7 +201,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.inprVstCount();
 	}
 
-	@Test(priority = 14, description = "IDA4_1597_Dashboard_Verify that user can navigate to visit summary page on clicking any of the in-progress visits", enabled = false)
+	@Test(priority = 14, description = "IDA4_1597_Dashboard_Verify that user can navigate to visit summary page on clicking any of the in-progress visits", enabled = true)
 	@Description("Verify that user can navigate to visit summary page on clicking any of the in-progress visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1597_Dashboard() {
@@ -212,7 +209,7 @@ public class DashboardPageTest extends BasePage {
 		dashboardPage.clickInprPatient();
 	}
 
-	@Test(priority = 15, description = "IDA4_1597_Dashboard_Verify that user can navigate to visit summary page on clicking any of the in-progress visits", enabled = false)
+	@Test(priority = 15, description = "IDA4_1597_Dashboard_Verify that user can navigate to visit summary page on clicking any of the in-progress visits", enabled = true)
 	@Description("Verify that user can navigate to visit summary page on clicking any of the in-progress visits")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1_Dashboard() {
