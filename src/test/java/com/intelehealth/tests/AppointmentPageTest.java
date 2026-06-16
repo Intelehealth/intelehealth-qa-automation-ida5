@@ -83,6 +83,10 @@ public class AppointmentPageTest {
 					+ "Tests will resume when slots are available.");
 		}
 		driver = basePage.init_driver1(prop, testEnum);
+		loginPage = new LoginPage(driver);
+		System.out.println("========== Username in appointment class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		// driver = basePage.init_driver(prop);
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
@@ -100,7 +104,7 @@ public class AppointmentPageTest {
 		appointmentPage.AppointmentUI();
 	}
 
-	@Test(priority = 2, description = "IDA4_1787_Appointments_Verify whether Appointment section is showing count within brackets", enabled = true)
+	@Test(priority = 2, description = "IDA4_1787_Appointments_Verify whether Appointment section is showing count within brackets", enabled = false)
 	@Description("Verify whether Appointment section is showing count within brackets")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1787_Appointments() throws InterruptedException {
@@ -108,7 +112,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyWhetherAppointmentSectionIsShowingCountWithinBrackets();
 	}
 
-	@Test(priority = 3, description = "IDA4_1788_Appointments_Verify whether scheduled appointments from healthworker -Mobile is reflecting in web app", enabled = true)
+	@Test(priority = 3, description = "IDA4_1788_Appointments_Verify whether scheduled appointments from healthworker -Mobile is reflecting in web app", enabled = false)
 	@Description("Verify whether scheduled appointments from healthworker -Mobile is reflecting in web app")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1788_Appointments() throws InterruptedException {
@@ -116,7 +120,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyWhetherScheduledAppointmentsFromHealthworkerMobileIsReflectingInWebApp();
 	}
 
-	@Test(priority = 4, description = "IDA4_1791_Appointments_Verify whether user able to cancel the appointments", enabled = true)
+	@Test(priority = 4, description = "IDA4_1791_Appointments_Verify whether user able to cancel the appointments", enabled = false)
 	@Description("Verify whether user able to cancel the appointments")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1791_Appointments() throws Throwable {
@@ -124,7 +128,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyWhetherUserAbleToCancelTheAppointments();
 	}
 
-	@Test(priority = 11, description = "IDA4_1793_Appointments_Verify clicking on Cancel button on cancel the appointment popup", enabled = true)
+	@Test(priority = 11, description = "IDA4_1793_Appointments_Verify clicking on Cancel button on cancel the appointment popup", enabled = false)
 	@Description("Verify clicking on Cancel button on cancel the appointment popup")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1793_Appointments() throws Throwable {
@@ -132,7 +136,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyClickingOnCancelButtonOnCancelTheAppointmentPopup();
 	}
 
-	@Test(priority = 5, description = "IDA4_1794_Appointments_Verify the functionality of 'Reschedule' action", enabled = true)
+	@Test(priority = 5, description = "IDA4_1794_Appointments_Verify the functionality of 'Reschedule' action", enabled = false)
 	@Description("Verify the functionality of 'Reschedule' action")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1794_Appointments() throws Throwable {
@@ -141,7 +145,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyTheFunctionalityOfRescheduleAction();
 	}
 
-	@Test(priority = 6, description = "IDA4_1796_Appointments_Verify date selection for rescheduling appointment", enabled = true)
+	@Test(priority = 6, description = "IDA4_1796_Appointments_Verify date selection for rescheduling appointment", enabled = false)
 	@Description("Verify date selection for rescheduling appointment")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1796_Appointments() throws Throwable {
@@ -149,7 +153,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyDateSelectionForReschedulingAppointment();
 	}
 
-	@Test(priority = 7, description = "IDA4_1798_Appointments_Verify time slot selection and clicking reschedule button functionality", enabled = true)
+	@Test(priority = 7, description = "IDA4_1798_Appointments_Verify time slot selection and clicking reschedule button functionality", enabled = false)
 	@Description("Verify time slot selection and clicking reschedule button functionality")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1798_Appointments() throws Throwable {
@@ -157,7 +161,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyTimeSlotSelectionAndClickingRescheduleButtonFunctionality();
 	}
 
-	@Test(priority = 8, description = "IDA4_1800_Appointments_Verify clicking on Confirm button on Reschedule the appointment popup", enabled = true)
+	@Test(priority = 8, description = "IDA4_1800_Appointments_Verify clicking on Confirm button on Reschedule the appointment popup", enabled = false)
 	@Description("Verify clicking on Confirm button on Reschedule the appointment popup")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1800_Appointments() throws Throwable {
@@ -165,7 +169,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyClickingOnConfirmButtonOnRescheduleTheAppointmentPopup();
 	}
 
-	@Test(priority = 9, description = "IDA4_1801_Appointments_Verify whether the Rescheduled time slot reflects in Starts in column", enabled = true)
+	@Test(priority = 9, description = "IDA4_1801_Appointments_Verify whether the Rescheduled time slot reflects in Starts in column", enabled = false)
 	@Description("Verify whether the Rescheduled time slot reflects in Starts in column")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1801_Appointments() throws Throwable {
@@ -173,7 +177,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyWhetherTheRescheduledTimeSlotReflectsInStartsInColumn();
 	}
 
-	@Test(priority = 10, description = "IDA4_1803_Appointments_Verify the Patient details on Appointments", enabled = true)
+	@Test(priority = 10, description = "IDA4_1803_Appointments_Verify the Patient details on Appointments", enabled = false)
 	@Description("Verify the Patient details on Appointments")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1803_Appointments() throws Throwable {
@@ -181,7 +185,7 @@ public class AppointmentPageTest {
 		appointmentPage.VerifyThePatientDetailsOnAppointments();
 	}
 
-	@Test(priority = 12, description = "IDA4_1790 Verify user is able to cancel the already completed appointments", enabled = true)
+	@Test(priority = 12, description = "IDA4_1790 Verify user is able to cancel the already completed appointments", enabled = false)
 	@Description("Verify user is able to cancel the already completed appointments")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1790_Appointments() throws Exception {

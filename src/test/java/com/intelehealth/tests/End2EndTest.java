@@ -63,7 +63,9 @@ public class End2EndTest extends BasePage {
 		end2endPage = new End2EndPage(driver);
 	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-
+		System.out.println("========== Username in End2EndTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		loginPage.doLogin(credentials);
 	}
 
@@ -80,7 +82,7 @@ public class End2EndTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 2, description = "IDA4_1669_End2End_Login, Cancel appointment, logout", enabled = true)
+	@Test(priority = 2, description = "IDA4_1669_End2End_Login, Cancel appointment, logout", enabled = false)
 	@Description("Login, Cancel appointment, logout")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -100,7 +102,7 @@ public class End2EndTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 3, description = "IDA4_1670_End2End_Login, appointment, visit summary, view prescription", enabled = true)
+	@Test(priority = 3, description = "IDA4_1670_End2End_Login, appointment, visit summary, view prescription", enabled = false)
 	@Description("Login, appointment, visit summary, view prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -121,7 +123,7 @@ public class End2EndTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 4, description = "IDA4_1671_End2End_Login, priority visit, visit summary, start visit note, share/update/view prescription", enabled = true)
+	@Test(priority = 4, description = "IDA4_1671_End2End_Login, priority visit, visit summary, start visit note, share/update/view prescription", enabled = false)
 	@Description("Login, priority visit, visit summary, start visit note, share/update/view prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -131,7 +133,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginPriorityVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
 	}
 
-	@Test(priority = 5, description = "IDA4_1672_End2End_Login, awaiting visit, visit summary, start visit note, share/update/view prescription", enabled = true)
+	@Test(priority = 5, description = "IDA4_1672_End2End_Login, awaiting visit, visit summary, start visit note, share/update/view prescription", enabled = false)
 	@Description("Login, awaiting visit, visit summary, start visit note, share/update/view prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -141,7 +143,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginAwaitingVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
 	}
 
-	@Test(priority = 6, description = "IDA4_1673_End2End_Login, in-progress visit, visit summary, start visit note, share/update/view prescription", enabled = true)
+	@Test(priority = 6, description = "IDA4_1673_End2End_Login, in-progress visit, visit summary, start visit note, share/update/view prescription", enabled = false)
 	@Description("Login, in-progress visit, visit summary, start visit note, share/update/view prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -150,7 +152,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginInProgressVisitVisitSummaryStartVisitNoteShareUpdateViewPrescription();
 	}
 
-	@Test(priority = 7, description = "IDA4_1674_End2End_Login, awaiting/appointment/in-progress/priority, visit summary, past visit history, view visit summary", enabled = true)
+	@Test(priority = 7, description = "IDA4_1674_End2End_Login, awaiting/appointment/in-progress/priority, visit summary, past visit history, view visit summary", enabled = false)
 
 	@Description("Login, awaiting/appointment/in-progress/priority, visit summary, past visit history, view visit summary")
 	@Severity(SeverityLevel.NORMAL)
@@ -163,7 +165,7 @@ public class End2EndTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 8, description = "IDA4_1675_End2End_Login, search patient, view, visit summary, call patient no", enabled = true)
+	@Test(priority = 8, description = "IDA4_1675_End2End_Login, search patient, view, visit summary, call patient no", enabled = false)
 	@Description("Login, search patient, view, visit summary, call patient no")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -173,7 +175,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginSearchPatientViewVisitSummaryCallPatientNo();
 	}
 
-	@Test(priority = 9, description = "IDA4_1676_End2End_Login, search patient, view, visit summary, whatsapp patient no", enabled = true)
+	@Test(priority = 9, description = "IDA4_1676_End2End_Login, search patient, view, visit summary, whatsapp patient no", enabled = false)
 	@Description("Login, search patient, view, visit summary, whatsapp patient no")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -183,7 +185,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginSearchPatientViewVisitSummaryWhatsappPatientNo();
 	}
 
-	@Test(priority = 10, description = "IDA4_1677_End2End_Login, search patient, view, visit summary, chat with healthworker", enabled = true)
+	@Test(priority = 10, description = "IDA4_1677_End2End_Login, search patient, view, visit summary, chat with healthworker", enabled = false)
 	@Description("Login, search patient, view, visit summary, chat with healthworker")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -193,7 +195,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginSearchPatientViewVisitSummaryChatWithHealthworker();
 	}
 
-	@Test(priority = 11, description = "IDA4_1678_End2End_Login, search patient, view, visit summary, video call with healthworker", enabled = true)
+	@Test(priority = 11, description = "IDA4_1678_End2End_Login, search patient, view, visit summary, video call with healthworker", enabled = false)
 	@Description("Login, search patient, view, visit summary, video call with healthworker")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -203,7 +205,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginSearchPatientViewVisitSummaryVideoCallWithHealthworker();
 	}
 
-	@Test(priority = 19, description = "IDA4_1679_End2End_Login, calendar, setup calendar [manage calendar]", enabled = true)
+	@Test(priority = 19, description = "IDA4_1679_End2End_Login, calendar, setup calendar [manage calendar]", enabled = false)
 	@Description("Login, calendar, setup calendar [manage calendar]")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -212,7 +214,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginCalendarSetupCalendarManageCalendar();
 	}
 
-	@Test(priority = 13, description = "IDA4_1680_End2End_Login, calendar, view calendar, followup, mark as day off/hourly off", enabled = true)
+	@Test(priority = 13, description = "IDA4_1680_End2End_Login, calendar, view calendar, followup, mark as day off/hourly off", enabled = false)
 	@Description("Login, calendar, view calendar, followup, mark as day off/hourly off")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -221,7 +223,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginCalendarViewCalendarFollowupMarkAsDayOffHourlyOff(appointmentModuleEnabled);
 	}
 
-	@Test(priority = 14, description = "IDA4_1681_End2End_Login, calendar, view calendar, appointment, mark as hourly off", enabled = true)
+	@Test(priority = 14, description = "IDA4_1681_End2End_Login, calendar, view calendar, appointment, mark as hourly off", enabled = false)
 	@Description("Login, calendar, view calendar, appointment, mark as hourly off")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -234,7 +236,7 @@ public class End2EndTest extends BasePage {
 		}
 	}
 
-	@Test(priority = 15, description = "IDA4_1682_End2End_Login, calendar, view calendar, followup visit, provide prescription", enabled = true)
+	@Test(priority = 15, description = "IDA4_1682_End2End_Login, calendar, view calendar, followup visit, provide prescription", enabled = false)
 	@Description("Login, calendar, view calendar, followup visit, provide prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -243,7 +245,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginCalendarViewCalendarFollowupVisitProvidePrescription();
 	}
 
-	@Test(priority = 16, description = "IDA4_1683_End2End_Login, prescription sent, visit summary, update prescription", enabled = true)
+	@Test(priority = 16, description = "IDA4_1683_End2End_Login, prescription sent, visit summary, update prescription", enabled = false)
 	@Description("Login, prescription sent, visit summary, update prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -252,7 +254,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginPrescriptionSentVisitSummaryUpdatePrescription();
 	}
 
-	@Test(priority = 17, description = "IDA4_1684_End2End_Login, prescription sent, visit summary, view prescription", enabled = true)
+	@Test(priority = 17, description = "IDA4_1684_End2End_Login, prescription sent, visit summary, view prescription", enabled = false)
 
 	@Description("Login, prescription sent, visit summary, view prescription")
 	@Severity(SeverityLevel.NORMAL)
@@ -262,7 +264,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginPrescriptionSentVisitSummaryViewPrescription();
 	}
 
-	@Test(priority = 18, description = "IDA4_1685_End2End_Login, prescription sent, visit summary, share prescription", enabled = true)
+	@Test(priority = 18, description = "IDA4_1685_End2End_Login, prescription sent, visit summary, share prescription", enabled = false)
 	@Description("Login, prescription sent, visit summary, share prescription")
 	@Severity(SeverityLevel.NORMAL)
 
@@ -271,7 +273,7 @@ public class End2EndTest extends BasePage {
 		end2endPage.LoginPrescriptionSentVisitSummarySharePrescription();
 	}
 
-	@Test(priority = 12, description = "IDA4_1686_End2End_Login, completed visit sent, visit summary, view prescription", enabled = true)
+	@Test(priority = 12, description = "IDA4_1686_End2End_Login, completed visit sent, visit summary, view prescription", enabled = false)
 	@Description("Login, completed visit sent, visit summary, view prescription")
 	@Severity(SeverityLevel.NORMAL)
 

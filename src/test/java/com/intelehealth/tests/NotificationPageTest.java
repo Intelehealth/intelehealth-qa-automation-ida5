@@ -32,6 +32,9 @@ public class NotificationPageTest {
 		prop = basePage.init_prop();
 		driver_One = basePage.init_driver(prop);
 		loginPage = new LoginPage(driver_One);
+		System.out.println("========== Username in NotificationPageTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
 

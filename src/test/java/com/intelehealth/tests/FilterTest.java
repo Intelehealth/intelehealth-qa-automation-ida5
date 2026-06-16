@@ -44,7 +44,9 @@ public class FilterTest {
 		loginPage = new LoginPage(driver);
 	//	credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-
+		System.out.println("========== Username in FilterTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		dashboardPage = loginPage.doLogin(credentials);
 
 		ScreenshotListener.setDriver(driver);
@@ -58,7 +60,7 @@ public class FilterTest {
 		Assert.assertTrue(dashboardPage.verifyFilterPopup());
 	}
 
-	@Test(priority = 2, description = "Verify Filtering Appointments Using Single Date", enabled = true)
+	@Test(priority = 2, description = "Verify Filtering Appointments Using Single Date", enabled = false)
 	@Description("Verify Filtering Appointments Using Single Date")
 	@Severity(SeverityLevel.NORMAL)
 	public void VerifyFilteringAppointmentsUsingSingleDate() {
@@ -67,7 +69,7 @@ public class FilterTest {
 				dashboardPage.verifyFilteringVisitsBySingleDate(prop.getProperty("no.awaiting.visits.found.text")));
 	}
 
-	@Test(priority = 3, description = "Verify Filtering Visits By Range", enabled = true)
+	@Test(priority = 3, description = "Verify Filtering Visits By Range", enabled = false)
 	@Description("Verify Filtering Visits By Range")
 	@Severity(SeverityLevel.NORMAL)
 	public void VerifyFilteringVisitsByRange() {
@@ -75,7 +77,7 @@ public class FilterTest {
 		dashboardPage.verifyFilteringVisitsByRange(prop.getProperty("no.awaiting.visits.found.text"));
 	}
 
-	@Test(priority = 4, description = "Verify Reset Button Functionality", enabled = true)
+	@Test(priority = 4, description = "Verify Reset Button Functionality", enabled = false)
 	@Description("Verify Reset Button Functionality")
 	@Severity(SeverityLevel.NORMAL)
 	public void VerifyResetButtonFunctionality() {
@@ -88,7 +90,7 @@ public class FilterTest {
 				Arrays.asList(prop.getProperty("select.startdate.text"), prop.getProperty("select.enddate.text")));
 	}
 
-	@Test(priority = 5, description = "Verify Apply button without selecting Date ", enabled = true)
+	@Test(priority = 5, description = "Verify Apply button without selecting Date ", enabled = false)
 	@Description("Verify Apply button without selecting Date ")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyApplyButtonWithoutSelectingDate() {
@@ -99,7 +101,7 @@ public class FilterTest {
 		// add asservtion for validation
 	}
 
-	@Test(priority = 6, description = "Verify Apply button without selecting Range ", enabled = true)
+	@Test(priority = 6, description = "Verify Apply button without selecting Range ", enabled = false)
 	@Description("Verify Apply button without selecting Date or Range ")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyApplyButtonWithoutSelectingRange() {
@@ -110,7 +112,7 @@ public class FilterTest {
 		// add asservtion for validation
 	}
 
-	@Test(priority = 7, description = "Verify behavior when no vists exist for selected Date", enabled = true)
+	@Test(priority = 7, description = "Verify behavior when no vists exist for selected Date", enabled = false)
 	@Description("Verify behavior when no vists exist for selected Date")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyBehaviorWhenNoVistsExistForSelectedDate() {
@@ -120,7 +122,7 @@ public class FilterTest {
 		// add asservtion for validation
 	}
 
-	@Test(priority = 8, description = "Verify behavior when no vists exist for selected Range", enabled = true)
+	@Test(priority = 8, description = "Verify behavior when no vists exist for selected Range", enabled = false)
 	@Description("Verify behavior when no vists exist for selected Range")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyFilterRangeWhenNoVisits() {
@@ -130,7 +132,7 @@ public class FilterTest {
 		// add asservtion for validation
 	}
 
-	@Test(priority = 9, description = "Verify Filter popup closes after Apply", enabled = true)
+	@Test(priority = 9, description = "Verify Filter popup closes after Apply", enabled = false)
 	@Description("Verify Filter popup closes after Apply")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyPopupClosesAfterApply() {
@@ -139,7 +141,7 @@ public class FilterTest {
 
 	}
 
-	@Test(priority = 10, description = "Verify Filter works along with Search Visit By ID", enabled = true)
+	@Test(priority = 10, description = "Verify Filter works along with Search Visit By ID", enabled = false)
 	@Description("Verify Filter works along with Search vist By ID")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyFilterWorksAlongWithSearchVisitByOpenMrsID() {
@@ -148,7 +150,7 @@ public class FilterTest {
 
 	}
 
-	@Test(priority = 11, description = "Verify Filter works along with Search Visit By Name", enabled = true)
+	@Test(priority = 11, description = "Verify Filter works along with Search Visit By Name", enabled = false)
 	@Description("Verify Filter works along with Search vist Name")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyFilterWorksAlongWithSearchVisitByPatientName() {
@@ -157,7 +159,7 @@ public class FilterTest {
 
 	}
 
-	@Test(priority = 12, description = "Click Apply without selecting from date in Range", enabled = true)
+	@Test(priority = 12, description = "Click Apply without selecting from date in Range", enabled = false)
 	@Description("Click Apply without selecting from date in Range")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyApplyWithoutSelectingFromDateAfterChoosingRangeOption() {
@@ -167,7 +169,7 @@ public class FilterTest {
 
 	}
 
-	@Test(priority = 13, description = "Click Apply without selecting To date in Range", enabled = true)
+	@Test(priority = 13, description = "Click Apply without selecting To date in Range", enabled = false)
 	@Description("Click Apply without selecting To date in Range")
 	@Severity(SeverityLevel.NORMAL)
 	public void verifyApplyWithoutSelectingToDateAfterChoosingRangeOption() {

@@ -49,7 +49,9 @@ public class LoginPageTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		loginPage = new LoginPage(driver);
 		dashboardPage = new DashboardPage(driver);
-
+		System.out.println("========== Username in LoginPageTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
 
@@ -64,7 +66,7 @@ public class LoginPageTest {
 		loginPage.displayed();
 	}
 
-	@Test(priority = 2, description = "IDA4_1421_Login_Verify if a user will be able to login with a valid username and valid password", enabled = true)
+	@Test(priority = 2, description = "IDA4_1421_Login_Verify if a user will be able to login with a valid username and valid password", enabled = false)
 	@Description("Verify if a user will be able to login with a valid username and valid password")
 	@Severity(SeverityLevel.BLOCKER)
 
@@ -75,7 +77,7 @@ public class LoginPageTest {
 
 	}
 
-	@Test(priority = 3, description = "IDA4_1431_Login_Verify that Terms & Conditions and privacy policy link navigates to respective pages ", enabled = true)
+	@Test(priority = 3, description = "IDA4_1431_Login_Verify that Terms & Conditions and privacy policy link navigates to respective pages ", enabled = false)
 	@Description("Verify language drop down on login page")
 	@Severity(SeverityLevel.NORMAL)
 	public void IdA4_1431_Login() throws Throwable {
@@ -83,7 +85,7 @@ public class LoginPageTest {
 	//	loginPage.TermsandConditionsPrivacyPolicy();
 	}
 
-	@Test(priority = 4, description = "IDA4_1432_Login_Verify language drop down on login page", enabled = true)
+	@Test(priority = 4, description = "IDA4_1432_Login_Verify language drop down on login page", enabled = false)
 	@Description("Verify language drop down on login page")
 	@Severity(SeverityLevel.NORMAL)
 

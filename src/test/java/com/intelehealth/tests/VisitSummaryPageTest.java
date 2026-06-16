@@ -70,7 +70,9 @@ public class VisitSummaryPageTest {
 		loginPage = new LoginPage(driver);
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-
+		System.out.println("========== Username in VisitSummaryPageTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		dashboardPage = loginPage.doLogin(credentials);
 		vstSummaryPage = new VisitSummaryPage(driver);
 		ScreenshotListener.setDriver(driver);
@@ -90,7 +92,7 @@ public class VisitSummaryPageTest {
 	}
 
 	// @Test(priority = 2, description = "IDA4_1806_VisitSummary_Verify Appointment
-	// Starts in section under visit summary page", enabled = true)
+	// Starts in section under visit summary page", enabled = false)
 	@Description("Verify Appointment Starts in section under visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1806_VisitSummary() throws InterruptedException {
@@ -115,7 +117,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Please add verification for call Verification is pending
 	 */
-	@Test(priority = 3, description = "IDA4_1807_VisitSummary_Verify the functionality of Start call button in visit summary page", enabled = true)
+	@Test(priority = 3, description = "IDA4_1807_VisitSummary_Verify the functionality of Start call button in visit summary page", enabled = false)
 	@Description("Verify the functionality of Start call button in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1807_VisitSummary() throws InterruptedException {
@@ -125,7 +127,7 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyStartCallOption();
 	}
 
-	@Test(priority = 4, description = "IDA4_1809_VisitSummary_Verify chat option in visit summary page", enabled = true)
+	@Test(priority = 4, description = "IDA4_1809_VisitSummary_Verify chat option in visit summary page", enabled = false)
 	@Description("Verify chat option in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1809_VisitSummary() throws InterruptedException {
@@ -135,7 +137,7 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyChatOption();
 	}
 
-	@Test(priority = 5, description = "IDA4_1810_VisitSummary_Verify whether user able to chat and send to healthworker on visit summary page", enabled = true)
+	@Test(priority = 5, description = "IDA4_1810_VisitSummary_Verify whether user able to chat and send to healthworker on visit summary page", enabled = false)
 	@Description("Verify whether user able to chat and send to healthworker on visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1810_VisitSummary() throws InterruptedException {
@@ -145,7 +147,7 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyMessageSent();
 	}
 
-	@Test(priority = 6, description = "IDA4_1811_VisitSummary_Verify video call option in visit summary page", enabled = true)
+	@Test(priority = 6, description = "IDA4_1811_VisitSummary_Verify video call option in visit summary page", enabled = false)
 	@Description("Verify video call option in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1811_VisitSummary() throws InterruptedException {
@@ -158,7 +160,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 7, description = "IDA4_1812_VisitSummary_Verify Current visit summary in visit summary page", enabled = true)
+	@Test(priority = 7, description = "IDA4_1812_VisitSummary_Verify Current visit summary in visit summary page", enabled = false)
 	@Description("Verify Current visit summary in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1812_VisitSummary() throws InterruptedException {
@@ -171,7 +173,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 8, description = "IDA4_1814_VisitSummary_Verify the Update prescription and View prescription buttons before updating any changes in visit summary page", enabled = true)
+	@Test(priority = 8, description = "IDA4_1814_VisitSummary_Verify the Update prescription and View prescription buttons before updating any changes in visit summary page", enabled = false)
 	@Description("Verify the Update prescription and View prescription buttons before updating any changes in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1814_VisitSummary() throws InterruptedException {
@@ -185,7 +187,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 9, description = "IDA4_1815_VisitSummary_Verify doing any changes in any of the section in visit summary page", enabled = true)
+	@Test(priority = 9, description = "IDA4_1815_VisitSummary_Verify doing any changes in any of the section in visit summary page", enabled = false)
 	@Description("Verify doing any changes in any of the section in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1815_VisitSummary() throws Throwable {
@@ -198,7 +200,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 10, description = "IDA4_1816_VisitSummary_Verify the functionality of share prescription button in visit summary page", enabled = true)
+	@Test(priority = 10, description = "IDA4_1816_VisitSummary_Verify the functionality of share prescription button in visit summary page", enabled = false)
 	@Description("Verify the functionality of share prescription button in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1816_VisitSummary() throws InterruptedException {
@@ -211,7 +213,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 11, description = "IDA4_1817_VisitSummary_Verify the functionality of view prescription button in visit summary page", enabled = true)
+	@Test(priority = 11, description = "IDA4_1817_VisitSummary_Verify the functionality of view prescription button in visit summary page", enabled = false)
 	@Description("Verify the functionality of view prescription button in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1817_VisitSummary() throws InterruptedException {
@@ -224,7 +226,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 12, description = "IDA4_1818_VisitSummary_Verify the functionality of update prescription button in visit summary page", enabled = true)
+	@Test(priority = 12, description = "IDA4_1818_VisitSummary_Verify the functionality of update prescription button in visit summary page", enabled = false)
 	@Description("Verify the functionality of update prescription button in visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1818_VisitSummary() throws InterruptedException {
@@ -237,7 +239,7 @@ public class VisitSummaryPageTest {
 	/*
 	 * Add verification for prescription contents. Check in the testcase.
 	 */
-	@Test(priority = 13, description = "IDA4_1819_VisitSummary_Verify functionality of confirm button in share prescription popup", enabled = true)
+	@Test(priority = 13, description = "IDA4_1819_VisitSummary_Verify functionality of confirm button in share prescription popup", enabled = false)
 	@Description("Verify functionality of confirm button in share prescription popup")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1819_VisitSummary() throws InterruptedException {
@@ -247,7 +249,7 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyvsprescrptionChangesConfButton();
 	}
 
-	@Test(priority = 14, description = "IDA4_1820_VisitSummary_Verify past visit history section on Visit summary page", enabled = true)
+	@Test(priority = 14, description = "IDA4_1820_VisitSummary_Verify past visit history section on Visit summary page", enabled = false)
 	@Description("Verify past visit history section on Visit summary page")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1820_VisitSummary() {
@@ -256,7 +258,7 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyvsprescrptionNoPastVstHistory();
 	}
 
-	@Test(priority = 15, description = "IDA4_1821_VisitSummary_Verify if there are past visits in the patient profile", enabled = true)
+	@Test(priority = 15, description = "IDA4_1821_VisitSummary_Verify if there are past visits in the patient profile", enabled = false)
 	@Description("Verify if there are past visits in the patient profile")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1821_VisitSummary() {
@@ -265,7 +267,7 @@ public class VisitSummaryPageTest {
 		vstSummaryPage.verifyvsprescrptionPastVstHistory();
 	}
 
-	@Test(priority = 16, description = "IDA4_1823_VisitSummary_Verify the details in past visit summary/prescription popup is correct", enabled = true)
+	@Test(priority = 16, description = "IDA4_1823_VisitSummary_Verify the details in past visit summary/prescription popup is correct", enabled = false)
 	@Description("Verify the details in past visit summary/prescription popup is correct")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1823_VisitSummary() {

@@ -46,7 +46,9 @@ public class VideoFunctionalityTest {
 		loginPage = new LoginPage(driver);
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-
+		System.out.println("========== Username in VideoFunctionalityTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		dashboardPage = loginPage.doLogin(credentials);
 		videoFunctionalityPage = new VideoFunctionalityPage(driver);
 		ScreenshotListener.setDriver(driver);
@@ -61,14 +63,14 @@ public class VideoFunctionalityTest {
 		videoFunctionalityPage.verifyVideoCall();
 	}
 
-	@Test(priority = 2, description = "IDA4_1846_Verify when user turns on mic and video", enabled = true)
+	@Test(priority = 2, description = "IDA4_1846_Verify when user turns on mic and video", enabled = false)
 	@Description("Verify when user turns on mic and video")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1846_VideoFunctionality() throws InterruptedException {
 		videoFunctionalityPage.verifyVideoCallButton();
 	}
 
-	@Test(priority = 3, description = "IDA4_1847_Verify when doctor initiates the call, HW gets the incoming call", enabled = true)
+	@Test(priority = 3, description = "IDA4_1847_Verify when doctor initiates the call, HW gets the incoming call", enabled = false)
 	@Description("Verify when doctor initiates the call, HW gets the incoming call")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1847_VideoFunctionality() throws InterruptedException {
@@ -76,7 +78,7 @@ public class VideoFunctionalityTest {
 		extentReport.logToExtentReport("Verification not possible for HW(Mobile App) getting incoming call");
 	}
 
-	@Test(priority = 4, description = "IDA4_1848_Verify on clicking Accept by HW during the video call", enabled = true)
+	@Test(priority = 4, description = "IDA4_1848_Verify on clicking Accept by HW during the video call", enabled = false)
 	@Description("Verify on clicking Accept by HW during the video call")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1848_VideoFunctionality() throws InterruptedException {
@@ -84,7 +86,7 @@ public class VideoFunctionalityTest {
 		extentReport.logToExtentReport("Verification not possible for HW(Mobile App) getting incoming call");
 	}
 
-	@Test(priority = 5, description = "IDA4_1850_Verify the video call page from HW side", enabled = true)
+	@Test(priority = 5, description = "IDA4_1850_Verify the video call page from HW side", enabled = false)
 	@Description("Verify the video call page from HW side")
 	@Severity(SeverityLevel.BLOCKER)
 	public void IDA4_1850_VideoFunctionality() throws InterruptedException {

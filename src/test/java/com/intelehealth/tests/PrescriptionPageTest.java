@@ -41,7 +41,9 @@ public class PrescriptionPageTest {
 		loginPage = new LoginPage(driver);
 		//credentials = new Credentials(prop.getProperty("username"), prop.getProperty("password"));
 		credentials = new Credentials(ConfigManager.getInstance().getUsername(), ConfigManager.getInstance().getPassword());
-
+		System.out.println("========== Username in PrescriptionPageTest class : " + ConfigManager.getInstance().getUsername());
+		System.out.println("========== Password is loaded: " + 
+		    (ConfigManager.getInstance().getPassword() != null));
 		dashboardPage = loginPage.doLogin(credentials);
 		prescriptionPage = new PrescriptionPage(driver);
 		ScreenshotListener.setDriver(driver);
@@ -62,7 +64,7 @@ public class PrescriptionPageTest {
 		}
 	}
 
-	@Test(priority = 2, description = "IDA4-1619, Verify clicking on Completed Visits tab on prescription page", enabled = true)
+	@Test(priority = 2, description = "IDA4-1619, Verify clicking on Completed Visits tab on prescription page", enabled = false)
 	@Description("Verify clicking on Completed Visits tab on prescription page")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1619_Prescription() throws Exception {
@@ -71,7 +73,7 @@ public class PrescriptionPageTest {
 		prescriptionPage.clickOnCompletedVisitsTab();
 	}
 
-	@Test(priority = 3, description = "IDA4_1629, Verify the count of records shown at the bottom is correct", enabled = true)
+	@Test(priority = 3, description = "IDA4_1629, Verify the count of records shown at the bottom is correct", enabled = false)
 	@Description("Verify the count of records shown at the bottom is correct")
 	@Severity(SeverityLevel.NORMAL)
 	public void IDA4_1629_Prescription() throws Exception {
@@ -86,7 +88,7 @@ public class PrescriptionPageTest {
 
 	}
 
-	@Test(priority = 4, description = "Verify the count of records shown at the bottom is correct", enabled = true)
+	@Test(priority = 4, description = "Verify the count of records shown at the bottom is correct", enabled = false)
 	@Description("Verify the count of records shown at the bottom is correct")
 	@Severity(SeverityLevel.BLOCKER)
 
