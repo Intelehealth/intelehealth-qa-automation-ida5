@@ -1,0 +1,1 @@
+java.lang.NullPointerException: Cannot invoke "com.intelehealth.pages.LoginPage.doLogin(com.intelehealth.util.Credentials)" because "this.loginPage" is null

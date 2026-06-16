@@ -1,0 +1,1 @@
+verifyFilterWorksAlongWithSearchVisitByOpenMrsID failed and screenshot taken!
