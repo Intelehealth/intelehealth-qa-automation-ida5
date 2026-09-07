@@ -1,0 +1,1 @@
+verifyOpeningAPatientConversation failed and screenshot taken!

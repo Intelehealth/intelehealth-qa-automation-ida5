@@ -1,0 +1,1 @@
+verifySentMessageStatusIsUpdated failed and screenshot taken!
