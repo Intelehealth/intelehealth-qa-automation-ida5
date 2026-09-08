@@ -1,0 +1,1 @@
+verifyApplyButtonWithoutSelectingDate failed and screenshot taken!

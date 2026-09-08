@@ -1,0 +1,1 @@
+verifyCreateTicket failed and screenshot taken!
