@@ -1,0 +1,1 @@
+VerifyFilteringAppointmentsUsingSingleDate failed and screenshot taken!
